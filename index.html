@@ -121,6 +121,22 @@
             <button id="view-schedule-btn" class="filter-btn px-6 py-2">Horários</button>
         </nav>
 
+        <!-- ÁREA DO USUÁRIO -->
+        <div class="flex justify-end mb-4">
+            <button id="login-btn" class="filter-btn px-4 py-2" onclick="showLoginModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="inline mr-2">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Entrar
+            </button>
+            
+            <div id="user-info" class="hidden items-center gap-3">
+                <img id="user-avatar" src="" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-pink-400">
+                <span id="user-name" class="text-white font-bold"></span>
+                <button onclick="logout()" class="text-gray-400 hover:text-white text-sm">Sair</button>
+            </div>
+        </div>
+
         <!-- PÁGINA PRINCIPAL (Artistas + Horários) -->
         <div id="main-content">
             <div id="artists-page">
@@ -159,10 +175,47 @@
             <button id="modal-close-btn" class="modal-close-btn">X</button>
             <h2 id="modal-artist-name" class="text-3xl font-bold font-['Londrina_Solid'] text-white"></h2>
             <p id="modal-show-time" class="text-lg text-gray-400 mb-4"></p>
+            
+            <!-- Botão para marcar presença -->
+            <div class="mb-4">
+                <button id="attend-btn" class="filter-btn px-6 py-2 w-full" onclick="toggleAttendance()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="inline mr-2">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span id="attend-text">Marcar presença</span>
+                </button>
+            </div>
+            
             <h3 class="font-bold text-xl text-yellow-300 mb-2">Confirmades:</h3>
             <div id="modal-attendees-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4">
                 <!-- Fotos dos amigos aqui -->
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE LOGIN (Oculto) -->
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button onclick="hideLoginModal()" class="modal-close-btn">X</button>
+            <h2 class="text-3xl font-bold font-['Londrina_Solid'] text-white mb-6">Entrar no Gatilho</h2>
+            
+            <form onsubmit="event.preventDefault(); login();">
+                <div class="mb-4">
+                    <label for="login-name" class="block text-white font-bold mb-2">Seu nome:</label>
+                    <input type="text" id="login-name" placeholder="Digite seu nome" required
+                           class="w-full px-4 py-2 bg-gray-800 border border-pink-400 rounded-lg text-white focus:outline-none focus:border-yellow-300">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="login-avatar" class="block text-white font-bold mb-2">Foto de perfil (opcional):</label>
+                    <input type="file" id="login-avatar" accept="image/*"
+                           class="w-full px-4 py-2 bg-gray-800 border border-pink-400 rounded-lg text-white focus:outline-none focus:border-yellow-300">
+                </div>
+                
+                <button type="submit" class="filter-btn px-6 py-3 w-full text-lg">
+                    Entrar e marcar presença!
+                </button>
+            </form>
         </div>
     </div>
 
@@ -177,58 +230,42 @@
 
     <script>
         // ############### ÁREA DE EDIÇÃO PRINCIPAL ###############
-        const friends = [
-            { id: 'jv', name: 'João', imageUrl: 'joao.jpg' },
-            { id: 'aimmee', name: 'Aimmeé', imageUrl: 'aimmee.jpg' },
-            { id: 'bia', name: 'Bianca', imageUrl: 'bianca.jpg' },
-            { id: 'temis', name: 'Temis', imageUrl: 'temis.jpg' },
-            { id: 'lu', name: 'Luiza', imageUrl: 'luiza.jpg' },
-            { id: 'anthony', name: 'Anthony', imageUrl: 'anthony.jpg' },
-            { id: 'mths', name: 'Matheus', imageUrl: 'matheus.jpg' },
-            { id: 'nath', name: 'Nath', imageUrl: 'nath.jpg' },
-            { id: 'suzie', name: 'Suzie', imageUrl: 'suzie.jpg' },
-            { id: 'klebinho', name: 'Klebinho', imageUrl: 'klebinho.jpg' },
-            { id: 'theon', name: 'Theon', imageUrl: 'theon.jpg' },
-            { id: 'kelvin', name: 'Kelvin', imageUrl: 'kelvin.jpg' },
-            { id: 'amanda', name: 'Amanda', imageUrl: 'amanda.jpg' },
-            { id: 'vicente', name: 'Vicente', imageUrl: 'vicente.jpg' },
-            { id: 'wb', name: 'Walber', imageUrl: 'walber.jpg' },
-            { id: 'isa', name: 'Isa', imageUrl: 'isa.jpg' },
-        ];
+        // Lista de amigos removida - agora apenas usuários dinâmicos
+        const friends = [];
         
         const scheduleFriday = [
-            { id: 101, artist: "Dani Cruz", stage: 2, start: "19:40", end: "20:20", attendees: ['anthony'] },
-            { id: 102, artist: "Jadsa", stage: 3, start: "20:00", end: "21:00", attendees: ['anthony', 'bia'] },
-            { id: 103, artist: "Melly", stage: 1, start: "20:30", end: "21:20", attendees: ['aimmee', 'lu', 'wb', 'nath', 'anthony', 'bia', 'temis'] },
+            { id: 101, artist: "Dani Cruz", stage: 2, start: "19:40", end: "20:20", attendees: [] },
+            { id: 102, artist: "Jadsa", stage: 3, start: "20:00", end: "21:00", attendees: [] },
+            { id: 103, artist: "Melly", stage: 1, start: "20:30", end: "21:20", attendees: [] },
             { id: 104, artist: "Tinoc", stage: 3, start: "21:15", end: "22:15", attendees: [] },
-            { id: 105, artist: "Boogarins", stage: 2, start: "21:30", end: "22:20", attendees: ['lu', 'anthony'] },
-            { id: 106, artist: "MC RB KBLZ (Convida Mika)", stage: 3, start: "22:30", end: "23:30", attendees: ['mths', 'kelvin', 'aimmee', 'lu', 'temis'] },
-            { id: 107, artist: "Marina Sena", stage: 1, start: "22:30", end: "23:30", attendees: ['theon', 'wb', 'mths', 'kelvin', 'aimmee', 'lu', 'nath', 'anthony', 'bia', 'temis', 'isa'] },
-            { id: 108, artist: "Afreekassia (DJ Set)", stage: 3, start: "23:30", end: "00:30", attendees: ['aimmee', 'bia'] },
-            { id: 109, artist: "Dominguinho, João Gomes, Mestrinho e Jotapê", stage: 2, start: "23:40", end: "01:10", attendees: ['theon', 'lu', 'aimmee', 'wb', 'nath', 'anthony', 'bia', 'temis', 'isa'] },
-            { id: 110, artist: "Bateu Pode Comemorar", stage: 3, start: "00:30", end: "01:30", attendees: ['mths', 'kelvin'] },
-            { id: 111, artist: "Don L", stage: 1, start: "01:20", end: "02:20", attendees: ['theon', 'aimmee', 'nath', 'anthony', 'bia', 'temis'] },
-            { id: 112, artist: "D.Silvestre", stage: 3, start: "01:30", end: "02:30", attendees: ['aimmee', 'bia'] },
-            { id: 113, artist: "Febem", stage: 3, start: "02:45", end: "03:45", attendees: ['theon', 'aimmee', 'lu', 'bia'] },
-            { id: 114, artist: "Kenya20hz", stage: 3, start: "04:00", end: "05:00", attendees: ['theon'] },
-            { id: 115, artist: "Jennify C (Convida Casixtranha)", stage: 3, start: "05:00", end: "06:00", attendees: ['theon'] },
+            { id: 105, artist: "Boogarins", stage: 2, start: "21:30", end: "22:20", attendees: [] },
+            { id: 106, artist: "MC RB KBLZ (Convida Mika)", stage: 3, start: "22:30", end: "23:30", attendees: [] },
+            { id: 107, artist: "Marina Sena", stage: 1, start: "22:30", end: "23:30", attendees: [] },
+            { id: 108, artist: "Afreekassia (DJ Set)", stage: 3, start: "23:30", end: "00:30", attendees: [] },
+            { id: 109, artist: "Dominguinho, João Gomes, Mestrinho e Jotapê", stage: 2, start: "23:40", end: "01:10", attendees: [] },
+            { id: 110, artist: "Bateu Pode Comemorar", stage: 3, start: "00:30", end: "01:30", attendees: [] },
+            { id: 111, artist: "Don L", stage: 1, start: "01:20", end: "02:20", attendees: [] },
+            { id: 112, artist: "D.Silvestre", stage: 3, start: "01:30", end: "02:30", attendees: [] },
+            { id: 113, artist: "Febem", stage: 3, start: "02:45", end: "03:45", attendees: [] },
+            { id: 114, artist: "Kenya20hz", stage: 3, start: "04:00", end: "05:00", attendees: [] },
+            { id: 115, artist: "Jennify C (Convida Casixtranha)", stage: 3, start: "05:00", end: "06:00", attendees: [] },
         ];
         const scheduleSaturday = [
             { id: 201, artist: "Guto Brant", stage: 2, start: "19:50", end: "20:30", attendees: [] },
-            { id: 202, artist: "O Cheiro do Queijo", stage: 3, start: "20:00", end: "21:00", attendees: ['theon'] },
-            { id: 203, artist: "Sourebel", stage: 1, start: "20:40", end: "21:20", attendees: ['aimmee', 'nath', 'anthony', 'bia', 'temis'] },
-            { id: 204, artist: "Edgar", stage: 3, start: "21:15", end: "22:15", attendees: ['theon', 'anthony'] },
-            { id: 205, artist: "Potyguara Bardo", stage: 2, start: "21:30", end: "22:10", attendees: ['theon', 'temis', 'isa'] },
+            { id: 202, artist: "O Cheiro do Queijo", stage: 3, start: "20:00", end: "21:00", attendees: [] },
+            { id: 203, artist: "Sourebel", stage: 1, start: "20:40", end: "21:20", attendees: [] },
+            { id: 204, artist: "Edgar", stage: 3, start: "21:15", end: "22:15", attendees: [] },
+            { id: 205, artist: "Potyguara Bardo", stage: 2, start: "21:30", end: "22:10", attendees: [] },
             { id: 206, artist: "Val Pescador", stage: 3, start: "22:15", end: "23:15", attendees: [] },
-            { id: 207, artist: "Rachel Reis", stage: 1, start: "22:20", end: "23:20", attendees: ['theon', 'aimmee', 'lu', 'wb', 'nath', 'kelvin', 'mths', 'anthony', 'bia', 'temis'] },
-            { id: 208, artist: "Taj Ma House", stage: 3, start: "23:30", end: "00:30", attendees: ['mths', 'lu', 'wb', 'kelvin', 'anthony', 'temis'] },
-            { id: 209, artist: "BaianaSystem", stage: 2, start: "23:30", end: "00:50", attendees: ['theon', 'aimmee', 'nath', 'bibi', 'suzie', 'klebinho', 'isa'] },
+            { id: 207, artist: "Rachel Reis", stage: 1, start: "22:20", end: "23:20", attendees: [] },
+            { id: 208, artist: "Taj Ma House", stage: 3, start: "23:30", end: "00:30", attendees: [] },
+            { id: 209, artist: "BaianaSystem", stage: 2, start: "23:30", end: "00:50", attendees: [] },
             { id: 210, artist: "Seed Selector", stage: 3, start: "00:30", end: "01:30", attendees: [] },
-            { id: 211, artist: "Liniker", stage: 1, start: "01:10", end: "02:20", attendees: ['theon', 'mths', 'kelvin', 'aimmee', 'lu', 'wb', 'anthony', 'bibi', 'suzie', 'klebinho', 'temis', 'isa'] },
+            { id: 211, artist: "Liniker", stage: 1, start: "01:10", end: "02:20", attendees: [] },
             { id: 212, artist: "Brisa", stage: 3, start: "01:30", end: "02:30", attendees: [] },
-            { id: 213, artist: "Mano Brown", stage: 2, start: "02:30", end: "03:30", attendees: ['aimmee', 'bia', 'nath', 'suzie', 'klebinho'] },
-            { id: 214, artist: "Katy da Voz e as Abusadas", stage: 3, start: "02:45", end: "03:35", attendees: ['theon', 'mths', 'kelvin', 'wb', 'temis'] },
-            { id: 215, artist: "Irmãs de Pau", stage: 3, start: "03:50", end: "04:40", attendees: ['theon', 'mths', 'kelvin', 'lu', 'aimmee', 'wb', 'bia', 'suzie', 'klebinho', 'temis', 'isa'] },
+            { id: 213, artist: "Mano Brown", stage: 2, start: "02:30", end: "03:30", attendees: [] },
+            { id: 214, artist: "Katy da Voz e as Abusadas", stage: 3, start: "02:45", end: "03:35", attendees: [] },
+            { id: 215, artist: "Irmãs de Pau", stage: 3, start: "03:50", end: "04:40", attendees: [] },
             { id: 216, artist: "Aya Ibeji", stage: 3, start: "04:40", end: "06:00", attendees: [] },
         ];
         const artistsData = [
@@ -330,11 +367,20 @@
                 card.style.gridRow = `${startRow} / ${endRow}`;
                 const stageColors = ['var(--accent-pink)', 'var(--accent-purple)', 'var(--accent-blue)'];
                 card.style.backgroundColor = stageColors[show.stage - 1];
-                const attendeesHTML = show.attendees.map(friendId => {
-                    const friend = friends.find(f => f.id === friendId);
-                    if (!friend) return '';
-                    return `<div class="attendee-bubble" style="background-image: url('${friend.imageUrl}')" title="${friend.name}"></div>`;
+                
+                // Mostrar apenas usuários dinâmicos
+                const dynamicAttendees = userAttendances[show.id] || [];
+                
+                const attendeesHTML = dynamicAttendees.map(attendeeId => {
+                    // Busca nos usuários salvos
+                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
+                        return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
+                    }
+                    
+                    return `<div class="attendee-bubble" style="background: linear-gradient(45deg, var(--accent-yellow), var(--accent-pink)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
                 }).join('');
+                
                 card.innerHTML = `<div class="font-bold text-sm">${show.artist}</div><div class="text-xs text-black bg-white/20 inline-block px-1 rounded">${show.start}-${show.end}</div><div class="attendees-container">${attendeesHTML}</div>`;
                 scheduleGridContainer.appendChild(card);
             });
@@ -389,28 +435,58 @@
             artistDetailPage.classList.add('hidden');
         });
 
+        let currentModalShowId = null;
+
         scheduleGridContainer.addEventListener('click', (e) => {
             const card = e.target.closest('.show-card');
             if (!card) return;
             
             const showId = parseInt(card.dataset.showId);
+            currentModalShowId = showId;
             const allShows = [...scheduleFriday, ...scheduleSaturday];
             const show = allShows.find(s => s.id === showId);
             if (!show) return;
 
             document.getElementById('modal-artist-name').textContent = show.artist;
             document.getElementById('modal-show-time').textContent = `${show.start} - ${show.end}`;
+            
+            // Atualizar botão de presença
+            const attendBtn = document.getElementById('attend-btn');
+            const attendText = document.getElementById('attend-text');
+            const isAttending = getAttendanceStatus(showId);
+            
+            if (isAttending) {
+                attendBtn.classList.add('active');
+                attendText.textContent = 'Confirmado! ✓';
+            } else {
+                attendBtn.classList.remove('active');
+                attendText.textContent = 'Marcar presença';
+            }
+            
+            // Mostrar apenas usuários dinâmicos
             const attendeesGrid = document.getElementById('modal-attendees-grid');
             attendeesGrid.innerHTML = '';
             
-            if(show.attendees.length > 0) {
-                 show.attendees.forEach(friendId => {
-                    const friend = friends.find(f => f.id === friendId);
-                    if(friend) {
+            const dynamicAttendees = userAttendances[showId] || [];
+            
+            if(dynamicAttendees.length > 0) {
+                dynamicAttendees.forEach(attendeeId => {
+                    // Usuário dinâmico
+                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
                         attendeesGrid.innerHTML += `
                             <div class="text-center">
-                                <img src="${friend.imageUrl}" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-yellow-300">
-                                <p class="mt-2 text-sm">${friend.name}</p>
+                                <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-yellow-300">
+                                <p class="mt-2 text-sm">${savedUser.name}</p>
+                            </div>`;
+                    } else {
+                        // Avatar padrão para usuários sem foto
+                        attendeesGrid.innerHTML += `
+                            <div class="text-center">
+                                <div class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-300 bg-gradient-to-br from-yellow-400 to-pink-400 flex items-center justify-center text-2xl font-bold text-white">
+                                    ${attendeeId.charAt(0).toUpperCase()}
+                                </div>
+                                <p class="mt-2 text-sm">${attendeeId}</p>
                             </div>`;
                     }
                 });
@@ -428,6 +504,185 @@
             }
         });
         
+        // --- SISTEMA DE USUÁRIOS E AGENDAMENTO ---
+        let currentUser = null;
+        let userAttendances = JSON.parse(localStorage.getItem('userAttendances')) || {};
+
+        function saveUserData() {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('userAttendances', JSON.stringify(userAttendances));
+        }
+
+        function loadUserData() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUserInterface();
+            }
+        }
+
+        function updateUserInterface() {
+            const loginBtn = document.getElementById('login-btn');
+            const userInfo = document.getElementById('user-info');
+            
+            if (currentUser) {
+                loginBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                document.getElementById('user-name').textContent = currentUser.name;
+                document.getElementById('user-avatar').src = currentUser.avatar || 'default-avatar.png';
+                document.getElementById('user-avatar').onerror = function() {
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
+                };
+            } else {
+                loginBtn.style.display = 'block';
+                userInfo.style.display = 'none';
+            }
+        }
+
+        function showLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function hideLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.add('hidden');
+        }
+
+        function login() {
+            const name = document.getElementById('login-name').value.trim();
+            const avatarFile = document.getElementById('login-avatar').files[0];
+            
+            if (!name) {
+                alert('Por favor, digite seu nome!');
+                return;
+            }
+
+            let avatarUrl = 'default-avatar.png';
+            if (avatarFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarUrl = e.target.result;
+                    currentUser = { name, avatar: avatarUrl };
+                    saveUserData();
+                    updateUserInterface();
+                    hideLoginModal();
+                    // Limpar formulário
+                    document.getElementById('login-name').value = '';
+                    document.getElementById('login-avatar').value = '';
+                };
+                reader.readAsDataURL(avatarFile);
+            } else {
+                currentUser = { name, avatar: avatarUrl };
+                saveUserData();
+                updateUserInterface();
+                hideLoginModal();
+                document.getElementById('login-name').value = '';
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            saveUserData();
+            updateUserInterface();
+        }
+
+        function toggleAttendance(showId) {
+            const targetShowId = showId || currentModalShowId;
+            if (!targetShowId) return;
+            
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+
+            const userId = currentUser.name.toLowerCase().replace(/\s+/g, '');
+            
+            if (!userAttendances[targetShowId]) {
+                userAttendances[targetShowId] = [];
+            }
+
+            const attendanceIndex = userAttendances[targetShowId].indexOf(userId);
+            if (attendanceIndex > -1) {
+                userAttendances[targetShowId].splice(attendanceIndex, 1);
+            } else {
+                userAttendances[targetShowId].push(userId);
+            }
+
+            saveUserData();
+            updateShowAttendance(targetShowId);
+            
+            // Se o modal estiver aberto, atualizar a interface
+            if (currentModalShowId === targetShowId) {
+                const attendBtn = document.getElementById('attend-btn');
+                const attendText = document.getElementById('attend-text');
+                const isAttending = getAttendanceStatus(targetShowId);
+                
+                if (isAttending) {
+                    attendBtn.classList.add('active');
+                    attendText.textContent = 'Confirmado! ✓';
+                } else {
+                    attendBtn.classList.remove('active');
+                    attendText.textContent = 'Marcar presença';
+                }
+                
+                // Recarregar a lista de confirmados no modal
+                const allShows = [...scheduleFriday, ...scheduleSaturday];
+                const show = allShows.find(s => s.id === targetShowId);
+                if (show) {
+                    const attendeesGrid = document.getElementById('modal-attendees-grid');
+                    attendeesGrid.innerHTML = '';
+                    
+                    const dynamicAttendees = userAttendances[targetShowId] || [];
+                    
+                    if(dynamicAttendees.length > 0) {
+                        dynamicAttendees.forEach(attendeeId => {
+                            // Usuário dinâmico
+                            const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+                            if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
+                                attendeesGrid.innerHTML += `
+                                    <div class="text-center">
+                                        <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-yellow-300">
+                                        <p class="mt-2 text-sm">${savedUser.name}</p>
+                                    </div>`;
+                            } else {
+                                // Avatar padrão para usuários sem foto
+                                attendeesGrid.innerHTML += `
+                                    <div class="text-center">
+                                        <div class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-300 bg-gradient-to-br from-yellow-400 to-pink-400 flex items-center justify-center text-2xl font-bold text-white">
+                                            ${attendeeId.charAt(0).toUpperCase()}
+                                        </div>
+                                        <p class="mt-2 text-sm">${attendeeId}</p>
+                                    </div>`;
+                            }
+                        });
+                    } else {
+                        attendeesGrid.innerHTML = `<p class="col-span-full text-center text-gray-400">Ninguém confirmado para este show ainda.</p>`;
+                    }
+                }
+            }
+        }
+
+        function updateShowAttendance(showId) {
+            const allShows = [...scheduleFriday, ...scheduleSaturday];
+            const show = allShows.find(s => s.id === showId);
+            if (show) {
+                show.attendees = userAttendances[showId] || [];
+            }
+            
+            // Re-renderizar a agenda se estivermos nela
+            if (!schedulePage.classList.contains('hidden')) {
+                const activeDay = dayFridayBtn.classList.contains('active') ? scheduleFriday : scheduleSaturday;
+                renderSchedule(activeDay);
+            }
+        }
+
+        function getAttendanceStatus(showId) {
+            if (!currentUser) return false;
+            const userId = currentUser.name.toLowerCase().replace(/\s+/g, '');
+            return userAttendances[showId] && userAttendances[showId].includes(userId);
+        }
+
         // --- LÓGICA DO PLAYER DE MÚSICA ---
         const musicToggleBtn = document.getElementById('music-toggle-btn');
         const backgroundMusic = document.getElementById('background-music');
@@ -449,9 +704,14 @@
             });
         }
 
-
         window.onload = () => {
             displayArtists(artistsData);
+            loadUserData();
+            
+            // Carregar participações salvas
+            Object.keys(userAttendances).forEach(showId => {
+                updateShowAttendance(parseInt(showId));
+            });
         };
     </script>
 </body>
