@@ -6,14 +6,14 @@
     <title>Carnaval 2026 !</title>
 
         <!-- FAVICON -->
-    <link rel="icon" type="image/jpeg" href="/mascara.jpg">
-    
+    <link rel="icon" type="image/jpeg" href="mascara.jpg">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Londrina+Solid:wght@400;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    
+
     <style>
         /* ESTILOS GERAIS - TEMA CARNAVAL RECIFE/OLINDA */
         :root {
@@ -79,7 +79,7 @@
                 0 0 20px rgba(255, 215, 0, 0.5);
             animation: title-pulse 2s ease-in-out infinite;
         }
-        
+
         @keyframes title-pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.02); }
@@ -97,7 +97,7 @@
             80% { transform: translate(2px, -2px) rotate(1deg); } 
             90% { transform: translate(-2px, 2px) rotate(-1deg); } 
         }
-        
+
         .filter-btn { 
             font-family: 'Londrina Solid', cursive; 
             font-size: 1.1rem; 
@@ -158,7 +158,7 @@
             z-index: 10; 
             position: relative; 
         }
-        
+
         /* PÁGINA DE HORÁRIOS */
         .schedule-page { 
             background: linear-gradient(135deg, rgba(26, 13, 26, 0.8), rgba(45, 26, 45, 0.8)); 
@@ -337,16 +337,16 @@
 <body class="pb-16">
 
     <div class="container mx-auto p-4 md:p-8" style="position: relative; z-index: 1;">
-        
+
         <header class="text-center mb-8">
             <!-- Container flex para alinhar a logo e o título -->
             <div class="flex justify-center items-center gap-4">
-                <img src="/bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
+                <img src="bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
                 <h1 class="main-title text-5xl md:text-7xl tracking-tighter" data-text="Carnaval 2026 !">Carnaval 2026 !</h1>
             </div>
             <p class="text-lg font-bold mt-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎉 Nosso roteiro de blocos para o carnaval 🎉</p>
         </header>
-        
+
         <nav class="flex justify-center gap-4 mb-8">
             <button id="view-artists-btn" class="filter-btn active px-6 py-2">Blocos</button>
             <button id="view-schedule-btn" class="filter-btn px-6 py-2">Horários</button>
@@ -360,7 +360,7 @@
                 </svg>
                 Entrar
             </button>
-            
+
             <div id="user-info" class="hidden items-center gap-3">
                 <img id="user-avatar" src="" alt="Avatar" class="w-10 h-10 rounded-full border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 10px var(--accent-red);">
                 <span id="user-name" class="text-white font-bold" style="text-shadow: 2px 2px 0px var(--accent-red);"></span>
@@ -412,7 +412,7 @@
             <h2 id="modal-artist-name" class="text-3xl font-bold font-['Londrina_Solid'] text-white"></h2>
             <p id="modal-show-time" class="text-lg text-gray-400 mb-2"></p>
             <p id="modal-show-local" class="text-md text-yellow-300 mb-4"></p>
-            
+
             <!-- Botão para marcar presença -->
             <div class="mb-4">
                 <button id="attend-btn" class="filter-btn px-6 py-2 w-full" onclick="toggleAttendance()">
@@ -422,7 +422,7 @@
                     <span id="attend-text">Marcar presença</span>
                 </button>
             </div>
-            
+
             <h3 class="font-bold text-xl mb-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎊 Confirmades: 🎊</h3>
             <div id="modal-attendees-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4">
                 <!-- Fotos dos amigos aqui -->
@@ -435,20 +435,20 @@
         <div class="modal-content">
             <button onclick="hideLoginModal()" class="modal-close-btn">X</button>
             <h2 class="text-3xl font-bold font-['Londrina_Solid'] mb-6" style="color: var(--accent-yellow); text-shadow: 3px 3px 0px var(--accent-red);">🎉 Entrar no Bloco 🎉</h2>
-            
+
             <form onsubmit="event.preventDefault(); login();">
                 <div class="mb-4">
                     <label for="login-name" class="block text-white font-bold mb-2">Seu nome:</label>
                     <input type="text" id="login-name" placeholder="Digite seu nome" required
                            class="w-full px-4 py-2 bg-gray-800 border-2 rounded-lg text-white focus:outline-none focus:border-red-500" style="border-color: var(--accent-yellow);">
                 </div>
-                
+
                 <div class="mb-6">
                     <label for="login-avatar" class="block text-white font-bold mb-2">Foto de perfil (opcional):</label>
                     <input type="file" id="login-avatar" accept="image/*"
                            class="w-full px-4 py-2 bg-gray-800 border-2 rounded-lg text-white focus:outline-none focus:border-red-500" style="border-color: var(--accent-yellow);">
                 </div>
-                
+
                 <button type="submit" class="filter-btn px-6 py-3 w-full text-lg">
                     Entrar e marcar presença!
                 </button>
@@ -458,7 +458,7 @@
 
     <!-- Player de Música -->
     <audio id="background-music" loop>
-        <source src="/volteiRecife.mp3" type="audio/mpeg">
+        <source src="volteiRecife.mp3" type="audio/mpeg">
     </audio>
     <button id="music-toggle-btn" class="music-toggle" aria-label="Tocar música">
         <!-- Ícone de Play/Pause será inserido aqui pelo JavaScript -->
@@ -469,7 +469,7 @@
         // ############### ÁREA DE EDIÇÃO PRINCIPAL ###############
         // Lista de amigos removida - agora apenas usuários dinâmicos
         const friends = [];
-        
+
         // Schedules organizados por dia da semana - usando horários de concentração como start
         const scheduleThursday = [
             // QUINTA (12/02) - Todos os blocos do CSV
@@ -642,43 +642,43 @@
         ];
         // Lista de blocos de carnaval de Recife e Olinda 2026
         const blocosData = [
-            { name: "Escuta Levino", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco tradicional do carnaval recifense com muito frevo e animação!" },
-            { name: "Me Mostro Teu Mapa Astral", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 18:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco temático com astrologia e muita diversão!" },
-            { name: "Elefante de Olinda", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Largo do Bonsucesso - Sede do Homem\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Olinda\n\nUm dos blocos mais tradicionais de Olinda!" },
-            { name: "Afojubá Batuque", imageUrl: "/sombrinha.jpg", details: "📍 Local: Avenida Marquês de Olinda\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e energia!" },
-            { name: "Shortinho Torano", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua do Apolo, 174\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico do Recife!" },
-            { name: "Arrastão do Maestro Óseas", imageUrl: "/sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 15:00 | Saída: 16:00\n🏙️ Cidade: Olinda\n\nArrastão tradicional com o Maestro Óseas!" },
-            { name: "Abduzidos", imageUrl: "/sombrinha.jpg", details: "📍 Local: Casa Nola\n🕐 Concentração: 16:30 | Saída: 17:30\n🏙️ Cidade: Olinda\n\nBloco temático com muita animação!" },
-            { name: "Segura o Tonho, Charlie Brow", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 17:00 | Saída: 19:30\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico!" },
-            { name: "Nem Sempre Lily Toca Flauta", imageUrl: "/sombrinha.jpg", details: "📍 Local: Pátio Santa Cruz\n🕐 Concentração: 17:00 | Saída: 19:00\n🏙️ Cidade: Recife\n\nBloco com muito humor e animação!" },
-            { name: "Mulher do Dia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco que celebra as mulheres!" },
-            { name: "Caraca Moleque", imageUrl: "/sombrinha.jpg", details: "📍 Local: Centro Luiz Freire\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
-            { name: "Traquinos em Folia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Sede da Pitombeira\n🕐 Concentração: 18:30 | Saída: 19:30\n🏙️ Cidade: Olinda\n\nBloco infantil com muita animação!" },
-            { name: "Batuques de Pernambuco", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e percussão!" },
-            { name: "Me Solta, Carail", imageUrl: "/sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
-            { name: "Du Nada a Gente Sai", imageUrl: "/sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 19:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
-            { name: "La Ursa do Bonfim", imageUrl: "/sombrinha.jpg", details: "📍 Local: Clube Cariri\n🕐 Concentração: 17:00 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nBloco com longa duração e muita animação!" },
-            { name: "Frevo e Folia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Vassourinhas de Olinda - Largo do Amparo\n🕐 Concentração: 18:30 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nMuito frevo e folia em Olinda!" },
-            { name: "O Lord de Olinda", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 18:00 | Saída: 23:00\n🏙️ Cidade: Olinda\n\nBloco tradicional com longa duração!" },
-            { name: "Galo da Madrugada", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça Sérgio Lôreto\n🕐 Concentração: 04:00 | Saída: 09:00\n🏙️ Cidade: Recife\n\nO maior bloco de carnaval do mundo! Tradição e animação desde a madrugada!" },
-            { name: "Pinto do galo da Madrugada", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça do Marco Zero\n🕐 Concentração: 05:45 | Saída: 06:45\n🏙️ Cidade: Recife\n\nBloco que antecede o Galo da Madrugada!" },
-            { name: "Galinha d'Água", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rio Capibaribe\n🕐 Concentração: 07:00 | Saída: 08:00\n🏙️ Cidade: Recife\n\nBloco aquático no Rio Capibaribe!" },
-            { name: "Sibito Baleado", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua Coronel Joaquim Cavalcanti, 201\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
-            { name: "O Urso Cascudo do Amparo", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com boneco gigante!" },
-            { name: "Eu Acho é Pouco", imageUrl: "/sombrinha.jpg", details: "📍 Local: A confirmar\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco animado de Olinda!" },
-            { name: "Bloco Mangue Beat", imageUrl: "/sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao movimento Mangue Beat!" },
-            { name: "Bloco do Frei", imageUrl: "/sombrinha.jpg", details: "📍 Local: Cruzeiro do Convento de São Francisco\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional no Convento de São Francisco!" },
-            { name: "Maracatu Kangoma", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua do Amparo, 236\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nMaracatu tradicional de Olinda!" },
-            { name: "Patusquinho", imageUrl: "/sombrinha.jpg", details: "📍 Local: Pátio São Pedro\n🕐 Concentração: 09:00 | Saída: 09:59\n🏙️ Cidade: Recife\n\nBloco animado no Pátio São Pedro!" },
-            { name: "Tambores D'Saia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça de São Pedro\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com tambores e muita energia!" },
-            { name: "Soul Delas", imageUrl: "/sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com soul music e animação!" },
-            { name: "Urso Congelado", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Açaí do Carmo, 5\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com boneco de urso!" },
-            { name: "Pife Floyd", imageUrl: "/sombrinha.jpg", details: "📍 Local: Travessa de São Francisco, 206\n🕐 Concentração: 10:00 | Saída: 12:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao Pink Floyd!" },
-            { name: "Sombatuki", imageUrl: "/sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 10:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
-            { name: "Fique na Sombra", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua da Boa Hora, 177\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com sombrinhas de frevo!" },
-            { name: "Batucada Atômica", imageUrl: "/sombrinha.jpg", details: "📍 Local: Avenida 10 de Novembro\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com muita batucada e energia!" },
+            { name: "Escuta Levino", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco tradicional do carnaval recifense com muito frevo e animação!" },
+            { name: "Me Mostro Teu Mapa Astral", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 18:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco temático com astrologia e muita diversão!" },
+            { name: "Elefante de Olinda", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Bonsucesso - Sede do Homem\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Olinda\n\nUm dos blocos mais tradicionais de Olinda!" },
+            { name: "Afojubá Batuque", imageUrl: "sombrinha.jpg", details: "📍 Local: Avenida Marquês de Olinda\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e energia!" },
+            { name: "Shortinho Torano", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua do Apolo, 174\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico do Recife!" },
+            { name: "Arrastão do Maestro Óseas", imageUrl: "sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 15:00 | Saída: 16:00\n🏙️ Cidade: Olinda\n\nArrastão tradicional com o Maestro Óseas!" },
+            { name: "Abduzidos", imageUrl: "sombrinha.jpg", details: "📍 Local: Casa Nola\n🕐 Concentração: 16:30 | Saída: 17:30\n🏙️ Cidade: Olinda\n\nBloco temático com muita animação!" },
+            { name: "Segura o Tonho, Charlie Brow", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 17:00 | Saída: 19:30\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico!" },
+            { name: "Nem Sempre Lily Toca Flauta", imageUrl: "sombrinha.jpg", details: "📍 Local: Pátio Santa Cruz\n🕐 Concentração: 17:00 | Saída: 19:00\n🏙️ Cidade: Recife\n\nBloco com muito humor e animação!" },
+            { name: "Mulher do Dia", imageUrl: "sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco que celebra as mulheres!" },
+            { name: "Caraca Moleque", imageUrl: "sombrinha.jpg", details: "📍 Local: Centro Luiz Freire\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "Traquinos em Folia", imageUrl: "sombrinha.jpg", details: "📍 Local: Sede da Pitombeira\n🕐 Concentração: 18:30 | Saída: 19:30\n🏙️ Cidade: Olinda\n\nBloco infantil com muita animação!" },
+            { name: "Batuques de Pernambuco", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e percussão!" },
+            { name: "Me Solta, Carail", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
+            { name: "Du Nada a Gente Sai", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 19:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "La Ursa do Bonfim", imageUrl: "sombrinha.jpg", details: "📍 Local: Clube Cariri\n🕐 Concentração: 17:00 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nBloco com longa duração e muita animação!" },
+            { name: "Frevo e Folia", imageUrl: "sombrinha.jpg", details: "📍 Local: Vassourinhas de Olinda - Largo do Amparo\n🕐 Concentração: 18:30 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nMuito frevo e folia em Olinda!" },
+            { name: "O Lord de Olinda", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 18:00 | Saída: 23:00\n🏙️ Cidade: Olinda\n\nBloco tradicional com longa duração!" },
+            { name: "Galo da Madrugada", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Sérgio Lôreto\n🕐 Concentração: 04:00 | Saída: 09:00\n🏙️ Cidade: Recife\n\nO maior bloco de carnaval do mundo! Tradição e animação desde a madrugada!" },
+            { name: "Pinto do galo da Madrugada", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça do Marco Zero\n🕐 Concentração: 05:45 | Saída: 06:45\n🏙️ Cidade: Recife\n\nBloco que antecede o Galo da Madrugada!" },
+            { name: "Galinha d'Água", imageUrl: "sombrinha.jpg", details: "📍 Local: Rio Capibaribe\n🕐 Concentração: 07:00 | Saída: 08:00\n🏙️ Cidade: Recife\n\nBloco aquático no Rio Capibaribe!" },
+            { name: "Sibito Baleado", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua Coronel Joaquim Cavalcanti, 201\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "O Urso Cascudo do Amparo", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com boneco gigante!" },
+            { name: "Eu Acho é Pouco", imageUrl: "sombrinha.jpg", details: "📍 Local: A confirmar\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco animado de Olinda!" },
+            { name: "Bloco Mangue Beat", imageUrl: "sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao movimento Mangue Beat!" },
+            { name: "Bloco do Frei", imageUrl: "sombrinha.jpg", details: "📍 Local: Cruzeiro do Convento de São Francisco\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional no Convento de São Francisco!" },
+            { name: "Maracatu Kangoma", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua do Amparo, 236\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nMaracatu tradicional de Olinda!" },
+            { name: "Patusquinho", imageUrl: "sombrinha.jpg", details: "📍 Local: Pátio São Pedro\n🕐 Concentração: 09:00 | Saída: 09:59\n🏙️ Cidade: Recife\n\nBloco animado no Pátio São Pedro!" },
+            { name: "Tambores D'Saia", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça de São Pedro\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com tambores e muita energia!" },
+            { name: "Soul Delas", imageUrl: "sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com soul music e animação!" },
+            { name: "Urso Congelado", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Açaí do Carmo, 5\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com boneco de urso!" },
+            { name: "Pife Floyd", imageUrl: "sombrinha.jpg", details: "📍 Local: Travessa de São Francisco, 206\n🕐 Concentração: 10:00 | Saída: 12:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao Pink Floyd!" },
+            { name: "Sombatuki", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 10:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
+            { name: "Fique na Sombra", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Boa Hora, 177\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com sombrinhas de frevo!" },
+            { name: "Batucada Atômica", imageUrl: "sombrinha.jpg", details: "📍 Local: Avenida 10 de Novembro\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com muita batucada e energia!" },
         ];
-        
+
         // --- LÓGICA DA PÁGINA ---
         const mainContent = document.getElementById('main-content');
         const artistDetailPage = document.getElementById('artist-detail-page');
@@ -693,7 +693,7 @@
         const dayMondayBtn = document.getElementById('day-monday-btn');
         const dayTuesdayBtn = document.getElementById('day-tuesday-btn');
         const dayWednesdayBtn = document.getElementById('day-wednesday-btn');
-        
+
         const dayButtons = [dayThursdayBtn, dayFridayBtn, daySaturdayBtn, daySundayBtn, dayMondayBtn, dayTuesdayBtn, dayWednesdayBtn];
         const artistGrid = document.getElementById('artist-grid');
         const scheduleGridContainer = document.getElementById('schedule-grid-container');
@@ -705,6 +705,9 @@
             artistGrid.innerHTML = artists.map(artist => `
                 <div class="artist-card-link cursor-pointer" data-artist-name="${artist.name}">
                     <div class="artist-card rounded-lg overflow-hidden group">
+                        <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-40 object-cover" 
+                             loading="lazy" 
+                             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmY3ZWI5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Q2FybmF2YWw8L3RleHQ+PC9zdmc+';">
                         <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-40 object-cover">
                         <div class="p-3"><h3 class="font-bold text-lg truncate text-gray-100">${artist.name}</h3></div>
                     </div>
@@ -714,11 +717,14 @@
         function createArtistDetailCard(artist) {
             return `
                 <div class="artist-card rounded-lg overflow-hidden group w-full" style="transform: none;">
+                    <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-auto object-cover" 
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmY3ZWI5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Q2FybmF2YWw8L3RleHQ+PC9zdmc+';">
                     <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-auto object-cover">
                     <div class="p-3"><h3 class="font-bold text-lg text-gray-100">${artist.name}</h3></div>
                 </div>`;
         }
-        
+
         function timeToGridRow(timeStr) {
             let [h, m] = timeStr.split(':').map(Number);
             if (h < 4) h += 24;
@@ -729,7 +735,7 @@
 
         function renderSchedule(dayData) {
             scheduleGridContainer.innerHTML = ''; 
-            
+
             // Ordenar blocos por horário de início
             const sortedShows = [...dayData].sort((a, b) => {
                 const aTime = a.start.split(':').map(Number);
@@ -738,7 +744,7 @@
                 const bMinutes = bTime[0] * 60 + bTime[1];
                 return aMinutes - bMinutes;
             });
-            
+
             // Agrupar por horário de início (arredondado para a hora mais próxima)
             const timeGroups = {};
             sortedShows.forEach(show => {
@@ -749,30 +755,30 @@
                 }
                 timeGroups[hourKey].push(show);
             });
-            
+
             // Cores por cidade/stage
             const stageColors = {
                 1: 'linear-gradient(135deg, var(--accent-yellow), var(--accent-orange))', // Recife
                 2: 'linear-gradient(135deg, var(--accent-red), var(--accent-pink))', // Olinda
                 3: 'linear-gradient(135deg, var(--accent-blue), var(--accent-green))' // Outros
             };
-            
+
             const cityNames = {
                 1: 'Recife',
                 2: 'Olinda',
                 3: 'Outros'
             };
-            
+
             // Renderizar grupos por horário
             Object.keys(timeGroups).sort().forEach(hourKey => {
                 const timeGroup = document.createElement('div');
                 timeGroup.classList.add('schedule-time-group');
-                
+
                 const timeHeader = document.createElement('div');
                 timeHeader.classList.add('schedule-time-header');
                 timeHeader.textContent = `🕐 ${hourKey}`;
                 timeGroup.appendChild(timeHeader);
-                
+
                 // Agrupar por cidade dentro do horário
                 const cityGroups = {};
                 timeGroups[hourKey].forEach(show => {
@@ -782,12 +788,12 @@
                     }
                     cityGroups[city].push(show);
                 });
-                
+
                 // Renderizar por cidade
                 Object.keys(cityGroups).sort().forEach(city => {
                     const citySection = document.createElement('div');
                     citySection.classList.add('schedule-city-section');
-                    
+
                     const cityHeader = document.createElement('div');
                     cityHeader.classList.add('schedule-city-header');
                     const stageNum = cityGroups[city][0].stage;
@@ -795,30 +801,36 @@
                     cityHeader.style.color = '#000';
                     cityHeader.textContent = `📍 ${city}`;
                     citySection.appendChild(cityHeader);
-                    
+
                     const blocksList = document.createElement('div');
                     blocksList.classList.add('schedule-blocks-list');
-                    
+
                     cityGroups[city].forEach(show => {
                 const card = document.createElement('div');
                 card.classList.add('show-card');
                 card.dataset.showId = show.id;
                         card.style.background = stageColors[show.stage];
-                
+
+                // Mostrar usuários do servidor
+                const attendeesData = allAttendances[show.id] || [];
                 // Mostrar apenas usuários dinâmicos
                 const dynamicAttendees = userAttendances[show.id] || [];
-                
-                const attendeesHTML = dynamicAttendees.map(attendeeId => {
-                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
-                        return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
+
+                const attendeesHTML = attendeesData.map(attendee => {
+                    if (!attendee) return '';
+                    const name = attendee.name || attendee.userId || '?';
+                    const initial = name.charAt(0).toUpperCase();
+                    
+                    if (attendee.avatar) {
+                        // Usar background-image simples
+                        return `<div class="attendee-bubble" title="${name.replace(/"/g, '&quot;')}" style="background-image: url('${attendee.avatar}'); background-size: cover; background-position: center; background-color: #ff7eb9;"></div>`;
                     }
-                            return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
-                }).join('');
-                
+                    return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${name.replace(/"/g, '&quot;')}">${initial}</div>`;
+                }).filter(html => html !== '').join('');
+
                         const localInfo = show.local ? `<div class="text-sm text-white/95 mt-2 font-semibold">📍 ${show.local}</div>` : '';
                         const timeInfo = `<div class="text-lg font-bold text-black bg-white/40 inline-block px-2 py-1 rounded mt-2">${show.start} - ${show.end}</div>`;
-                        
+
                         card.innerHTML = `
                             <div>
                                 <div class="font-bold text-lg mb-2" style="color: white; text-shadow: 2px 2px 0px rgba(0,0,0,0.5);">${show.artist}</div>
@@ -827,18 +839,18 @@
                             </div>
                             <div class="attendees-container mt-3">${attendeesHTML}</div>
                         `;
-                        
+
                         blocksList.appendChild(card);
                     });
-                    
+
                     citySection.appendChild(blocksList);
                     timeGroup.appendChild(citySection);
                 });
-                
+
                 scheduleGridContainer.appendChild(timeGroup);
             });
         }
-        
+
         viewArtistsBtn.addEventListener('click', () => {
             artistsPage.classList.remove('hidden');
             schedulePage.classList.add('hidden');
@@ -856,13 +868,13 @@
             dayThursdayBtn.classList.add('active');
             renderSchedule(scheduleThursday); 
         });
-        
+
         function setActiveDay(activeBtn, schedule) {
             dayButtons.forEach(btn => btn.classList.remove('active'));
             activeBtn.classList.add('active');
             renderSchedule(schedule);
         }
-        
+
         dayThursdayBtn.addEventListener('click', () => setActiveDay(dayThursdayBtn, scheduleThursday));
         dayFridayBtn.addEventListener('click', () => setActiveDay(dayFridayBtn, scheduleFriday));
         daySaturdayBtn.addEventListener('click', () => setActiveDay(daySaturdayBtn, scheduleSaturday));
@@ -881,7 +893,7 @@
             document.getElementById('detail-card-container').innerHTML = createArtistDetailCard(artist);
             document.getElementById('detail-artist-name').textContent = artist.name;
             document.getElementById('detail-artist-notes').textContent = artist.details;
-            
+
             mainContent.classList.add('hidden');
             artistDetailPage.classList.remove('hidden');
         });
@@ -896,7 +908,7 @@
         scheduleGridContainer.addEventListener('click', (e) => {
             const card = e.target.closest('.show-card');
             if (!card) return;
-            
+
             const showId = parseInt(card.dataset.showId);
             currentModalShowId = showId;
             const allShows = [...scheduleThursday, ...scheduleFriday, ...scheduleSaturday, ...scheduleSunday, ...scheduleMonday, ...scheduleTuesday, ...scheduleWednesday];
@@ -906,12 +918,12 @@
             document.getElementById('modal-artist-name').textContent = show.artist;
             document.getElementById('modal-show-time').textContent = `${show.start} - ${show.end}`;
             document.getElementById('modal-show-local').textContent = show.local ? `📍 ${show.local} - ${show.cidade || ''}` : '';
-            
+
             // Atualizar botão de presença
             const attendBtn = document.getElementById('attend-btn');
             const attendText = document.getElementById('attend-text');
             const isAttending = getAttendanceStatus(showId);
-            
+
             if (isAttending) {
                 attendBtn.classList.add('active');
                 attendText.textContent = 'Confirmado! ✓';
@@ -919,7 +931,9 @@
                 attendBtn.classList.remove('active');
                 attendText.textContent = 'Marcar presença';
             }
-            
+
+            // Carregar participantes do servidor
+            updateModalAttendees(showId);
             // Mostrar apenas usuários dinâmicos
             const attendeesGrid = document.getElementById('modal-attendees-grid');
             attendeesGrid.innerHTML = '';
@@ -953,20 +967,127 @@
 
             scheduleModal.classList.remove('hidden');
         });
-        
+
         modalCloseBtn.addEventListener('click', () => scheduleModal.classList.add('hidden'));
         scheduleModal.addEventListener('click', (e) => {
             if (e.target === scheduleModal) {
                  scheduleModal.classList.add('hidden');
             }
         });
-        
+
         // --- SISTEMA DE USUÁRIOS E AGENDAMENTO ---
+        // API URL - funciona tanto localmente quanto no Vercel
+        const API_URL = window.location.origin;
+        
         let currentUser = null;
+        let allAttendances = {}; // Cache de todas as presenças do servidor
+
+        // Função auxiliar para fazer requisições
+        async function apiRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    ...options,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                throw error;
+            }
+        }
+
+        // Carregar todas as presenças do servidor
+        async function loadAllAttendances() {
+            try {
+                const response = await apiRequest('/api/attendances');
+                
+                // Garantir que é um objeto válido
+                if (response && typeof response === 'object' && !Array.isArray(response)) {
+                    allAttendances = response;
+                    // Converter para o formato esperado pelo código existente
+                    Object.keys(allAttendances).forEach(showId => {
+                        if (Array.isArray(allAttendances[showId])) {
+                            userAttendances[showId] = allAttendances[showId].map(a => a && a.userId ? a.userId : a).filter(Boolean);
+                        }
+                    });
+                } else {
+                    allAttendances = {};
+                }
+                
+                // Atualizar interface apenas se estiver na página de programação
+                if (!schedulePage.classList.contains('hidden')) {
+                    let activeSchedule = scheduleThursday;
+                    if (dayThursdayBtn.classList.contains('active')) activeSchedule = scheduleThursday;
+                    else if (dayFridayBtn.classList.contains('active')) activeSchedule = scheduleFriday;
+                    else if (daySaturdayBtn.classList.contains('active')) activeSchedule = scheduleSaturday;
+                    else if (daySundayBtn.classList.contains('active')) activeSchedule = scheduleSunday;
+                    else if (dayMondayBtn.classList.contains('active')) activeSchedule = scheduleMonday;
+                    else if (dayTuesdayBtn.classList.contains('active')) activeSchedule = scheduleTuesday;
+                    else if (dayWednesdayBtn.classList.contains('active')) activeSchedule = scheduleWednesday;
+                    renderSchedule(activeSchedule);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar presenças:', error);
+                // Fallback para localStorage
+                try {
+                    const saved = localStorage.getItem('userAttendances');
+                    if (saved) {
+                        userAttendances = JSON.parse(saved);
+                        // Tentar converter para formato de allAttendances
+                        Object.keys(userAttendances).forEach(showId => {
+                            if (Array.isArray(userAttendances[showId])) {
+                                allAttendances[showId] = userAttendances[showId].map(userId => ({
+                                    userId: userId,
+                                    name: userId,
+                                    avatar: null
+                                }));
+                            }
+                        });
+                    } else {
+                        userAttendances = {};
+                        allAttendances = {};
+                    }
+                } catch (e) {
+                    console.error('Erro ao parsear localStorage:', e);
+                    userAttendances = {};
+                    allAttendances = {};
+                }
+            }
+        }
+
+        // Salvar usuário no servidor
+        async function saveUserToServer(user) {
+            try {
+                const userId = user.name.toLowerCase().replace(/\s+/g, '');
+                await apiRequest('/api/users', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        id: userId,
+                        name: user.name,
+                        avatar: user.avatar
+                    })
+                });
+            } catch (error) {
+                console.error('Erro ao salvar usuário:', error);
+            }
+        }
         let userAttendances = JSON.parse(localStorage.getItem('userAttendances')) || {};
 
         function saveUserData() {
+            // Salvar no localStorage como backup
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            // Salvar no servidor
+            if (currentUser) {
+                saveUserToServer(currentUser);
+            }
             localStorage.setItem('userAttendances', JSON.stringify(userAttendances));
         }
 
@@ -975,17 +1096,29 @@
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserInterface();
+                // Sincronizar com servidor
+                saveUserToServer(currentUser);
             }
         }
 
         function updateUserInterface() {
             const loginBtn = document.getElementById('login-btn');
             const userInfo = document.getElementById('user-info');
-            
+
             if (currentUser) {
                 loginBtn.style.display = 'none';
                 userInfo.style.display = 'flex';
                 document.getElementById('user-name').textContent = currentUser.name;
+                const avatarImg = document.getElementById('user-avatar');
+                if (currentUser.avatar) {
+                    avatarImg.src = currentUser.avatar;
+                    avatarImg.onerror = function() {
+                        this.onerror = null;
+                        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
+                    };
+                } else {
+                    avatarImg.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
+                }
                 document.getElementById('user-avatar').src = currentUser.avatar || 'default-avatar.png';
                 document.getElementById('user-avatar').onerror = function() {
                     this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
@@ -1006,10 +1139,11 @@
             modal.classList.add('hidden');
         }
 
+        async function login() {
         function login() {
             const name = document.getElementById('login-name').value.trim();
             const avatarFile = document.getElementById('login-avatar').files[0];
-            
+
             if (!name) {
                 alert('Por favor, digite seu nome!');
                 return;
@@ -1018,23 +1152,27 @@
             let avatarUrl = 'default-avatar.png';
             if (avatarFile) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = async function(e) {
                     avatarUrl = e.target.result;
                     currentUser = { name, avatar: avatarUrl };
-                    saveUserData();
+                    await saveUserData();
                     updateUserInterface();
                     hideLoginModal();
                     // Limpar formulário
                     document.getElementById('login-name').value = '';
                     document.getElementById('login-avatar').value = '';
+                    // Recarregar presenças
+                    await loadAllAttendances();
                 };
                 reader.readAsDataURL(avatarFile);
             } else {
                 currentUser = { name, avatar: avatarUrl };
-                saveUserData();
+                await saveUserData();
                 updateUserInterface();
                 hideLoginModal();
                 document.getElementById('login-name').value = '';
+                // Recarregar presenças
+                await loadAllAttendances();
             }
         }
 
@@ -1044,37 +1182,79 @@
             updateUserInterface();
         }
 
+        async function toggleAttendance(showId) {
         function toggleAttendance(showId) {
             const targetShowId = showId || currentModalShowId;
             if (!targetShowId) return;
-            
+
             if (!currentUser) {
                 showLoginModal();
                 return;
             }
 
             const userId = currentUser.name.toLowerCase().replace(/\s+/g, '');
-            
+
+            try {
+                // Enviar para o servidor
+                const result = await apiRequest('/api/attendances', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        userId: userId,
+                        showId: targetShowId
+                    })
+                });
+
+                // Atualizar cache local
             if (!userAttendances[targetShowId]) {
                 userAttendances[targetShowId] = [];
             }
 
+                if (result.attending) {
+                    if (!userAttendances[targetShowId].includes(userId)) {
+                        userAttendances[targetShowId].push(userId);
+                    }
+                } else {
+                    const index = userAttendances[targetShowId].indexOf(userId);
+                    if (index > -1) {
+                        userAttendances[targetShowId].splice(index, 1);
+                    }
+                }
+
+                // Recarregar todas as presenças do servidor para ter dados atualizados
+                await loadAllAttendances();
+                updateShowAttendance(targetShowId);
+                
+                // Se o modal estiver aberto, atualizar a interface
+                if (currentModalShowId === targetShowId) {
+                    await updateModalAttendees(targetShowId);
+                }
+            } catch (error) {
+                console.error('Erro ao marcar presença:', error);
+                // Fallback para localStorage
+                if (!userAttendances[targetShowId]) {
+                    userAttendances[targetShowId] = [];
+                }
             const attendanceIndex = userAttendances[targetShowId].indexOf(userId);
             if (attendanceIndex > -1) {
                 userAttendances[targetShowId].splice(attendanceIndex, 1);
             } else {
                 userAttendances[targetShowId].push(userId);
             }
+                localStorage.setItem('userAttendances', JSON.stringify(userAttendances));
 
             saveUserData();
             updateShowAttendance(targetShowId);
-            
+            }
+        }
+
+        // Função para atualizar a lista de participantes no modal
+        async function updateModalAttendees(showId) {
             // Se o modal estiver aberto, atualizar a interface
-            if (currentModalShowId === targetShowId) {
+            if (currentModalShowId === showId) {
                 const attendBtn = document.getElementById('attend-btn');
                 const attendText = document.getElementById('attend-text');
-                const isAttending = getAttendanceStatus(targetShowId);
-                
+                const isAttending = getAttendanceStatus(showId);
+
                 if (isAttending) {
                     attendBtn.classList.add('active');
                     attendText.textContent = 'Confirmado! ✓';
@@ -1082,7 +1262,52 @@
                     attendBtn.classList.remove('active');
                     attendText.textContent = 'Marcar presença';
                 }
+
+            // Buscar presenças do servidor para este show
+            try {
+                const attendees = await apiRequest(`/api/attendances/show/${showId}`);
+                const attendeesGrid = document.getElementById('modal-attendees-grid');
+                if (!attendeesGrid) return;
                 
+                attendeesGrid.innerHTML = '';
+                
+                if (attendees && Array.isArray(attendees) && attendees.length > 0) {
+                    attendees.forEach(attendee => {
+                        if (!attendee) return;
+                        const name = attendee.name || attendee.userId || '?';
+                        const initial = name.charAt(0).toUpperCase();
+                        if (attendee.avatar) {
+                            attendeesGrid.innerHTML += `
+                                <div class="text-center">
+                                    <img src="${attendee.avatar}" 
+                                         class="w-20 h-20 rounded-full object-cover mx-auto border-3" 
+                                         style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);"
+                                         alt="${name}"
+                                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" 
+                                         style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue); display: none;">
+                                        ${initial}
+                                    </div>
+                                    <p class="mt-2 text-sm">${name}</p>
+                                </div>`;
+                        } else {
+                            attendeesGrid.innerHTML += `
+                                <div class="text-center">
+                                    <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
+                                        ${initial}
+                                    </div>
+                                    <p class="mt-2 text-sm">${name}</p>
+                                </div>`;
+                        }
+                    });
+                } else {
+                    attendeesGrid.innerHTML = `<p class="col-span-full text-center text-gray-400">Ninguém confirmado para este show ainda.</p>`;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar participantes:', error);
+                const attendeesGrid = document.getElementById('modal-attendees-grid');
+                if (attendeesGrid) {
+                    attendeesGrid.innerHTML = `<p class="col-span-full text-center text-gray-400">Erro ao carregar participantes.</p>`;
                 // Recarregar a lista de confirmados no modal
                 const allShows = [...scheduleThursday, ...scheduleFriday, ...scheduleSaturday, ...scheduleSunday, ...scheduleMonday, ...scheduleTuesday, ...scheduleWednesday];
                 const show = allShows.find(s => s.id === targetShowId);
@@ -1126,7 +1351,7 @@
             if (show) {
                 show.attendees = userAttendances[showId] || [];
             }
-            
+
             // Re-renderizar a agenda se estivermos nela
             if (!schedulePage.classList.contains('hidden')) {
                 let activeSchedule = scheduleThursday;
@@ -1144,6 +1369,13 @@
         function getAttendanceStatus(showId) {
             if (!currentUser) return false;
             const userId = currentUser.name.toLowerCase().replace(/\s+/g, '');
+            
+            // Verificar no allAttendances primeiro (dados do servidor)
+            if (allAttendances[showId] && Array.isArray(allAttendances[showId])) {
+                return allAttendances[showId].some(a => a.userId === userId);
+            }
+            
+            // Fallback para userAttendances (localStorage)
             return userAttendances[showId] && userAttendances[showId].includes(userId);
         }
 
@@ -1156,7 +1388,44 @@
         if(musicToggleBtn && backgroundMusic) {
             backgroundMusic.volume = 0.2;
             musicToggleBtn.innerHTML = playIcon;
+            
+            // Chrome requer interação do usuário antes de tocar áudio
+            let userInteracted = false;
+            
+            // Detectar primeira interação do usuário
+            const enableAudio = () => {
+                if (!userInteracted) {
+                    userInteracted = true;
+                    // Tentar tocar silenciosamente para "desbloquear" o áudio
+                    backgroundMusic.play().catch(err => {
+                        console.log('Áudio bloqueado até interação do usuário');
+                    });
+                    backgroundMusic.pause();
+                }
+            };
+            
+            // Adicionar listeners para detectar interação
+            ['click', 'touchstart', 'keydown'].forEach(event => {
+                document.addEventListener(event, enableAudio, { once: true });
+            });
 
+            musicToggleBtn.addEventListener('click', async () => {
+                enableAudio();
+                
+                try {
+                    if (backgroundMusic.paused) {
+                        await backgroundMusic.play();
+                        musicToggleBtn.innerHTML = pauseIcon;
+                    } else {
+                        backgroundMusic.pause();
+                        musicToggleBtn.innerHTML = playIcon;
+                    }
+                } catch (error) {
+                    console.error('Erro ao tocar música:', error);
+                    // Se falhar, mostrar mensagem ao usuário
+                    if (error.name === 'NotAllowedError') {
+                        alert('Por favor, clique em qualquer lugar da página primeiro para permitir o áudio.');
+                    }
             musicToggleBtn.addEventListener('click', () => {
                 if (backgroundMusic.paused) {
                     backgroundMusic.play();
@@ -1168,6 +1437,25 @@
             });
         }
 
+        window.onload = async () => {
+            try {
+                displayArtists(blocosData);
+                loadUserData();
+                
+                // Carregar todas as presenças do servidor
+                await loadAllAttendances();
+                
+                // Atualizar interface periodicamente (a cada 5 segundos)
+                setInterval(async () => {
+                    try {
+                        await loadAllAttendances();
+                    } catch (error) {
+                        console.error('Erro ao atualizar presenças:', error);
+                    }
+                }, 5000);
+            } catch (error) {
+                console.error('Erro ao inicializar:', error);
+            }
         window.onload = () => {
             displayArtists(blocosData);
             loadUserData();
