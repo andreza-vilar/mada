@@ -341,7 +341,7 @@
         <header class="text-center mb-8">
             <!-- Container flex para alinhar a logo e o título -->
             <div class="flex justify-center items-center gap-4">
-                <img src="bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
+                <img src="/bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
                 <h1 class="main-title text-5xl md:text-7xl tracking-tighter" data-text="Carnaval 2026 !">Carnaval 2026 !</h1>
             </div>
             <p class="text-lg font-bold mt-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎉 Nosso roteiro de blocos para o carnaval 🎉</p>
@@ -708,7 +708,6 @@
                         <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-40 object-cover" 
                              loading="lazy" 
                              onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmY3ZWI5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Q2FybmF2YWw8L3RleHQ+PC9zdmc+';">
-                        <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-40 object-cover">
                         <div class="p-3"><h3 class="font-bold text-lg truncate text-gray-100">${artist.name}</h3></div>
                     </div>
                 </div>`).join('');
@@ -1426,13 +1425,6 @@
                     if (error.name === 'NotAllowedError') {
                         alert('Por favor, clique em qualquer lugar da página primeiro para permitir o áudio.');
                     }
-            musicToggleBtn.addEventListener('click', () => {
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play();
-                    musicToggleBtn.innerHTML = pauseIcon;
-                } else {
-                    backgroundMusic.pause();
-                    musicToggleBtn.innerHTML = playIcon;
                 }
             });
         }
@@ -1441,6 +1433,11 @@
             try {
                 displayArtists(blocosData);
                 loadUserData();
+                
+                // Carregar participações salvas
+                Object.keys(userAttendances).forEach(showId => {
+                    updateShowAttendance(parseInt(showId));
+                });
                 
                 // Carregar todas as presenças do servidor
                 await loadAllAttendances();
@@ -1456,14 +1453,6 @@
             } catch (error) {
                 console.error('Erro ao inicializar:', error);
             }
-        window.onload = () => {
-            displayArtists(blocosData);
-            loadUserData();
-            
-            // Carregar participações salvas
-            Object.keys(userAttendances).forEach(showId => {
-                updateShowAttendance(parseInt(showId));
-            });
         };
     </script>
 </body>
