@@ -705,7 +705,9 @@
             artistGrid.innerHTML = artists.map(artist => `
                 <div class="artist-card-link cursor-pointer" data-artist-name="${artist.name}">
                     <div class="artist-card rounded-lg overflow-hidden group">
-                        <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-40 object-cover">
+                        <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-40 object-cover" 
+                             loading="lazy" 
+                             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmY3ZWI5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Q2FybmF2YWw8L3RleHQ+PC9zdmc+';">
                         <div class="p-3"><h3 class="font-bold text-lg truncate text-gray-100">${artist.name}</h3></div>
                     </div>
                 </div>`).join('');
@@ -714,7 +716,9 @@
         function createArtistDetailCard(artist) {
             return `
                 <div class="artist-card rounded-lg overflow-hidden group w-full" style="transform: none;">
-                    <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-auto object-cover">
+                    <img src="${artist.imageUrl}" alt="Foto de ${artist.name}" class="w-full h-auto object-cover" 
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmY3ZWI5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Q2FybmF2YWw8L3RleHQ+PC9zdmc+';">
                     <div class="p-3"><h3 class="font-bold text-lg text-gray-100">${artist.name}</h3></div>
                 </div>`;
         }
@@ -810,7 +814,13 @@
                 
                 const attendeesHTML = attendeesData.map(attendee => {
                     if (attendee.avatar) {
-                        return `<div class="attendee-bubble" style="background-image: url('${attendee.avatar}')" title="${attendee.name}" onerror="this.style.background='linear-gradient(135deg, var(--accent-yellow), var(--accent-red))'; this.innerHTML='${attendee.name.charAt(0).toUpperCase()}';"></div>`;
+                        // Usar img ao invés de background-image para melhor compatibilidade com Chrome
+                        return `<div class="attendee-bubble" title="${attendee.name}" style="position: relative; overflow: hidden;">
+                            <img src="${attendee.avatar}" 
+                                 alt="${attendee.name}" 
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, var(--accent-yellow), var(--accent-red))'; this.parentElement.innerHTML='${attendee.name.charAt(0).toUpperCase()}'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.fontSize='10px'; this.parentElement.style.fontWeight='bold'; this.parentElement.style.color='#000';">
+                        </div>`;
                     }
                     return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendee.name}">${attendee.name.charAt(0).toUpperCase()}</div>`;
                 }).join('');
@@ -943,21 +953,58 @@
         // Função auxiliar para fazer requisições
         async function apiRequest(endpoint, options = {}) {
             try {
+                // Criar AbortController para timeout (compatível com Chrome)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 segundos
+                
                 const response = await fetch(`${API_URL}${endpoint}`, {
                     ...options,
                     headers: {
                         'Content-Type': 'application/json',
                         ...options.headers
-                    }
+                    },
+                    credentials: 'omit',
+                    signal: controller.signal
                 });
                 
+                clearTimeout(timeoutId);
+                
                 if (!response.ok) {
-                    throw new Error(`Erro na API: ${response.statusText}`);
+                    let errorText = '';
+                    try {
+                        errorText = await response.text();
+                    } catch (e) {
+                        errorText = response.statusText;
+                    }
+                    console.error(`Erro na API ${response.status}:`, errorText);
+                    throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
                 }
                 
-                return await response.json();
+                const data = await response.json();
+                return data;
             } catch (error) {
                 console.error('Erro na requisição:', error);
+                
+                // Se for erro de timeout ou rede, tentar novamente uma vez
+                if (error.name === 'AbortError' || error.name === 'TypeError' || error.message.includes('Failed to fetch')) {
+                    console.log('Tentando novamente...');
+                    try {
+                        const retryResponse = await fetch(`${API_URL}${endpoint}`, {
+                            ...options,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                ...options.headers
+                            },
+                            credentials: 'omit'
+                        });
+                        if (retryResponse.ok) {
+                            return await retryResponse.json();
+                        }
+                    } catch (retryError) {
+                        console.error('Erro no retry:', retryError);
+                    }
+                }
+                
                 // Fallback para localStorage se a API não estiver disponível
                 if (endpoint.includes('/api/')) {
                     console.warn('API não disponível, usando localStorage como fallback');
@@ -969,11 +1016,21 @@
         // Carregar todas as presenças do servidor
         async function loadAllAttendances() {
             try {
-                allAttendances = await apiRequest('/api/attendances');
-                // Converter para o formato esperado pelo código existente
-                Object.keys(allAttendances).forEach(showId => {
-                    userAttendances[showId] = allAttendances[showId].map(a => a.userId);
-                });
+                const response = await apiRequest('/api/attendances');
+                
+                // Garantir que é um objeto
+                if (response && typeof response === 'object') {
+                    allAttendances = response;
+                    // Converter para o formato esperado pelo código existente
+                    Object.keys(allAttendances).forEach(showId => {
+                        if (Array.isArray(allAttendances[showId])) {
+                            userAttendances[showId] = allAttendances[showId].map(a => a.userId);
+                        }
+                    });
+                } else {
+                    allAttendances = {};
+                }
+                
                 // Atualizar interface
                 if (!schedulePage.classList.contains('hidden')) {
                     let activeSchedule = scheduleThursday;
@@ -989,7 +1046,29 @@
             } catch (error) {
                 console.error('Erro ao carregar presenças:', error);
                 // Fallback para localStorage
-                userAttendances = JSON.parse(localStorage.getItem('userAttendances')) || {};
+                const saved = localStorage.getItem('userAttendances');
+                if (saved) {
+                    try {
+                        userAttendances = JSON.parse(saved);
+                        // Tentar converter para formato de allAttendances
+                        Object.keys(userAttendances).forEach(showId => {
+                            if (Array.isArray(userAttendances[showId])) {
+                                allAttendances[showId] = userAttendances[showId].map(userId => ({
+                                    userId: userId,
+                                    name: userId,
+                                    avatar: null
+                                }));
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Erro ao parsear localStorage:', e);
+                        userAttendances = {};
+                        allAttendances = {};
+                    }
+                } else {
+                    userAttendances = {};
+                    allAttendances = {};
+                }
             }
         }
 
@@ -1037,10 +1116,16 @@
                 loginBtn.style.display = 'none';
                 userInfo.style.display = 'flex';
                 document.getElementById('user-name').textContent = currentUser.name;
-                document.getElementById('user-avatar').src = currentUser.avatar || 'default-avatar.png';
-                document.getElementById('user-avatar').onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
-                };
+                const avatarImg = document.getElementById('user-avatar');
+                if (currentUser.avatar) {
+                    avatarImg.src = currentUser.avatar;
+                    avatarImg.onerror = function() {
+                        this.onerror = null;
+                        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
+                    };
+                } else {
+                    avatarImg.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+';
+                }
             } else {
                 loginBtn.style.display = 'block';
                 userInfo.style.display = 'none';
@@ -1231,6 +1316,13 @@
         function getAttendanceStatus(showId) {
             if (!currentUser) return false;
             const userId = currentUser.name.toLowerCase().replace(/\s+/g, '');
+            
+            // Verificar no allAttendances primeiro (dados do servidor)
+            if (allAttendances[showId] && Array.isArray(allAttendances[showId])) {
+                return allAttendances[showId].some(a => a.userId === userId);
+            }
+            
+            // Fallback para userAttendances (localStorage)
             return userAttendances[showId] && userAttendances[showId].includes(userId);
         }
 
@@ -1243,14 +1335,44 @@
         if(musicToggleBtn && backgroundMusic) {
             backgroundMusic.volume = 0.2;
             musicToggleBtn.innerHTML = playIcon;
-
-            musicToggleBtn.addEventListener('click', () => {
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play();
-                    musicToggleBtn.innerHTML = pauseIcon;
-                } else {
+            
+            // Chrome requer interação do usuário antes de tocar áudio
+            let userInteracted = false;
+            
+            // Detectar primeira interação do usuário
+            const enableAudio = () => {
+                if (!userInteracted) {
+                    userInteracted = true;
+                    // Tentar tocar silenciosamente para "desbloquear" o áudio
+                    backgroundMusic.play().catch(err => {
+                        console.log('Áudio bloqueado até interação do usuário');
+                    });
                     backgroundMusic.pause();
-                    musicToggleBtn.innerHTML = playIcon;
+                }
+            };
+            
+            // Adicionar listeners para detectar interação
+            ['click', 'touchstart', 'keydown'].forEach(event => {
+                document.addEventListener(event, enableAudio, { once: true });
+            });
+
+            musicToggleBtn.addEventListener('click', async () => {
+                enableAudio();
+                
+                try {
+                    if (backgroundMusic.paused) {
+                        await backgroundMusic.play();
+                        musicToggleBtn.innerHTML = pauseIcon;
+                    } else {
+                        backgroundMusic.pause();
+                        musicToggleBtn.innerHTML = playIcon;
+                    }
+                } catch (error) {
+                    console.error('Erro ao tocar música:', error);
+                    // Se falhar, mostrar mensagem ao usuário
+                    if (error.name === 'NotAllowedError') {
+                        alert('Por favor, clique em qualquer lugar da página primeiro para permitir o áudio.');
+                    }
                 }
             });
         }
