@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatilho para música!</title>
+    <title>Carnaval 2026 !</title>
 
         <!-- FAVICON -->
-    <link rel="icon" type="image/gif" href="Gatilho.gif">
+    <link rel="icon" type="image/jpeg" href="mascara.jpg">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -15,109 +15,332 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Londrina+Solid:wght@400;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS GERAIS */
+        /* ESTILOS GERAIS - TEMA CARNAVAL RECIFE/OLINDA */
         :root {
-            --bg-color: #0d0d0d;
-            --card-bg: #1a1a1a;
-            --accent-pink: #ff7eb9;
-            --accent-purple: #9333ea;
-            --accent-blue: #38bdf8;
-            --accent-yellow: #F9F871;
-            --text-color: #f0f0f0;
+            --bg-color: #1a0d1a;
+            --card-bg: #2d1a2d;
+            --accent-yellow: #FFD700;
+            --accent-red: #FF1744;
+            --accent-blue: #0066FF;
+            --accent-green: #00FF88;
+            --accent-pink: #FF1493;
+            --accent-orange: #FF6B35;
+            --text-color: #ffffff;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            background-image: url('https://www.transparenttextures.com/patterns/subtle-grunge.png'),
-                              linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: auto, 30px 30px;
+            background: linear-gradient(135deg, #1a0d1a 0%, #2d1a2d 50%, #1a0d1a 100%);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 20, 147, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.05) 0%, transparent 50%);
+            background-size: 100% 100%;
             color: var(--text-color);
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Sombrinhas de Frevo animadas no background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20 L60 50 L50 80 L40 50 Z' fill='%23FFD700' opacity='0.2'/%3E%3Cpath d='M50 20 L55 35 L50 50 L45 35 Z' fill='%23FF1744' opacity='0.2'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20 L60 50 L50 80 L40 50 Z' fill='%230066FF' opacity='0.15'/%3E%3Cpath d='M50 20 L55 35 L50 50 L45 35 Z' fill='%23FF1493' opacity='0.15'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20 L60 50 L50 80 L40 50 Z' fill='%2300FF88' opacity='0.2'/%3E%3Cpath d='M50 20 L55 35 L50 50 L45 35 Z' fill='%23FF6B35' opacity='0.2'/%3E%3C/svg%3E");
+            background-size: 200px 200px, 150px 150px, 180px 180px;
+            background-position: 0 0, 100px 100px, 200px 50px;
+            animation: frevo-float 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes frevo-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(3deg); }
         }
 
         .main-title {
             font-family: 'Londrina Solid', cursive;
-            font-weight: 900; text-transform: uppercase; position: relative; color: var(--text-color);
+            font-weight: 900; 
+            text-transform: uppercase; 
+            position: relative; 
+            color: var(--accent-yellow);
+            text-shadow: 
+                3px 3px 0px var(--accent-red),
+                6px 6px 0px var(--accent-blue),
+                0 0 20px rgba(255, 215, 0, 0.5);
+            animation: title-pulse 2s ease-in-out infinite;
         }
         
-        @keyframes glitch-move { 0%, 100% { transform: translate(0, 0); } 10% { transform: translate(-3px, 3px); } 20% { transform: translate(4px, -2px); } 30% { transform: translate(-2px, 4px); } 40% { transform: translate(3px, -3px); } 50% { transform: translate(-4px, 2px); } 60% { transform: translate(2px, -4px); } 70% { transform: translate(-3px, 3px); } 80% { transform: translate(4px, -2px); } 90% { transform: translate(-2px, 4px); } }
-        .main-title::before, .main-title::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.9; }
-        .main-title::before { color: var(--accent-yellow); animation: glitch-move 1s infinite; }
-        .main-title::after { color: var(--accent-purple); animation: glitch-move 0.8s infinite reverse; }
+        @keyframes title-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes carnaval-shake { 
+            0%, 100% { transform: translate(0, 0) rotate(0deg); } 
+            10% { transform: translate(-2px, 2px) rotate(-1deg); } 
+            20% { transform: translate(2px, -2px) rotate(1deg); } 
+            30% { transform: translate(-2px, 2px) rotate(-1deg); } 
+            40% { transform: translate(2px, -2px) rotate(1deg); } 
+            50% { transform: translate(-2px, 2px) rotate(-1deg); } 
+            60% { transform: translate(2px, -2px) rotate(1deg); } 
+            70% { transform: translate(-2px, 2px) rotate(-1deg); } 
+            80% { transform: translate(2px, -2px) rotate(1deg); } 
+            90% { transform: translate(-2px, 2px) rotate(-1deg); } 
+        }
         
-        .filter-btn { font-family: 'Londrina Solid', cursive; font-size: 1.1rem; text-transform: uppercase; background-color: transparent; color: var(--text-color); border: 2px solid var(--accent-pink); border-radius: 8px; transition: all 0.2s ease-in-out; position: relative; }
-        .filter-btn:hover { transform: translateY(-2px); background-color: var(--accent-pink); color: #000; }
-        .filter-btn.active { background-color: var(--accent-pink); color: #000; }
+        .filter-btn { 
+            font-family: 'Londrina Solid', cursive; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            color: #000; 
+            border: 3px solid var(--accent-red); 
+            border-radius: 12px; 
+            transition: all 0.3s ease-in-out; 
+            position: relative;
+            box-shadow: 4px 4px 0px var(--accent-blue), 8px 8px 0px var(--accent-pink);
+            font-weight: bold;
+        }
+        .filter-btn:hover { 
+            transform: translateY(-3px) translateX(-3px); 
+            box-shadow: 6px 6px 0px var(--accent-blue), 12px 12px 0px var(--accent-pink);
+            animation: carnaval-shake 0.5s ease-in-out;
+        }
+        .filter-btn.active { 
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-pink));
+            color: #fff;
+            box-shadow: 4px 4px 0px var(--accent-yellow), 8px 8px 0px var(--accent-green);
+        }
 
         /* PÁGINA DE ARTISTAS */
-        .artist-card { background-color: var(--card-bg); border: 3px solid var(--accent-blue); box-shadow: 5px 5px 0px var(--accent-purple); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; transform: rotate(var(--rotation, 0deg)); }
-        .artist-card-link:hover .artist-card { transform: translateY(-10px) scale(1.08) rotate(0deg) !important; box-shadow: 10px 10px 0px var(--accent-yellow); z-index: 10; position: relative; }
+        .artist-card { 
+            background: linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.1)); 
+            border: 4px solid var(--accent-yellow); 
+            box-shadow: 
+                6px 6px 0px var(--accent-red),
+                12px 12px 0px var(--accent-blue);
+            transition: all 0.3s ease-out; 
+            transform: rotate(var(--rotation, 0deg));
+            position: relative;
+            overflow: hidden;
+        }
+        .artist-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: card-shine 3s ease-in-out infinite;
+        }
+        @keyframes card-shine {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+        .artist-card-link:hover .artist-card { 
+            transform: translateY(-15px) scale(1.1) rotate(0deg) !important; 
+            box-shadow: 
+                8px 8px 0px var(--accent-red),
+                16px 16px 0px var(--accent-blue),
+                24px 24px 0px var(--accent-green);
+            border-color: var(--accent-green);
+            z-index: 10; 
+            position: relative; 
+        }
         
         /* PÁGINA DE HORÁRIOS */
-        .schedule-page { background-color: rgba(13, 13, 13, 0.4); backdrop-filter: blur(5px); position: relative; }
+        .schedule-page { 
+            background: linear-gradient(135deg, rgba(26, 13, 26, 0.8), rgba(45, 26, 45, 0.8)); 
+            backdrop-filter: blur(10px); 
+            position: relative;
+            border: 3px solid var(--accent-yellow);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
         .schedule-grid { display: grid; grid-template-columns: 50px repeat(3, 1fr); grid-auto-rows: 25px; gap: 5px; }
-        .time-label { display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--accent-yellow); font-weight: bold; }
-        .stage-header { display: flex; align-items: center; justify-content: center; padding: 0.5rem; color: var(--bg-color); font-family: 'Anton', sans-serif; font-size: 1.2rem; text-align: center; font-weight: bold; }
-        .show-card { padding: 8px; overflow: hidden; position: relative; color: white; border-radius: 4px; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
-        .show-card:hover { transform: scale(1.02); z-index: 10; }
+        .time-label { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.7rem; 
+            color: var(--accent-yellow); 
+            font-weight: bold;
+            text-shadow: 2px 2px 0px var(--accent-red);
+        }
+        .stage-header { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 0.5rem; 
+            color: #000; 
+            font-family: 'Anton', sans-serif; 
+            font-size: 1.2rem; 
+            text-align: center; 
+            font-weight: bold;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+        }
+        .show-card { 
+            padding: 8px; 
+            overflow: hidden; 
+            position: relative; 
+            color: white; 
+            border-radius: 6px; 
+            transition: all 0.3s ease; 
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+        }
+        .show-card:hover { 
+            transform: scale(1.05) translateY(-2px); 
+            z-index: 10;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.5), 0 0 20px rgba(255, 215, 0, 0.5);
+        }
         .attendees-container { position: absolute; bottom: 4px; right: 4px; display: flex; flex-direction: row-reverse; }
-        .attendee-bubble { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; background-size: cover; background-position: center; box-shadow: 0 0 5px black; margin-left: -12px; }
-        .day-toggle-btn { font-family: 'Anton', sans-serif; font-size: 1.5rem; background-color: #333; color: #888; padding: 0.5rem 1.5rem; transition: all 0.2s ease; }
-        .day-toggle-btn.active { background-color: var(--accent-yellow); color: var(--bg-color); }
-        .time-separator { grid-column: 1 / -1; border-bottom: 1px solid rgba(255, 255, 255, 0.1); pointer-events: none; }
+        .attendee-bubble { 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 50%; 
+            border: 2px solid var(--accent-yellow); 
+            background-size: cover; 
+            background-position: center; 
+            box-shadow: 0 0 8px var(--accent-red); 
+            margin-left: -12px; 
+        }
+        .day-toggle-btn { 
+            font-family: 'Anton', sans-serif; 
+            font-size: 1.5rem; 
+            background: linear-gradient(135deg, #444, #222); 
+            color: #aaa; 
+            padding: 0.5rem 1.5rem; 
+            transition: all 0.3s ease;
+            border: 3px solid #666;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+        }
+        .day-toggle-btn.active { 
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange)); 
+            color: #000;
+            border-color: var(--accent-red);
+            box-shadow: 4px 4px 0px var(--accent-red);
+            font-weight: bold;
+        }
+        .time-separator { grid-column: 1 / -1; border-bottom: 2px dashed rgba(255, 215, 0, 0.3); pointer-events: none; }
 
         /* MODAL / POP-UP */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 40; display: flex; justify-content: center; align-items: center; }
-        .modal-content { background-color: var(--card-bg); border: 2px solid var(--accent-yellow); padding: 2rem; border-radius: 8px; max-width: 90%; width: 500px; position: relative; }
-        .modal-close-btn { position: absolute; top: -15px; right: -15px; background: var(--accent-yellow); color: var(--bg-color); border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; border: 2px solid var(--bg-color); }
+        .modal-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(135deg, rgba(26, 13, 26, 0.9), rgba(45, 26, 45, 0.9)); 
+            backdrop-filter: blur(10px); 
+            z-index: 40; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        .modal-content { 
+            background: linear-gradient(135deg, var(--card-bg), rgba(255, 215, 0, 0.1)); 
+            border: 4px solid var(--accent-yellow); 
+            padding: 2rem; 
+            border-radius: 16px; 
+            max-width: 90%; 
+            width: 500px; 
+            position: relative;
+            box-shadow: 
+                8px 8px 0px var(--accent-red),
+                16px 16px 0px var(--accent-blue),
+                0 0 40px rgba(255, 215, 0, 0.4);
+        }
+        .modal-close-btn { 
+            position: absolute; 
+            top: -15px; 
+            right: -15px; 
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-pink)); 
+            color: #fff; 
+            border-radius: 50%; 
+            width: 35px; 
+            height: 35px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border: 3px solid var(--accent-yellow);
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
 
         /* Estilo para o botão de música */
         .music-toggle {
             position: fixed;
             bottom: 1.5rem;
             right: 1.5rem;
-            width: 3.5rem;
-            height: 3.5rem;
-            background-color: var(--accent-pink);
-            border: 3px solid var(--text-color);
-            border-radius: 9999px;
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            border: 4px solid var(--accent-red);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 4px 4px 0px var(--accent-purple);
-            transition: all 0.2s ease-in-out;
+            box-shadow: 
+                4px 4px 0px var(--accent-blue),
+                8px 8px 0px var(--accent-green);
+            transition: all 0.3s ease-in-out;
             z-index: 100;
+            animation: music-pulse 2s ease-in-out infinite;
+        }
+        @keyframes music-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         .music-toggle:hover {
-            transform: translateY(-2px) translateX(-2px);
-            box-shadow: 6px 6px 0px var(--accent-purple);
+            transform: translateY(-4px) translateX(-4px) scale(1.1);
+            box-shadow: 
+                6px 6px 0px var(--accent-blue),
+                12px 12px 0px var(--accent-green),
+                0 0 30px rgba(255, 215, 0, 0.6);
+            animation: none;
         }
         .music-toggle svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            fill: var(--text-color);
+            width: 1.8rem;
+            height: 1.8rem;
+            fill: #000;
+            filter: drop-shadow(2px 2px 0px rgba(255,255,255,0.5));
         }
 
     </style>
 </head>
 <body class="pb-16">
 
-    <div class="container mx-auto p-4 md:p-8">
+    <div class="container mx-auto p-4 md:p-8" style="position: relative; z-index: 1;">
         
         <header class="text-center mb-8">
             <!-- Container flex para alinhar a logo e o título -->
             <div class="flex justify-center items-center gap-4">
-                <img src="Gatilho-logo.gif" alt="Logo Gatilho" class="h-16 md:h-20">
-                <h1 class="main-title text-5xl md:text-7xl tracking-tighter" data-text="Gatilho para música!">Gatilho para música!</h1>
+                <img src="bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
+                <h1 class="main-title text-5xl md:text-7xl tracking-tighter" data-text="Carnaval 2026 !">Carnaval 2026 !</h1>
             </div>
-            <p class="text-lg text-gray-300 font-bold mt-2">Nosso roteiro de shows para o MADA</p>
+            <p class="text-lg font-bold mt-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎉 Nosso roteiro de blocos para o carnaval 🎉</p>
         </header>
         
-        <nav class="flex justify-center gap-4 mb-8">
-            <button id="view-artists-btn" class="filter-btn active px-6 py-2">Artistas</button>
+            <nav class="flex justify-center gap-4 mb-8">
+            <button id="view-artists-btn" class="filter-btn active px-6 py-2">Blocos</button>
             <button id="view-schedule-btn" class="filter-btn px-6 py-2">Horários</button>
         </nav>
 
@@ -131,9 +354,9 @@
             </button>
             
             <div id="user-info" class="hidden items-center gap-3">
-                <img id="user-avatar" src="" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-pink-400">
-                <span id="user-name" class="text-white font-bold"></span>
-                <button onclick="logout()" class="text-gray-400 hover:text-white text-sm">Sair</button>
+                <img id="user-avatar" src="" alt="Avatar" class="w-10 h-10 rounded-full border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 10px var(--accent-red);">
+                <span id="user-name" class="text-white font-bold" style="text-shadow: 2px 2px 0px var(--accent-red);"></span>
+                <button onclick="logout()" class="text-yellow-300 hover:text-yellow-100 text-sm font-bold" style="text-shadow: 1px 1px 0px var(--accent-red);">Sair</button>
             </div>
         </div>
 
@@ -145,9 +368,14 @@
                 </main>
             </div>
             <div id="schedule-page" class="hidden schedule-page p-4 rounded-lg">
-                <nav class="flex justify-center gap-1 my-4">
-                    <button id="day-friday-btn" class="day-toggle-btn">Sexta</button>
-                    <button id="day-saturday-btn" class="day-toggle-btn">Sábado</button>
+                <nav class="flex justify-center gap-1 my-4 flex-wrap">
+                    <button id="day-thursday-btn" class="day-toggle-btn">Quinta (12/02)</button>
+                    <button id="day-friday-btn" class="day-toggle-btn">Sexta (13/02)</button>
+                    <button id="day-saturday-btn" class="day-toggle-btn">Sábado (14/02)</button>
+                    <button id="day-sunday-btn" class="day-toggle-btn">Domingo (15/02)</button>
+                    <button id="day-monday-btn" class="day-toggle-btn">Segunda (16/02)</button>
+                    <button id="day-tuesday-btn" class="day-toggle-btn">Terça (17/02)</button>
+                    <button id="day-wednesday-btn" class="day-toggle-btn">Quarta (15/02)</button>
                 </nav>
                 <div id="schedule-grid-container" class="schedule-grid">
                     <!-- Agenda de horários -->
@@ -161,8 +389,8 @@
             <div class="flex flex-col md:flex-row gap-8">
                 <div id="detail-card-container" class="w-full md:w-1/3"></div>
                 <div class="w-full md:w-2/3">
-                    <h2 id="detail-artist-name" class="text-4xl font-bold font-['Londrina_Solid'] text-[var(--accent-yellow)]"></h2>
-                    <p id="detail-artist-notes" class="text-gray-300 whitespace-pre-wrap mt-4"></p>
+                    <h2 id="detail-artist-name" class="text-4xl font-bold font-['Londrina_Solid']" style="color: var(--accent-yellow); text-shadow: 3px 3px 0px var(--accent-red), 6px 6px 0px var(--accent-blue);"></h2>
+                    <p id="detail-artist-notes" class="text-gray-200 whitespace-pre-wrap mt-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);"></p>
                 </div>
             </div>
         </div>
@@ -174,7 +402,8 @@
         <div class="modal-content">
             <button id="modal-close-btn" class="modal-close-btn">X</button>
             <h2 id="modal-artist-name" class="text-3xl font-bold font-['Londrina_Solid'] text-white"></h2>
-            <p id="modal-show-time" class="text-lg text-gray-400 mb-4"></p>
+            <p id="modal-show-time" class="text-lg text-gray-400 mb-2"></p>
+            <p id="modal-show-local" class="text-md text-yellow-300 mb-4"></p>
             
             <!-- Botão para marcar presença -->
             <div class="mb-4">
@@ -186,7 +415,7 @@
                 </button>
             </div>
             
-            <h3 class="font-bold text-xl text-yellow-300 mb-2">Confirmades:</h3>
+            <h3 class="font-bold text-xl mb-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎊 Confirmades: 🎊</h3>
             <div id="modal-attendees-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4">
                 <!-- Fotos dos amigos aqui -->
             </div>
@@ -197,19 +426,19 @@
     <div id="login-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <button onclick="hideLoginModal()" class="modal-close-btn">X</button>
-            <h2 class="text-3xl font-bold font-['Londrina_Solid'] text-white mb-6">Entrar no Gatilho</h2>
+            <h2 class="text-3xl font-bold font-['Londrina_Solid'] mb-6" style="color: var(--accent-yellow); text-shadow: 3px 3px 0px var(--accent-red);">🎉 Entrar no Bloco 🎉</h2>
             
             <form onsubmit="event.preventDefault(); login();">
                 <div class="mb-4">
                     <label for="login-name" class="block text-white font-bold mb-2">Seu nome:</label>
                     <input type="text" id="login-name" placeholder="Digite seu nome" required
-                           class="w-full px-4 py-2 bg-gray-800 border border-pink-400 rounded-lg text-white focus:outline-none focus:border-yellow-300">
+                           class="w-full px-4 py-2 bg-gray-800 border-2 rounded-lg text-white focus:outline-none focus:border-red-500" style="border-color: var(--accent-yellow);">
                 </div>
                 
                 <div class="mb-6">
                     <label for="login-avatar" class="block text-white font-bold mb-2">Foto de perfil (opcional):</label>
                     <input type="file" id="login-avatar" accept="image/*"
-                           class="w-full px-4 py-2 bg-gray-800 border border-pink-400 rounded-lg text-white focus:outline-none focus:border-yellow-300">
+                           class="w-full px-4 py-2 bg-gray-800 border-2 rounded-lg text-white focus:outline-none focus:border-red-500" style="border-color: var(--accent-yellow);">
                 </div>
                 
                 <button type="submit" class="filter-btn px-6 py-3 w-full text-lg">
@@ -221,7 +450,7 @@
 
     <!-- Player de Música -->
     <audio id="background-music" loop>
-        <source src="Tem Que Ter House - Taj Ma House.mp3" type="audio/mpeg">
+        <source src="volteiRecife.mp3" type="audio/mpeg">
     </audio>
     <button id="music-toggle-btn" class="music-toggle" aria-label="Tocar música">
         <!-- Ícone de Play/Pause será inserido aqui pelo JavaScript -->
@@ -233,73 +462,142 @@
         // Lista de amigos removida - agora apenas usuários dinâmicos
         const friends = [];
         
+        // Schedules organizados por dia da semana - usando horários de concentração como start
+        const scheduleThursday = [
+            { id: 1, artist: "Escuta Levino", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
+            { id: 2, artist: "Me Mostro Teu Mapa Astral", stage: 1, start: "18:00", end: "20:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
+            { id: 3, artist: "Elefante de Olinda", stage: 2, start: "16:00", end: "17:00", attendees: [], local: "Largo do Bonsucesso - Sede do Homem", cidade: "Olinda" },
+            { id: 4, artist: "Afojubá Batuque", stage: 1, start: "16:00", end: "17:00", attendees: [], local: "Avenida Marquês de Olinda", cidade: "Recife" },
+            { id: 5, artist: "Shortinho Torano", stage: 1, start: "20:00", end: "21:00", attendees: [], local: "Rua do Apolo, 174", cidade: "Recife" },
+        ];
         const scheduleFriday = [
-            { id: 101, artist: "Dani Cruz", stage: 2, start: "19:40", end: "20:20", attendees: [] },
-            { id: 102, artist: "Jadsa", stage: 3, start: "20:00", end: "21:00", attendees: [] },
-            { id: 103, artist: "Melly", stage: 1, start: "20:30", end: "21:20", attendees: [] },
-            { id: 104, artist: "Tinoc", stage: 3, start: "21:15", end: "22:15", attendees: [] },
-            { id: 105, artist: "Boogarins", stage: 2, start: "21:30", end: "22:20", attendees: [] },
-            { id: 106, artist: "MC RB KBLZ (Convida Mika)", stage: 3, start: "22:30", end: "23:30", attendees: [] },
-            { id: 107, artist: "Marina Sena", stage: 1, start: "22:30", end: "23:30", attendees: [] },
-            { id: 108, artist: "Afreekassia (DJ Set)", stage: 3, start: "23:30", end: "00:30", attendees: [] },
-            { id: 109, artist: "Dominguinho, João Gomes, Mestrinho e Jotapê", stage: 2, start: "23:40", end: "01:10", attendees: [] },
-            { id: 110, artist: "Bateu Pode Comemorar", stage: 3, start: "00:30", end: "01:30", attendees: [] },
-            { id: 111, artist: "Don L", stage: 1, start: "01:20", end: "02:20", attendees: [] },
-            { id: 112, artist: "D.Silvestre", stage: 3, start: "01:30", end: "02:30", attendees: [] },
-            { id: 113, artist: "Febem", stage: 3, start: "02:45", end: "03:45", attendees: [] },
-            { id: 114, artist: "Kenya20hz", stage: 3, start: "04:00", end: "05:00", attendees: [] },
-            { id: 115, artist: "Jennify C (Convida Casixtranha)", stage: 3, start: "05:00", end: "06:00", attendees: [] },
+            { id: 101, artist: "Arrastão do Maestro Óseas", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Bar do Ró", cidade: "Olinda" },
+            { id: 102, artist: "Abduzidos", stage: 2, start: "16:30", end: "17:30", attendees: [], local: "Casa Nola", cidade: "Olinda" },
+            { id: 103, artist: "Segura o Tonho, Charlie Brow", stage: 1, start: "17:00", end: "19:30", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
+            { id: 104, artist: "Nem Sempre Lily Toca Flauta", stage: 1, start: "17:00", end: "19:00", attendees: [], local: "Pátio Santa Cruz", cidade: "Recife" },
+            { id: 105, artist: "Mulher do Dia", stage: 2, start: "17:00", end: "18:00", attendees: [], local: "Bar do Ró", cidade: "Olinda" },
+            { id: 106, artist: "Caraca Moleque", stage: 2, start: "17:00", end: "18:00", attendees: [], local: "Centro Luiz Freire", cidade: "Olinda" },
+            { id: 107, artist: "Traquinos em Folia", stage: 2, start: "18:30", end: "19:30", attendees: [], local: "Sede da Pitombeira", cidade: "Olinda" },
+            { id: 108, artist: "Batuques de Pernambuco", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
+            { id: 109, artist: "Me Solta, Carail", stage: 2, start: "20:00", end: "21:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 110, artist: "Du Nada a Gente Sai", stage: 2, start: "19:00", end: "21:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 111, artist: "La Ursa do Bonfim", stage: 2, start: "17:00", end: "22:00", attendees: [], local: "Clube Cariri", cidade: "Olinda" },
+            { id: 112, artist: "Frevo e Folia", stage: 2, start: "18:30", end: "22:00", attendees: [], local: "Vassourinhas de Olinda - Largo do Amparo", cidade: "Olinda" },
+            { id: 113, artist: "O Lord de Olinda", stage: 2, start: "18:00", end: "23:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
         ];
         const scheduleSaturday = [
-            { id: 201, artist: "Guto Brant", stage: 2, start: "19:50", end: "20:30", attendees: [] },
-            { id: 202, artist: "O Cheiro do Queijo", stage: 3, start: "20:00", end: "21:00", attendees: [] },
-            { id: 203, artist: "Sourebel", stage: 1, start: "20:40", end: "21:20", attendees: [] },
-            { id: 204, artist: "Edgar", stage: 3, start: "21:15", end: "22:15", attendees: [] },
-            { id: 205, artist: "Potyguara Bardo", stage: 2, start: "21:30", end: "22:10", attendees: [] },
-            { id: 206, artist: "Val Pescador", stage: 3, start: "22:15", end: "23:15", attendees: [] },
-            { id: 207, artist: "Rachel Reis", stage: 1, start: "22:20", end: "23:20", attendees: [] },
-            { id: 208, artist: "Taj Ma House", stage: 3, start: "23:30", end: "00:30", attendees: [] },
-            { id: 209, artist: "BaianaSystem", stage: 2, start: "23:30", end: "00:50", attendees: [] },
-            { id: 210, artist: "Seed Selector", stage: 3, start: "00:30", end: "01:30", attendees: [] },
-            { id: 211, artist: "Liniker", stage: 1, start: "01:10", end: "02:20", attendees: [] },
-            { id: 212, artist: "Brisa", stage: 3, start: "01:30", end: "02:30", attendees: [] },
-            { id: 213, artist: "Mano Brown", stage: 2, start: "02:30", end: "03:30", attendees: [] },
-            { id: 214, artist: "Katy da Voz e as Abusadas", stage: 3, start: "02:45", end: "03:35", attendees: [] },
-            { id: 215, artist: "Irmãs de Pau", stage: 3, start: "03:50", end: "04:40", attendees: [] },
-            { id: 216, artist: "Aya Ibeji", stage: 3, start: "04:40", end: "06:00", attendees: [] },
+            { id: 201, artist: "Galo da Madrugada", stage: 1, start: "04:00", end: "09:00", attendees: [], local: "Praça Sérgio Lôreto", cidade: "Recife" },
+            { id: 202, artist: "Pinto do galo da Madrugada", stage: 1, start: "05:45", end: "06:45", attendees: [], local: "Praça do Marco Zero", cidade: "Recife" },
+            { id: 203, artist: "Galinha d'Água", stage: 1, start: "07:00", end: "08:00", attendees: [], local: "Rio Capibaribe", cidade: "Recife" },
+            { id: 204, artist: "Sibito Baleado", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua Coronel Joaquim Cavalcanti, 201", cidade: "Olinda" },
+            { id: 205, artist: "O Urso Cascudo do Amparo", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 206, artist: "Eu Acho é Pouco", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "A confirmar", cidade: "Olinda" },
+            { id: 207, artist: "Bloco Mangue Beat", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
+            { id: 208, artist: "Bloco do Frei", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Cruzeiro do Convento de São Francisco", cidade: "Olinda" },
+            { id: 209, artist: "Maracatu Kangoma", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo, 236", cidade: "Olinda" },
+            { id: 210, artist: "Patusquinho", stage: 1, start: "09:00", end: "09:59", attendees: [], local: "Pátio São Pedro", cidade: "Recife" },
+            { id: 211, artist: "Tambores D'Saia", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça de São Pedro", cidade: "Olinda" },
+            { id: 212, artist: "Soul Delas", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
+            { id: 213, artist: "Urso Congelado", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Açaí do Carmo, 5", cidade: "Olinda" },
+            { id: 214, artist: "Pife Floyd", stage: 2, start: "10:00", end: "12:00", attendees: [], local: "Travessa de São Francisco, 206", cidade: "Olinda" },
+            { id: 215, artist: "Sombatuki", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 216, artist: "Fique na Sombra", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Rua da Boa Hora, 177", cidade: "Olinda" },
+            { id: 217, artist: "Batucada Atômica", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Avenida 10 de Novembro", cidade: "Olinda" },
         ];
-        const artistsData = [
-            { name: "Dominguinho, João Gomes, Mestrinho e Jotapê", imageUrl: "artistas/dominguinho.jpg", details: "Uma homenagem emocionante ao mestre Dominguinho, reunindo gigantes de diferentes gerações do forró. João Gomes, fenômeno do piseiro, se junta à sanfona virtuosa de Mestrinho e ao talento de Jotapê para celebrar um dos maiores legados da música brasileira. O que esperar do show no MADA? Uma noite de muita nostalgia, clássicos inesquecíveis e a energia contagiante do forró para dançar do começo ao fim." },
-            { name: "Mano Brown", imageUrl: "artistas/mano.jpg", details: "Um dos pilares do rap nacional e líder dos Racionais MC's, Mano Brown é uma voz fundamental na cultura brasileira há mais de 30 anos. Em sua carreira solo, explorou o soul e o funk no aclamado álbum 'Boogie Naipe'. Seus shows são eventos catárticos, carregados de crítica social e poesia urbana. O que esperar do show no MADA? Uma aula de história do hip-hop, com rimas afiadas e a presença de palco imponente de uma verdadeira lenda." },
-            { name: "Liniker", imageUrl: "artistas/liniker.jpg", details: "Dona de uma das vozes mais potentes e emocionantes da música brasileira contemporânea, Liniker se consolidou como uma artista essencial. Após o sucesso com os Caramelows, sua carreira solo decolou com o premiado álbum 'Indigo Borboleta Anil', vencedor do Grammy Latino. O que esperar do show no MADA? Uma performance arrebatadora, cheia de soul, jazz e MPB, onde cada música é entregue com uma intensidade que promete tocar a alma." },
-            { name: "Marina Sena", imageUrl: "artistas/marina.jpg", details: "Marina Sena surgiu como um furacão no pop nacional. Desde o sucesso estrondoso de 'De Primeira' (2021), com o hit 'Por Supuesto', ela se firmou como uma das maiores hitmakers do país. Seu trabalho mais recente, 'Vício Inerente' (2023), mergulha em sonoridades do trap e da música eletrônica. O que esperar do show no MADA? Muita dança, sensualidade e uma energia contagiante. Prepare-se para cantar todos os sucessos em coro com uma das performers mais magnéticas da atualidade." },
-            { name: "BaianaSystem", imageUrl: "artistas/baiana.jpg", details: "Mais do que uma banda, o BaianaSystem é um movimento. O coletivo soteropolitano é famoso por seus shows que são verdadeiros carnavais, misturando a guitarra baiana, sound system e ritmos afro-brasileiros. Suas apresentações são experiências imersivas e políticas, que convidam o público a dançar e refletir. O que esperar do show no MADA? Uma explosão sonora e visual. Um convite para pular, suar e sentir a força da música que pulsa direto da Bahia." },
-            { name: "Don L", imageUrl: "artistas/donl.jpg", details: "Vindo de Fortaleza, Don L é aclamado como um dos letristas mais brilhantes e complexos do rap brasileiro. Seus álbuns, como a saga 'Roteiro pra Aïnouz', são obras conceituais que narram histórias densas sobre a realidade do país. Sua sonoridade é cinematográfica e envolvente. O que esperar do show no MADA? Uma imersão profunda em suas narrativas, com rimas afiadas e uma atmosfera que prende a atenção. É um show para ouvir, sentir e pensar." },
-            { name: "Rachel Reis", imageUrl: "artistas/rachel.jpg", details: "Diretamente da Bahia, Rachel Reis conquistou o Brasil com seu som solar e dançante. Com o álbum de estreia 'Meu Esquema' (2022) e o hit 'Maresia', ela mostrou a força de sua mistura de pop, MPB e ritmos afro-diaspóricos. Sua música é leve, contagiante e cheia de brasilidade. O que esperar do show no MADA? Um show para cima, para dançar e se apaixonar. A vibe perfeita para curtir o clima do festival." },
-            { name: "Melly", imageUrl: "artistas/melly.jpg", details: "Uma das vozes mais promissoras da nova geração, Melly une R&B, jazz e MPB de forma sofisticada e autêntica. A cantora e compositora baiana ganhou destaque com o EP 'AZUL' e vem solidificando seu espaço com singles que mostram sua versatilidade e talento vocal. O que esperar do show no MADA? Um momento de pura musicalidade, com uma performance vocal impecável e um som que acalma e envolve. Perfeito para quem aprecia a boa música." },
-            { name: "Febem", imageUrl: "artistas/febem.jpg", details: "Integrante do coletivo Ceia Ent., Febem é um dos nomes mais fortes do rap paulista. Seu estilo é cru e direto, com flows marcantes sobre beats que flertam com o grime e o funk. Seu álbum 'Jovem OG' foi aclamado pela crítica e pelo público. O que esperar do show no MADA? Uma apresentação com a energia pulsante das ruas de São Paulo, cheia de atitude e com batidas pesadas que vão fazer o chão tremer." },
-            { name: "Irmãs de Pau", imageUrl: "artistas/irmas.jpg", details: "Formada por Isma Almeida e Vita Pereira, a dupla Irmãs de Pau é uma força da natureza. Elas misturam funk, música eletrônica e muita performance para criar um espetáculo que é ao mesmo tempo festa e manifesto. Suas letras afiadas abordam suas vivências como artistas negras e travestis. O que esperar do show no MADA? Um show inesquecível, performático, político e feito para dançar sem limites. É a atitude que o festival precisa." },
-            { name: "Jadsa", imageUrl: "artistas/jadsa.jpg", details: "Cantora, compositora e guitarrista de mão cheia, a baiana Jadsa traz em seu som uma fusão única de indie rock, MPB e a vanguarda paulistana. Seu álbum de estreia, 'Olho de Vidro', revela uma artista de personalidade, com arranjos surpreendentes e uma guitarra que é protagonista. O que esperar do show no MADA? Uma apresentação autêntica, com a força de sua guitarra e canções que fogem do óbvio. Ideal para quem gosta de ser surpreendido." },
-            { name: "Edgar", imageUrl: "artistas/edgar.jpg", details: "Edgar é um artista multimídia que usa o rap como ferramenta para criar universos distópicos e tecer críticas afiadas sobre a sociedade e a tecnologia. Com uma estética cyberpunk e beats experimentais, como vistos no álbum 'Ultraleve', seu trabalho é denso e provocador. O que esperar do show no MADA? Uma performance que transcende a música, com um som industrial, letras velozes e um forte impacto visual. Uma experiência sonora e conceitual." },
-            { name: "Boogarins", imageUrl: "artistas/boogarins.jpg", details: "De Goiânia para o mundo, Boogarins é uma das bandas brasileiras de maior destaque internacional na cena do rock psicodélico. Com um som denso, guitarras viajantes e letras em português, eles criam atmosferas imersivas que hipnotizam o público. Seus shows são conhecidos pela entrega e pelos longos improvisos. O que esperar do show no MADA? Uma viagem sonora. Prepare-se para fechar os olhos e ser levado pelas ondas de som psicodélico da banda." },
-            { name: "Afreekassia (DJ Set)", imageUrl: "artistas/afreekassia.jpg", details: "A DJ e pesquisadora musical Afreekassia é conhecida por seus sets vibrantes que celebram a diversidade da música negra pelo mundo. Espere ouvir de tudo um pouco, desde raridades do afrobeat e do soul até as batidas mais quentes do funk e do R&B contemporâneo. O que esperar do show no MADA? Uma pista de dança sem fronteiras, com muita energia e a certeza de descobrir novos sons incríveis. É para dançar do começo ao fim." },
-            { name: "D.Silvestre", imageUrl: "artistas/dsilvestre.jpg", details: "Figura importante na cena eletrônica, D.Silvestre é um DJ e produtor que transita por diversas vertentes, do house ao techno, sempre com um toque brasileiro. Seus sets são construídos com técnica e bom gosto, criando a atmosfera perfeita para a pista. O que esperar do show no MADA? Uma seleção musical impecável para quem ama música eletrônica, com batidas que vão crescendo e envolvendo a todos." },
-            { name: "Katy da Voz e as Abusadas", imageUrl: "artistas/katy.jpg", details: "Diretamente de Natal, Katy da Voz e as Abusadas são a representação máxima da força do brega funk potiguar. Com um show feito para o público dançar, elas trazem a energia contagiante do ritmo que domina as periferias do Nordeste. O que esperar do show no MADA? Muita coreografia, batidas envolventes e a energia lá em cima. É o show perfeito para se jogar na dança sem medo." },
-            { name: "Potyguara Bardo", imageUrl: "artistas/potyguara.jpg", details: "Jogando em casa, a artista potiguar Potyguara Bardo é um fenômeno da música pop e da arte drag. Com o aclamado álbum 'Simulacre', ela consolidou seu nome na cena nacional com hits que misturam pop, eletrônico e ritmos regionais. Sua presença de palco é magnética. O que esperar do show no MADA? Uma mega produção, com balé, figurinos icônicos e todos os hits para cantar bem alto. Será um dos pontos altos do festival." },
-            { name: "Guto Brant", imageUrl: "artistas/guto.jpg", details: "O cantor e compositor mineiro Guto Brant traz um som que dialoga entre a MPB e o rock alternativo. Suas letras são poéticas e existenciais, musicadas por arranjos que criam uma atmosfera densa e introspectiva. O que esperar do show no MADA? Um momento de imersão e poesia. Um show para quem gosta de música com conteúdo e sentimento, para ouvir e refletir." },
-            { name: "Taj Ma House", imageUrl: "artistas/taj.jpg", details: "Taj Ma House é um projeto de música eletrônica que fusiona batidas do house com influências de diversas partes do mundo, criando uma sonoridade global e dançante. É um som feito para a pista, que conecta diferentes culturas através da música. O que esperar do show no MADA? Um set para dançar e viajar por diferentes paisagens sonoras, perfeito para curtir a madrugada do festival." },
-            { name: "Kenya20hz", imageUrl: "artistas/kenya.jpg", details: "DJ e produtora da cena de Belo Horizonte, Kenya20hz é conhecida por seus sets potentes que exploram o funk em suas mais variadas formas, do 150 BPM ao proibidão, mesclando com outras batidas da música eletrônica periférica. O que esperar do show no MADA? Uma pista de dança quente e sem descanso. Prepare-se para o grave batendo forte e muita energia." },
-            { name: "MC RB KBLZ (Convida Mika)", imageUrl: "artistas/rb.jpg", details: "Representante da cena do funk e do trap local, MC RB KBLZ se junta à cantora Mika para uma apresentação especial. A união promete misturar as rimas diretas do MC com a voz potente de Mika, criando uma nova sonoridade. O que esperar do show no MADA? A força da nova cena musical de Natal, com a energia do funk e a colaboração de dois talentos locais." },
-            { name: "Bateu Pode Comemorar", imageUrl: "artistas/bateu.jpg", details: "Um coletivo de percussão que leva a energia contagiante dos blocos de carnaval de rua para o palco. Com um repertório que vai de clássicos do axé a hits do pop, eles transformam qualquer lugar em uma grande festa. O que esperar do show no MADA? Uma celebração coletiva, com muito ritmo e a sensação de estar no meio da folia. Impossível ficar parado." },
-            { name: "Sourebel", imageUrl: "artistas/sourebel.jpg", details: "A banda traz em seu som as vibrações do reggae e do rock, com letras que falam sobre questões sociais, paz e resistência. É uma música com mensagem, para curtir e também para refletir. O que esperar do show no MADA? Uma apresentação com a energia positiva do reggae, para cantar junto e sentir a boa vibração da banda." },
-            { name: "Aya Ibeji", imageUrl: "artistas/aya.jpg", details: "Formada pelas gêmeas Emanuele e Jamilly, a dupla Aya Ibeji celebra a ancestralidade afro-brasileira através da música. Seus shows são percussivos, fortes e repletos de referências à cultura iorubá. É uma performance que conecta o público com suas raízes. O que esperar do show no MADA? Um espetáculo de força e representatividade, com tambores pulsantes e a beleza da herança africana no Brasil." },
-            { name: "Jennify C (Convida Casixtranha)", imageUrl: "artistas/jennify.jpg", details: "Artista da cena ballroom, Jennify C é uma DJ e produtora que traz para a pista a cultura do vogue e do house. Ao lado de Casixtranha, a performance promete ser uma celebração da diversidade, da liberdade dos corpos e da música eletrônica underground. O que esperar do show no MADA? Uma pista de dança fervida, com muito bate-cabelo, performances e as batidas contagiantes da cultura ballroom." },
-            { name: "O Cheiro do Queijo", imageUrl: "artistas/ocheiro.jpg", details: "Uma banda clássica da cena do rock potiguar, conhecida por seu som irreverente e suas letras bem-humoradas que retratam o cotidiano local. Eles misturam rock com diversos ritmos, criando uma sonoridade única e divertida. O que esperar do show no MADA? Um show para se divertir, cantar junto e celebrar uma das bandas mais queridas da história da música de Natal." },
-            { name: "Tinoc", imageUrl: "artistas/tinoc.jpg", details: "Representante da nova cena indie potiguar, Tinoc traz canções que falam sobre as angústias e belezas da vida urbana, com uma sonoridade que passeia pelo indie rock e pela nova MPB. O que esperar do show no MADA? Um som sincero e contemporâneo, perfeito para quem gosta de descobrir novos talentos da cena local." },
-            { name: "Val Pescador", imageUrl: "artistas/val.jpg", details: "Val Pescador é um artista que mantém viva a tradição do forró pé de serra. Com sua sanfona, ele traz o autêntico som do Nordeste, perfeito para dançar agarradinho e celebrar a cultura regional. O que esperar do show no MADA? Uma verdadeira aula de forró, com um repertório de clássicos e a alegria contagiante da sanfona." },
-            { name: "Brisa", imageUrl: "artistas/brisa.jpg", details: "Com um som que flerta com o R&B e o pop, a cantora Brisa é uma das novas vozes da música potiguar. Suas canções autorais exploram temas de amor e empoderamento com uma roupagem moderna. O que esperar do show no MADA? Uma apresentação para conhecer o talento da nova geração, com uma voz suave e um som cheio de groove." },
-            { name: "Dani Cruz", imageUrl: "artistas/dani.jpg", details: "Dani Cruz é uma cantora que celebra a riqueza da música brasileira, em especial o samba e a MPB. Com uma voz potente e um repertório de clássicos, ela comanda uma verdadeira roda de samba no palco. O que esperar do show no MADA? Uma grande celebração da música brasileira, para cantar junto, sambar e se emocionar com clássicos que todo mundo ama." },
-            { name: "Seed Selector", imageUrl: "artistas/seed.jpg", details: "Para os amantes do reggae e do dub, Seed Selector é a pedida certa. Com uma seleção de pedradas do gênero, o set é perfeito para relaxar, curtir a atmosfera do festival e deixar o som levar. O que esperar do show no MADA? Uma sessão de puro reggae music, com graves pesados e a vibe positiva que só o sound system pode proporcionar." },
+        const scheduleSunday = [
+            { id: 301, artist: "Bacalhau do Batata", stage: 2, start: "08:00", end: "08:00", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
+            { id: 302, artist: "Bloco do Barão", stage: 2, start: "10:00", end: "11:00", attendees: [], local: "Rua da Boa Hora", cidade: "Olinda" },
+            { id: 303, artist: "Coveirinhos na Folia", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Cemitério de Guadalupe", cidade: "Olinda" },
+            { id: 304, artist: "Boi da Macuca", stage: 2, start: "17:00", end: "18:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 305, artist: "Bloco do Case", stage: 2, start: "17:00", end: "18:00", attendees: [], local: "Atrás da Igreja de São Pedro", cidade: "Olinda" },
+            { id: 306, artist: "Encontro de Bois", stage: 2, start: "18:00", end: "19:00", attendees: [], local: "Rua da Boa Hora", cidade: "Olinda" },
+            { id: 307, artist: "Segura a Coisa", stage: 2, start: "23:00", end: "23:59", attendees: [], local: "Praça do Fortim", cidade: "Olinda" },
+        ];
+        const scheduleMonday = [
+            { id: 401, artist: "Batucada Atômica", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Praça do Carmo - Focca", cidade: "Olinda" },
+            { id: 402, artist: "Maracatu Noção Pernambuco", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Casarão Noção Pernambuco", cidade: "Olinda" },
+            { id: 403, artist: "Bloco do Nada", stage: 1, start: "13:00", end: "17:00", attendees: [], local: "Rua Rosária da Boa Vista", cidade: "Recife" },
+            { id: 404, artist: "Garota de Vassoura", stage: 2, start: "14:30", end: "17:00", attendees: [], local: "Rua Antonio Luciano de Oliveira, 239", cidade: "Olinda" },
+            { id: 405, artist: "Metido a Rico Porém Liso", stage: 2, start: "11:00", end: "17:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
+            { id: 406, artist: "O Rodo", stage: 2, start: "18:00", end: "19:30", attendees: [], local: "Casa de Dona Dá", cidade: "Olinda" },
+            { id: 407, artist: "Noite dos tambores silenciosos", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Pátio do Terço", cidade: "Recife" },
+            { id: 408, artist: "Boi da Macuca", stage: 2, start: "19:00", end: "20:00", attendees: [], local: "Vassourinhas de Olinda - Largo do Amparo", cidade: "Olinda" },
+        ];
+        const scheduleTuesday = [
+            { id: 501, artist: "A Corda", stage: 2, start: "07:00", end: "07:00", attendees: [], local: "Ladeira do Misericordia", cidade: "Olinda" },
+            { id: 502, artist: "A Porca", stage: 2, start: "07:00", end: "08:00", attendees: [], local: "Rua da Palha com a Dr Moreira Alves", cidade: "Olinda" },
+            { id: 503, artist: "Ar de Olinda", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Prefeitura de Olinda", cidade: "Olinda" },
+            { id: 504, artist: "D'Breck", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Largo do Bonfim", cidade: "Olinda" },
+            { id: 505, artist: "Maracatu Kangoma", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo, 236", cidade: "Olinda" },
+            { id: 506, artist: "Batadoni", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 507, artist: "Batuques de Pernambuco", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 508, artist: "Patusco", stage: 2, start: "09:00", end: "09:59", attendees: [], local: "Rua do Amparo, 292", cidade: "Olinda" },
+            { id: 509, artist: "Pitombeira dos Quatro Cantos", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 510, artist: "Sambadeiras", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Ladeira da Misericordia", cidade: "Olinda" },
+            { id: 511, artist: "Deusas do Ébano", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 512, artist: "Encontro dos Bonecos Gigantes", stage: 2, start: "10:00", end: "11:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 513, artist: "Rebylleurias", stage: 2, start: "09:30", end: "10:30", attendees: [], local: "Rua do Bonfim, 449", cidade: "Olinda" },
+            { id: 514, artist: "Quem Cola Entra", stage: 2, start: "11:00", end: "13:00", attendees: [], local: "Rua Henrique Dias, 130", cidade: "Olinda" },
+            { id: 515, artist: "Os Abutres", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua 15 de Novembro", cidade: "Olinda" },
+            { id: 516, artist: "Zebra das Olindas", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua Maria Adalgisa Ferreira de Castro", cidade: "Olinda" },
+            { id: 517, artist: "Segurucu", stage: 2, start: "12:00", end: "14:30", attendees: [], local: "Bar Esquina do Carmo", cidade: "Olinda" },
+            { id: 518, artist: "Caranguejo Papamé", stage: 2, start: "10:00", end: "15:00", attendees: [], local: "Rua Jerônimo de Albuquerque, 112", cidade: "Olinda" },
+            { id: 519, artist: "Bloco da Saudade", stage: 1, start: "12:00", end: "16:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
+            { id: 520, artist: "Ceroula de Olinda", stage: 2, start: "12:00", end: "16:00", attendees: [], local: "Colégio Sao Bento", cidade: "Olinda" },
+            { id: 521, artist: "Rainho", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Rua Coronel Joaquim Cavalcante , 298", cidade: "Olinda" },
+            { id: 522, artist: "Quero ver quem vai", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Praça do Arsenal", cidade: "Recife" },
+            { id: 523, artist: "Maracatu Nação Pernambuco", stage: 1, start: "16:00", end: "17:00", attendees: [], local: "Praça do Arsenal", cidade: "Recife" },
+            { id: 524, artist: "Eu Acho é Pouco", stage: 2, start: "16:00", end: "17:00", attendees: [], local: "Local não divulgado", cidade: "Olinda" },
+            { id: 525, artist: "Afojubá Batuque", stage: 1, start: "16:00", end: "17:00", attendees: [], local: "Avenida Marquês de Olinda", cidade: "Recife" },
+            { id: 526, artist: "Lenhadores Olindense", stage: 2, start: "17:00", end: "19:30", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 527, artist: "Congobloco", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Rua da Guia", cidade: "Recife" },
+        ];
+        const scheduleWednesday = [
+            { id: 601, artist: "Bacalhau do Batata", stage: 2, start: "08:00", end: "08:00", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
+            { id: 602, artist: "Bloco do Barão", stage: 2, start: "10:00", end: "11:00", attendees: [], local: "Rua da Boa Hora", cidade: "Olinda" },
+            { id: 603, artist: "Coveirinhos na Folia", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Cemitério de Guadalupe", cidade: "Olinda" },
+            { id: 604, artist: "Boi da Macuca", stage: 2, start: "17:00", end: "18:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 605, artist: "Bloco do Case", stage: 2, start: "17:00", end: "18:00", attendees: [], local: "Atrás da Igreja de São Pedro", cidade: "Olinda" },
+            { id: 606, artist: "Encontro de Bois", stage: 2, start: "18:00", end: "19:00", attendees: [], local: "Rua da Boa Hora", cidade: "Olinda" },
+            { id: 607, artist: "Segura a Coisa", stage: 2, start: "23:00", end: "23:59", attendees: [], local: "Praça do Fortim", cidade: "Olinda" },
+        ];
+        // Lista de blocos de carnaval de Recife e Olinda 2026
+        const blocosData = [
+            { name: "Escuta Levino", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco tradicional do carnaval recifense com muito frevo e animação!" },
+            { name: "Me Mostro Teu Mapa Astral", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 18:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco temático com astrologia e muita diversão!" },
+            { name: "Elefante de Olinda", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Bonsucesso - Sede do Homem\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Olinda\n\nUm dos blocos mais tradicionais de Olinda!" },
+            { name: "Afojubá Batuque", imageUrl: "sombrinha.jpg", details: "📍 Local: Avenida Marquês de Olinda\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e energia!" },
+            { name: "Shortinho Torano", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua do Apolo, 174\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico do Recife!" },
+            { name: "Arrastão do Maestro Óseas", imageUrl: "sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 15:00 | Saída: 16:00\n🏙️ Cidade: Olinda\n\nArrastão tradicional com o Maestro Óseas!" },
+            { name: "Abduzidos", imageUrl: "sombrinha.jpg", details: "📍 Local: Casa Nola\n🕐 Concentração: 16:30 | Saída: 17:30\n🏙️ Cidade: Olinda\n\nBloco temático com muita animação!" },
+            { name: "Segura o Tonho, Charlie Brow", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 17:00 | Saída: 19:30\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico!" },
+            { name: "Nem Sempre Lily Toca Flauta", imageUrl: "sombrinha.jpg", details: "📍 Local: Pátio Santa Cruz\n🕐 Concentração: 17:00 | Saída: 19:00\n🏙️ Cidade: Recife\n\nBloco com muito humor e animação!" },
+            { name: "Mulher do Dia", imageUrl: "sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco que celebra as mulheres!" },
+            { name: "Caraca Moleque", imageUrl: "sombrinha.jpg", details: "📍 Local: Centro Luiz Freire\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "Traquinos em Folia", imageUrl: "sombrinha.jpg", details: "📍 Local: Sede da Pitombeira\n🕐 Concentração: 18:30 | Saída: 19:30\n🏙️ Cidade: Olinda\n\nBloco infantil com muita animação!" },
+            { name: "Batuques de Pernambuco", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e percussão!" },
+            { name: "Me Solta, Carail", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
+            { name: "Du Nada a Gente Sai", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 19:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "La Ursa do Bonfim", imageUrl: "sombrinha.jpg", details: "📍 Local: Clube Cariri\n🕐 Concentração: 17:00 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nBloco com longa duração e muita animação!" },
+            { name: "Frevo e Folia", imageUrl: "sombrinha.jpg", details: "📍 Local: Vassourinhas de Olinda - Largo do Amparo\n🕐 Concentração: 18:30 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nMuito frevo e folia em Olinda!" },
+            { name: "O Lord de Olinda", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 18:00 | Saída: 23:00\n🏙️ Cidade: Olinda\n\nBloco tradicional com longa duração!" },
+            { name: "Galo da Madrugada", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Sérgio Lôreto\n🕐 Concentração: 04:00 | Saída: 09:00\n🏙️ Cidade: Recife\n\nO maior bloco de carnaval do mundo! Tradição e animação desde a madrugada!" },
+            { name: "Pinto do galo da Madrugada", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça do Marco Zero\n🕐 Concentração: 05:45 | Saída: 06:45\n🏙️ Cidade: Recife\n\nBloco que antecede o Galo da Madrugada!" },
+            { name: "Galinha d'Água", imageUrl: "sombrinha.jpg", details: "📍 Local: Rio Capibaribe\n🕐 Concentração: 07:00 | Saída: 08:00\n🏙️ Cidade: Recife\n\nBloco aquático no Rio Capibaribe!" },
+            { name: "Sibito Baleado", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua Coronel Joaquim Cavalcanti, 201\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "O Urso Cascudo do Amparo", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com boneco gigante!" },
+            { name: "Eu Acho é Pouco", imageUrl: "sombrinha.jpg", details: "📍 Local: A confirmar\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco animado de Olinda!" },
+            { name: "Bloco Mangue Beat", imageUrl: "sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao movimento Mangue Beat!" },
+            { name: "Bloco do Frei", imageUrl: "sombrinha.jpg", details: "📍 Local: Cruzeiro do Convento de São Francisco\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional no Convento de São Francisco!" },
+            { name: "Maracatu Kangoma", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua do Amparo, 236\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nMaracatu tradicional de Olinda!" },
+            { name: "Patusquinho", imageUrl: "sombrinha.jpg", details: "📍 Local: Pátio São Pedro\n🕐 Concentração: 09:00 | Saída: 09:59\n🏙️ Cidade: Recife\n\nBloco animado no Pátio São Pedro!" },
+            { name: "Tambores D'Saia", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça de São Pedro\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com tambores e muita energia!" },
+            { name: "Soul Delas", imageUrl: "sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com soul music e animação!" },
+            { name: "Urso Congelado", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Açaí do Carmo, 5\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com boneco de urso!" },
+            { name: "Pife Floyd", imageUrl: "sombrinha.jpg", details: "📍 Local: Travessa de São Francisco, 206\n🕐 Concentração: 10:00 | Saída: 12:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao Pink Floyd!" },
+            { name: "Sombatuki", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 10:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
+            { name: "Fique na Sombra", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Boa Hora, 177\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com sombrinhas de frevo!" },
+            { name: "Batucada Atômica", imageUrl: "sombrinha.jpg", details: "📍 Local: Avenida 10 de Novembro\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com muita batucada e energia!" },
         ];
         
         // --- LÓGICA DA PÁGINA ---
@@ -309,8 +607,15 @@
         const schedulePage = document.getElementById('schedule-page');
         const viewArtistsBtn = document.getElementById('view-artists-btn');
         const viewScheduleBtn = document.getElementById('view-schedule-btn');
+        const dayThursdayBtn = document.getElementById('day-thursday-btn');
         const dayFridayBtn = document.getElementById('day-friday-btn');
         const daySaturdayBtn = document.getElementById('day-saturday-btn');
+        const daySundayBtn = document.getElementById('day-sunday-btn');
+        const dayMondayBtn = document.getElementById('day-monday-btn');
+        const dayTuesdayBtn = document.getElementById('day-tuesday-btn');
+        const dayWednesdayBtn = document.getElementById('day-wednesday-btn');
+        
+        const dayButtons = [dayThursdayBtn, dayFridayBtn, daySaturdayBtn, daySundayBtn, dayMondayBtn, dayTuesdayBtn, dayWednesdayBtn];
         const artistGrid = document.getElementById('artist-grid');
         const scheduleGridContainer = document.getElementById('schedule-grid-container');
         const backToGridBtn = document.getElementById('back-to-grid-btn');
@@ -337,15 +642,15 @@
         
         function timeToGridRow(timeStr) {
             let [h, m] = timeStr.split(':').map(Number);
-            if (h < 19) h += 24;
-            return Math.floor(((h - 19) * 60 + m) / 30) * 2 + 2;
+            if (h < 4) h += 24;
+            return Math.floor(((h - 4) * 60 + m) / 30) * 2 + 2;
         }
 
         function renderSchedule(dayData) {
             scheduleGridContainer.innerHTML = ''; 
-            const headers = `<div class="time-label"></div><div class="stage-header" style="background-color: var(--accent-pink);">Palco 1</div><div class="stage-header" style="background-color: var(--accent-purple);">Palco 2</div><div class="stage-header" style="background-color: var(--accent-blue);">Baile</div>`;
+            const headers = `<div class="time-label"></div><div class="stage-header" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));">Recife</div><div class="stage-header" style="background: linear-gradient(135deg, var(--accent-red), var(--accent-pink));">Olinda</div><div class="stage-header" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));">Outros</div>`;
             scheduleGridContainer.innerHTML += headers;
-            for (let i = 19; i <= 30; i++) {
+            for (let i = 4; i <= 30; i++) {
                 const hour = i > 23 ? i - 24 : i;
                 const timeLabel = document.createElement('div');
                 timeLabel.classList.add('time-label');
@@ -365,8 +670,12 @@
                 const endRow = timeToGridRow(show.end);
                 card.style.gridColumn = show.stage + 1;
                 card.style.gridRow = `${startRow} / ${endRow}`;
-                const stageColors = ['var(--accent-pink)', 'var(--accent-purple)', 'var(--accent-blue)'];
-                card.style.backgroundColor = stageColors[show.stage - 1];
+                const stageColors = [
+                    'linear-gradient(135deg, var(--accent-yellow), var(--accent-orange))',
+                    'linear-gradient(135deg, var(--accent-red), var(--accent-pink))',
+                    'linear-gradient(135deg, var(--accent-blue), var(--accent-green))'
+                ];
+                card.style.background = stageColors[show.stage - 1];
                 
                 // Mostrar apenas usuários dinâmicos
                 const dynamicAttendees = userAttendances[show.id] || [];
@@ -378,10 +687,11 @@
                         return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
                     }
                     
-                    return `<div class="attendee-bubble" style="background: linear-gradient(45deg, var(--accent-yellow), var(--accent-pink)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
+                    return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
                 }).join('');
                 
-                card.innerHTML = `<div class="font-bold text-sm">${show.artist}</div><div class="text-xs text-black bg-white/20 inline-block px-1 rounded">${show.start}-${show.end}</div><div class="attendees-container">${attendeesHTML}</div>`;
+                const localInfo = show.local ? `<div class="text-xs text-white/80 mt-1">📍 ${show.local}</div>` : '';
+                card.innerHTML = `<div class="font-bold text-sm">${show.artist}</div><div class="text-xs text-black bg-white/20 inline-block px-1 rounded">${show.start}-${show.end}</div>${localInfo}<div class="attendees-container">${attendeesHTML}</div>`;
                 scheduleGridContainer.appendChild(card);
             });
         }
@@ -398,28 +708,31 @@
             schedulePage.classList.remove('hidden');
             viewArtistsBtn.classList.remove('active');
             viewScheduleBtn.classList.add('active');
-            dayFridayBtn.classList.add('active');
-            daySaturdayBtn.classList.remove('active');
-            renderSchedule(scheduleFriday); 
+            // Ativar quinta-feira por padrão
+            dayButtons.forEach(btn => btn.classList.remove('active'));
+            dayThursdayBtn.classList.add('active');
+            renderSchedule(scheduleThursday); 
         });
         
-        dayFridayBtn.addEventListener('click', () => {
-            dayFridayBtn.classList.add('active');
-            daySaturdayBtn.classList.remove('active');
-            renderSchedule(scheduleFriday);
-        });
-
-        daySaturdayBtn.addEventListener('click', () => {
-            dayFridayBtn.classList.remove('active');
-            daySaturdayBtn.classList.add('active');
-            renderSchedule(scheduleSaturday);
-        });
+        function setActiveDay(activeBtn, schedule) {
+            dayButtons.forEach(btn => btn.classList.remove('active'));
+            activeBtn.classList.add('active');
+            renderSchedule(schedule);
+        }
+        
+        dayThursdayBtn.addEventListener('click', () => setActiveDay(dayThursdayBtn, scheduleThursday));
+        dayFridayBtn.addEventListener('click', () => setActiveDay(dayFridayBtn, scheduleFriday));
+        daySaturdayBtn.addEventListener('click', () => setActiveDay(daySaturdayBtn, scheduleSaturday));
+        daySundayBtn.addEventListener('click', () => setActiveDay(daySundayBtn, scheduleSunday));
+        dayMondayBtn.addEventListener('click', () => setActiveDay(dayMondayBtn, scheduleMonday));
+        dayTuesdayBtn.addEventListener('click', () => setActiveDay(dayTuesdayBtn, scheduleTuesday));
+        dayWednesdayBtn.addEventListener('click', () => setActiveDay(dayWednesdayBtn, scheduleWednesday));
 
         artistGrid.addEventListener('click', (e) => {
             const cardLink = e.target.closest('.artist-card-link');
             if (!cardLink) return;
             const artistName = cardLink.dataset.artistName;
-            const artist = artistsData.find(a => a.name === artistName);
+            const artist = blocosData.find(a => a.name === artistName);
             if (!artist) return;
 
             document.getElementById('detail-card-container').innerHTML = createArtistDetailCard(artist);
@@ -443,12 +756,13 @@
             
             const showId = parseInt(card.dataset.showId);
             currentModalShowId = showId;
-            const allShows = [...scheduleFriday, ...scheduleSaturday];
+            const allShows = [...scheduleThursday, ...scheduleFriday, ...scheduleSaturday, ...scheduleSunday, ...scheduleMonday, ...scheduleTuesday, ...scheduleWednesday];
             const show = allShows.find(s => s.id === showId);
             if (!show) return;
 
             document.getElementById('modal-artist-name').textContent = show.artist;
             document.getElementById('modal-show-time').textContent = `${show.start} - ${show.end}`;
+            document.getElementById('modal-show-local').textContent = show.local ? `📍 ${show.local} - ${show.cidade || ''}` : '';
             
             // Atualizar botão de presença
             const attendBtn = document.getElementById('attend-btn');
@@ -476,14 +790,14 @@
                     if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
                         attendeesGrid.innerHTML += `
                             <div class="text-center">
-                                <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-yellow-300">
+                                <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);">
                                 <p class="mt-2 text-sm">${savedUser.name}</p>
                             </div>`;
                     } else {
                         // Avatar padrão para usuários sem foto
                         attendeesGrid.innerHTML += `
                             <div class="text-center">
-                                <div class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-300 bg-gradient-to-br from-yellow-400 to-pink-400 flex items-center justify-center text-2xl font-bold text-white">
+                                <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
                                     ${attendeeId.charAt(0).toUpperCase()}
                                 </div>
                                 <p class="mt-2 text-sm">${attendeeId}</p>
@@ -627,7 +941,7 @@
                 }
                 
                 // Recarregar a lista de confirmados no modal
-                const allShows = [...scheduleFriday, ...scheduleSaturday];
+                const allShows = [...scheduleThursday, ...scheduleFriday, ...scheduleSaturday, ...scheduleSunday, ...scheduleMonday, ...scheduleTuesday, ...scheduleWednesday];
                 const show = allShows.find(s => s.id === targetShowId);
                 if (show) {
                     const attendeesGrid = document.getElementById('modal-attendees-grid');
@@ -642,14 +956,14 @@
                             if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
                                 attendeesGrid.innerHTML += `
                                     <div class="text-center">
-                                        <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-2 border-yellow-300">
+                                        <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);">
                                         <p class="mt-2 text-sm">${savedUser.name}</p>
                                     </div>`;
                             } else {
                                 // Avatar padrão para usuários sem foto
                                 attendeesGrid.innerHTML += `
                                     <div class="text-center">
-                                        <div class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-300 bg-gradient-to-br from-yellow-400 to-pink-400 flex items-center justify-center text-2xl font-bold text-white">
+                                        <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
                                             ${attendeeId.charAt(0).toUpperCase()}
                                         </div>
                                         <p class="mt-2 text-sm">${attendeeId}</p>
@@ -664,7 +978,7 @@
         }
 
         function updateShowAttendance(showId) {
-            const allShows = [...scheduleFriday, ...scheduleSaturday];
+            const allShows = [...scheduleThursday, ...scheduleFriday, ...scheduleSaturday, ...scheduleSunday, ...scheduleMonday, ...scheduleTuesday, ...scheduleWednesday];
             const show = allShows.find(s => s.id === showId);
             if (show) {
                 show.attendees = userAttendances[showId] || [];
@@ -672,8 +986,15 @@
             
             // Re-renderizar a agenda se estivermos nela
             if (!schedulePage.classList.contains('hidden')) {
-                const activeDay = dayFridayBtn.classList.contains('active') ? scheduleFriday : scheduleSaturday;
-                renderSchedule(activeDay);
+                let activeSchedule = scheduleThursday;
+                if (dayThursdayBtn.classList.contains('active')) activeSchedule = scheduleThursday;
+                else if (dayFridayBtn.classList.contains('active')) activeSchedule = scheduleFriday;
+                else if (daySaturdayBtn.classList.contains('active')) activeSchedule = scheduleSaturday;
+                else if (daySundayBtn.classList.contains('active')) activeSchedule = scheduleSunday;
+                else if (dayMondayBtn.classList.contains('active')) activeSchedule = scheduleMonday;
+                else if (dayTuesdayBtn.classList.contains('active')) activeSchedule = scheduleTuesday;
+                else if (dayWednesdayBtn.classList.contains('active')) activeSchedule = scheduleWednesday;
+                renderSchedule(activeSchedule);
             }
         }
 
@@ -705,7 +1026,7 @@
         }
 
         window.onload = () => {
-            displayArtists(artistsData);
+            displayArtists(blocosData);
             loadUserData();
             
             // Carregar participações salvas
