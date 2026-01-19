@@ -168,50 +168,54 @@
             border-radius: 12px;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
-        .schedule-grid { display: grid; grid-template-columns: 50px repeat(3, 1fr); grid-auto-rows: 30px; gap: 3px; }
-        .time-label { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 0.7rem; 
-            color: var(--accent-yellow); 
-            font-weight: bold;
-            text-shadow: 2px 2px 0px var(--accent-red);
-        }
-        .stage-header { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 0.5rem; 
-            color: #000; 
+        .schedule-grid { display: flex; flex-direction: column; gap: 1rem; }
+        .schedule-time-group { margin-bottom: 2rem; }
+        .schedule-time-header { 
             font-family: 'Anton', sans-serif; 
-            font-size: 1.2rem; 
-            text-align: center; 
-            font-weight: bold;
-            border: 2px solid #000;
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+            font-size: 1.5rem; 
+            color: var(--accent-yellow); 
+            text-shadow: 2px 2px 0px var(--accent-red);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-yellow);
         }
+        .schedule-city-section { margin-bottom: 1.5rem; }
+        .schedule-city-header {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+        .schedule-blocks-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        /* Estilos antigos removidos - agora usando lista */
         .show-card { 
-            padding: 6px 8px; 
-            overflow: hidden; 
+            padding: 1rem; 
+            overflow: visible; 
             position: relative; 
             color: white; 
-            border-radius: 6px; 
+            border-radius: 12px; 
             transition: all 0.3s ease; 
             cursor: pointer;
-            border: 2px solid rgba(255,255,255,0.3);
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
-            min-height: 60px;
+            border: 3px solid rgba(255,255,255,0.4);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+            min-height: 120px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-between;
         }
         .show-card:hover { 
-            transform: scale(1.05) translateY(-2px); 
+            transform: translateY(-4px) scale(1.02); 
             z-index: 10;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.5), 0 0 20px rgba(255, 215, 0, 0.5);
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.5), 0 0 25px rgba(255, 215, 0, 0.6);
+            border-color: var(--accent-yellow);
         }
-        .attendees-container { position: absolute; bottom: 4px; right: 4px; display: flex; flex-direction: row-reverse; }
+        .attendees-container { display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
         .attendee-bubble { 
             width: 28px; 
             height: 28px; 
@@ -240,7 +244,7 @@
             box-shadow: 4px 4px 0px var(--accent-red);
             font-weight: bold;
         }
-        .time-separator { grid-column: 1 / -1; border-bottom: 2px dashed rgba(255, 215, 0, 0.3); pointer-events: none; }
+        /* Time separator removido - não mais necessário */
 
         /* MODAL / POP-UP */
         .modal-overlay { 
@@ -653,78 +657,114 @@
         }
 
         function renderSchedule(dayData) {
-            scheduleGridContainer.innerHTML = ''; 
-            const headers = `<div class="time-label"></div><div class="stage-header" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));">Recife</div><div class="stage-header" style="background: linear-gradient(135deg, var(--accent-red), var(--accent-pink));">Olinda</div><div class="stage-header" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));">Outros</div>`;
-            scheduleGridContainer.innerHTML += headers;
-            for (let i = 4; i <= 30; i++) {
-                const hour = i > 23 ? i - 24 : i;
-                const timeLabel = document.createElement('div');
-                timeLabel.classList.add('time-label');
-                timeLabel.textContent = `${String(hour).padStart(2, '0')}h`;
-                timeLabel.style.gridRow = timeToGridRow(`${i}:00`);
-                scheduleGridContainer.appendChild(timeLabel);
-                const separator = document.createElement('div');
-                separator.classList.add('time-separator');
-                separator.style.gridRow = timeToGridRow(`${i}:00`);
-                scheduleGridContainer.appendChild(separator);
-            }
+            scheduleGridContainer.innerHTML = '';
             
-            // Ordenar blocos por horário de início e stage para evitar sobreposições
+            // Ordenar blocos por horário de início
             const sortedShows = [...dayData].sort((a, b) => {
-                if (a.stage !== b.stage) return a.stage - b.stage;
-                const aStart = timeToGridRow(a.start);
-                const bStart = timeToGridRow(b.start);
-                return aStart - bStart;
+                const aTime = a.start.split(':').map(Number);
+                const bTime = b.start.split(':').map(Number);
+                const aMinutes = aTime[0] * 60 + aTime[1];
+                const bMinutes = bTime[0] * 60 + bTime[1];
+                return aMinutes - bMinutes;
             });
             
-            // Agrupar por stage e detectar sobreposições
-            const stageGroups = {};
+            // Agrupar por horário de início (arredondado para a hora mais próxima)
+            const timeGroups = {};
             sortedShows.forEach(show => {
-                if (!stageGroups[show.stage]) {
-                    stageGroups[show.stage] = [];
+                const [h, m] = show.start.split(':').map(Number);
+                const hourKey = `${String(h).padStart(2, '0')}h`;
+                if (!timeGroups[hourKey]) {
+                    timeGroups[hourKey] = [];
                 }
-                stageGroups[show.stage].push(show);
+                timeGroups[hourKey].push(show);
             });
             
-            // Renderizar cada bloco
-            sortedShows.forEach(show => {
-                const card = document.createElement('div');
-                card.classList.add('show-card');
-                card.dataset.showId = show.id;
-                const startRow = timeToGridRow(show.start);
-                const endRow = timeToGridRow(show.end);
-                card.style.gridColumn = show.stage + 1;
-                card.style.gridRow = `${startRow} / ${endRow}`;
-                const stageColors = [
-                    'linear-gradient(135deg, var(--accent-yellow), var(--accent-orange))',
-                    'linear-gradient(135deg, var(--accent-red), var(--accent-pink))',
-                    'linear-gradient(135deg, var(--accent-blue), var(--accent-green))'
-                ];
-                card.style.background = stageColors[show.stage - 1];
+            // Cores por cidade/stage
+            const stageColors = {
+                1: 'linear-gradient(135deg, var(--accent-yellow), var(--accent-orange))', // Recife
+                2: 'linear-gradient(135deg, var(--accent-red), var(--accent-pink))', // Olinda
+                3: 'linear-gradient(135deg, var(--accent-blue), var(--accent-green))' // Outros
+            };
+            
+            const cityNames = {
+                1: 'Recife',
+                2: 'Olinda',
+                3: 'Outros'
+            };
+            
+            // Renderizar grupos por horário
+            Object.keys(timeGroups).sort().forEach(hourKey => {
+                const timeGroup = document.createElement('div');
+                timeGroup.classList.add('schedule-time-group');
                 
-                // Mostrar apenas usuários dinâmicos
-                const dynamicAttendees = userAttendances[show.id] || [];
+                const timeHeader = document.createElement('div');
+                timeHeader.classList.add('schedule-time-header');
+                timeHeader.textContent = `🕐 ${hourKey}`;
+                timeGroup.appendChild(timeHeader);
                 
-                const attendeesHTML = dynamicAttendees.map(attendeeId => {
-                    // Busca nos usuários salvos
-                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
-                        return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
+                // Agrupar por cidade dentro do horário
+                const cityGroups = {};
+                timeGroups[hourKey].forEach(show => {
+                    const city = show.cidade || cityNames[show.stage] || 'Outros';
+                    if (!cityGroups[city]) {
+                        cityGroups[city] = [];
                     }
-                    
-                    return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
-                }).join('');
+                    cityGroups[city].push(show);
+                });
                 
-                const localInfo = show.local ? `<div class="text-xs text-white/90 mt-1 truncate" title="${show.local}">📍 ${show.local}</div>` : '';
-                // Garantir altura mínima baseada na duração
-                const duration = endRow - startRow;
-                const minHeight = Math.max(duration, 2); // Mínimo de 2 linhas
-                card.style.minHeight = `${minHeight * 30}px`;
-                card.style.overflow = 'hidden';
-                card.style.display = 'flex';
-                card.style.flexDirection = 'column';
-                card.innerHTML = `<div class="font-bold text-sm truncate" title="${show.artist}">${show.artist}</div><div class="text-xs text-black bg-white/30 inline-block px-1 rounded mt-1">${show.start}-${show.end}</div>${localInfo}<div class="attendees-container">${attendeesHTML}</div>`;
-                scheduleGridContainer.appendChild(card);
+                // Renderizar por cidade
+                Object.keys(cityGroups).sort().forEach(city => {
+                    const citySection = document.createElement('div');
+                    citySection.classList.add('schedule-city-section');
+                    
+                    const cityHeader = document.createElement('div');
+                    cityHeader.classList.add('schedule-city-header');
+                    const stageNum = cityGroups[city][0].stage;
+                    cityHeader.style.background = stageColors[stageNum];
+                    cityHeader.style.color = '#000';
+                    cityHeader.textContent = `📍 ${city}`;
+                    citySection.appendChild(cityHeader);
+                    
+                    const blocksList = document.createElement('div');
+                    blocksList.classList.add('schedule-blocks-list');
+                    
+                    cityGroups[city].forEach(show => {
+                        const card = document.createElement('div');
+                        card.classList.add('show-card');
+                        card.dataset.showId = show.id;
+                        card.style.background = stageColors[show.stage];
+                        
+                        // Mostrar apenas usuários dinâmicos
+                        const dynamicAttendees = userAttendances[show.id] || [];
+                        
+                        const attendeesHTML = dynamicAttendees.map(attendeeId => {
+                            const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+                            if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
+                                return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
+                            }
+                            return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
+                        }).join('');
+                        
+                        const localInfo = show.local ? `<div class="text-sm text-white/95 mt-2 font-semibold">📍 ${show.local}</div>` : '';
+                        const timeInfo = `<div class="text-lg font-bold text-black bg-white/40 inline-block px-2 py-1 rounded mt-2">${show.start} - ${show.end}</div>`;
+                        
+                        card.innerHTML = `
+                            <div>
+                                <div class="font-bold text-lg mb-2" style="color: white; text-shadow: 2px 2px 0px rgba(0,0,0,0.5);">${show.artist}</div>
+                                ${timeInfo}
+                                ${localInfo}
+                            </div>
+                            <div class="attendees-container mt-3">${attendeesHTML}</div>
+                        `;
+                        
+                        blocksList.appendChild(card);
+                    });
+                    
+                    citySection.appendChild(blocksList);
+                    timeGroup.appendChild(citySection);
+                });
+                
+                scheduleGridContainer.appendChild(timeGroup);
             });
         }
         
