@@ -1,0 +1,6 @@
+node_modules/
+carnaval.db
+carnaval.db-journal
+.env
+*.log
+.DS_Store

@@ -1,76 +1,78 @@
-# 🎵 Gatilho para Música - Sistema de Agendamento
+# 🎉 Carnaval 2026 - Sistema de Presença para Blocos
 
-Um sistema interativo para marcar presença nos shows do MADA (Festival de Música de Natal).
+Sistema web para gerenciar presenças nos blocos de carnaval de Recife e Olinda 2026.
 
-## 🚀 Funcionalidades
+## 🚀 Como rodar
 
-### ✨ Sistema de Usuários
-- **Login/Cadastro**: Os usuários podem entrar com nome e foto de perfil
-- **Avatar personalizado**: Upload de foto ou avatar padrão
-- **Persistência local**: Dados salvos no navegador
+### 1. Instalar dependências
 
-### 🎪 Marcação de Presença
-- **Clique nos shows**: Para ver detalhes e marcar presença
-- **Botão interativo**: "Marcar presença" / "Confirmado! ✓"
-- **Lista de confirmados**: Veja quem mais está indo
-- **Sistema dinâmico**: Apenas usuários que se cadastraram no site
+```bash
+npm install
+```
 
-### 🎨 Interface
-- **Design responsivo**: Funciona em mobile e desktop
-- **Tema neon**: Cores vibrantes e animações
-- **Música de fundo**: Player integrado
-- **Navegação intuitiva**: Entre artistas e horários
+### 2. Iniciar o servidor
 
-## 📱 Como Usar
+```bash
+npm start
+```
 
-### 1. Entrar no Sistema
-1. Clique no botão "Entrar" no canto superior direito
-2. Digite seu nome
-3. (Opcional) Faça upload de uma foto de perfil
-4. Clique em "Entrar e marcar presença!"
+Ou em modo desenvolvimento (com auto-reload):
 
-### 2. Marcar Presença nos Shows
-1. Vá para a aba "Horários"
-2. Escolha entre Sexta ou Sábado
-3. Clique em qualquer show na grade
-4. No modal que abrir, clique em "Marcar presença"
-5. Seu nome aparecerá na lista de confirmados
+```bash
+npm run dev
+```
 
-### 3. Ver Quem Está Indo
-- Na grade de horários, veja as fotos dos confirmados
-- No modal do show, veja a lista completa
-- Sistema 100% dinâmico - apenas usuários cadastrados
+### 3. Acessar a aplicação
 
-## 🔧 Tecnologias
+Abra seu navegador em: `http://localhost:3000`
 
-- **HTML5**: Estrutura semântica
-- **CSS3**: Animações e design responsivo
-- **JavaScript**: Lógica interativa
-- **LocalStorage**: Armazenamento local
-- **Tailwind CSS**: Framework de estilos
+## 📋 Funcionalidades
 
-## 💾 Armazenamento
+- ✅ Visualização de todos os blocos de carnaval
+- ✅ Programação completa por dia da semana
+- ✅ Sistema de presença em tempo real
+- ✅ Perfis de usuário com avatar
+- ✅ Banco de dados SQLite para persistência
+- ✅ API REST para integração
 
-Os dados são salvos localmente no navegador:
-- **Informações do usuário**: Nome e foto
-- **Participações**: Shows que você confirmou
-- **Persistência**: Dados mantidos entre sessões
+## 🗄️ Banco de Dados
 
-## 🎯 Recursos Especiais
+O sistema usa SQLite e cria automaticamente o arquivo `carnaval.db` na primeira execução.
 
-- **Avatares dinâmicos**: Para usuários sem foto, mostra iniciais coloridas
-- **Sistema limpo**: Sem dados hardcoded, apenas usuários reais
-- **Interface visual**: Bolhas de confirmação na grade de horários
-- **Feedback visual**: Botões mudam de cor quando confirmado
+### Estrutura:
 
-## 🎵 Shows Disponíveis
+- **users**: Armazena informações dos usuários (id, name, avatar)
+- **attendances**: Armazena as presenças (user_id, show_id)
 
-O sistema inclui a programação completa do MADA:
-- **Sexta-feira**: 15 shows
-- **Sábado**: 16 shows
-- **3 palcos**: Palco 1, Palco 2 e Baile
-- **Horário**: 19h às 06h
+## 🔌 API Endpoints
 
----
+### Usuários
 
-**Desenvolvido com ❤️ para o Gatilho para Música!**
+- `POST /api/users` - Criar/atualizar usuário
+- `GET /api/users/:id` - Buscar usuário por ID
+- `GET /api/users` - Listar todos os usuários
+
+### Presenças
+
+- `POST /api/attendances` - Marcar/desmarcar presença
+- `GET /api/attendances/show/:showId` - Buscar presenças de um show
+- `GET /api/attendances` - Buscar todas as presenças
+- `GET /api/attendances/check/:userId/:showId` - Verificar se usuário está presente
+- `GET /api/attendances/user/:userId` - Buscar shows que usuário está presente
+
+## 📦 Dependências
+
+- **express**: Servidor web
+- **sqlite3**: Banco de dados SQLite
+- **cors**: Permissão de acesso cross-origin
+- **body-parser**: Parser de requisições
+
+## 🛠️ Desenvolvimento
+
+O sistema atualiza automaticamente as presenças a cada 5 segundos para mostrar mudanças em tempo real.
+
+## 📝 Notas
+
+- O sistema mantém localStorage como fallback caso a API não esteja disponível
+- Os avatares são armazenados como base64 ou URLs
+- O ID do usuário é gerado a partir do nome (lowercase, sem espaços)

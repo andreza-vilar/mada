@@ -805,15 +805,14 @@
                 card.dataset.showId = show.id;
                         card.style.background = stageColors[show.stage];
                 
-                // Mostrar apenas usuários dinâmicos
-                const dynamicAttendees = userAttendances[show.id] || [];
+                // Mostrar usuários do servidor
+                const attendeesData = allAttendances[show.id] || [];
                 
-                const attendeesHTML = dynamicAttendees.map(attendeeId => {
-                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
-                        return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
+                const attendeesHTML = attendeesData.map(attendee => {
+                    if (attendee.avatar) {
+                        return `<div class="attendee-bubble" style="background-image: url('${attendee.avatar}')" title="${attendee.name}" onerror="this.style.background='linear-gradient(135deg, var(--accent-yellow), var(--accent-red))'; this.innerHTML='${attendee.name.charAt(0).toUpperCase()}';"></div>`;
                     }
-                            return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
+                    return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendee.name}">${attendee.name.charAt(0).toUpperCase()}</div>`;
                 }).join('');
                 
                         const localInfo = show.local ? `<div class="text-sm text-white/95 mt-2 font-semibold">📍 ${show.local}</div>` : '';
@@ -920,36 +919,8 @@
                 attendText.textContent = 'Marcar presença';
             }
             
-            // Mostrar apenas usuários dinâmicos
-            const attendeesGrid = document.getElementById('modal-attendees-grid');
-            attendeesGrid.innerHTML = '';
-            
-            const dynamicAttendees = userAttendances[showId] || [];
-            
-            if(dynamicAttendees.length > 0) {
-                dynamicAttendees.forEach(attendeeId => {
-                    // Usuário dinâmico
-                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
-                        attendeesGrid.innerHTML += `
-                            <div class="text-center">
-                                <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);">
-                                <p class="mt-2 text-sm">${savedUser.name}</p>
-                            </div>`;
-                    } else {
-                        // Avatar padrão para usuários sem foto
-                        attendeesGrid.innerHTML += `
-                            <div class="text-center">
-                                <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
-                                    ${attendeeId.charAt(0).toUpperCase()}
-                                </div>
-                                <p class="mt-2 text-sm">${attendeeId}</p>
-                            </div>`;
-                    }
-                });
-            } else {
-                attendeesGrid.innerHTML = `<p class="col-span-full text-center text-gray-400">Ninguém confirmado para este show ainda.</p>`;
-            }
+            // Carregar participantes do servidor
+            updateModalAttendees(showId);
 
             scheduleModal.classList.remove('hidden');
         });
@@ -962,12 +933,90 @@
         });
         
         // --- SISTEMA DE USUÁRIOS E AGENDAMENTO ---
+        // API URL - funciona tanto localmente quanto no Vercel
+        const API_URL = window.location.origin;
+        
         let currentUser = null;
-        let userAttendances = JSON.parse(localStorage.getItem('userAttendances')) || {};
+        let userAttendances = {};
+        let allAttendances = {}; // Cache de todas as presenças do servidor
+
+        // Função auxiliar para fazer requisições
+        async function apiRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    ...options,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+                // Fallback para localStorage se a API não estiver disponível
+                if (endpoint.includes('/api/')) {
+                    console.warn('API não disponível, usando localStorage como fallback');
+                }
+                throw error;
+            }
+        }
+
+        // Carregar todas as presenças do servidor
+        async function loadAllAttendances() {
+            try {
+                allAttendances = await apiRequest('/api/attendances');
+                // Converter para o formato esperado pelo código existente
+                Object.keys(allAttendances).forEach(showId => {
+                    userAttendances[showId] = allAttendances[showId].map(a => a.userId);
+                });
+                // Atualizar interface
+                if (!schedulePage.classList.contains('hidden')) {
+                    let activeSchedule = scheduleThursday;
+                    if (dayThursdayBtn.classList.contains('active')) activeSchedule = scheduleThursday;
+                    else if (dayFridayBtn.classList.contains('active')) activeSchedule = scheduleFriday;
+                    else if (daySaturdayBtn.classList.contains('active')) activeSchedule = scheduleSaturday;
+                    else if (daySundayBtn.classList.contains('active')) activeSchedule = scheduleSunday;
+                    else if (dayMondayBtn.classList.contains('active')) activeSchedule = scheduleMonday;
+                    else if (dayTuesdayBtn.classList.contains('active')) activeSchedule = scheduleTuesday;
+                    else if (dayWednesdayBtn.classList.contains('active')) activeSchedule = scheduleWednesday;
+                    renderSchedule(activeSchedule);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar presenças:', error);
+                // Fallback para localStorage
+                userAttendances = JSON.parse(localStorage.getItem('userAttendances')) || {};
+            }
+        }
+
+        // Salvar usuário no servidor
+        async function saveUserToServer(user) {
+            try {
+                const userId = user.name.toLowerCase().replace(/\s+/g, '');
+                await apiRequest('/api/users', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        id: userId,
+                        name: user.name,
+                        avatar: user.avatar
+                    })
+                });
+            } catch (error) {
+                console.error('Erro ao salvar usuário:', error);
+            }
+        }
 
         function saveUserData() {
+            // Salvar no localStorage como backup
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            localStorage.setItem('userAttendances', JSON.stringify(userAttendances));
+            // Salvar no servidor
+            if (currentUser) {
+                saveUserToServer(currentUser);
+            }
         }
 
         function loadUserData() {
@@ -975,6 +1024,8 @@
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUserInterface();
+                // Sincronizar com servidor
+                saveUserToServer(currentUser);
             }
         }
 
@@ -1006,7 +1057,7 @@
             modal.classList.add('hidden');
         }
 
-        function login() {
+        async function login() {
             const name = document.getElementById('login-name').value.trim();
             const avatarFile = document.getElementById('login-avatar').files[0];
             
@@ -1018,23 +1069,27 @@
             let avatarUrl = 'default-avatar.png';
             if (avatarFile) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = async function(e) {
                     avatarUrl = e.target.result;
                     currentUser = { name, avatar: avatarUrl };
-                    saveUserData();
+                    await saveUserData();
                     updateUserInterface();
                     hideLoginModal();
                     // Limpar formulário
                     document.getElementById('login-name').value = '';
                     document.getElementById('login-avatar').value = '';
+                    // Recarregar presenças
+                    await loadAllAttendances();
                 };
                 reader.readAsDataURL(avatarFile);
             } else {
                 currentUser = { name, avatar: avatarUrl };
-                saveUserData();
+                await saveUserData();
                 updateUserInterface();
                 hideLoginModal();
                 document.getElementById('login-name').value = '';
+                // Recarregar presenças
+                await loadAllAttendances();
             }
         }
 
@@ -1044,7 +1099,7 @@
             updateUserInterface();
         }
 
-        function toggleAttendance(showId) {
+        async function toggleAttendance(showId) {
             const targetShowId = showId || currentModalShowId;
             if (!targetShowId) return;
             
@@ -1055,25 +1110,62 @@
 
             const userId = currentUser.name.toLowerCase().replace(/\s+/g, '');
             
+            try {
+                // Enviar para o servidor
+                const result = await apiRequest('/api/attendances', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        userId: userId,
+                        showId: targetShowId
+                    })
+                });
+
+                // Atualizar cache local
             if (!userAttendances[targetShowId]) {
                 userAttendances[targetShowId] = [];
             }
 
+                if (result.attending) {
+                    if (!userAttendances[targetShowId].includes(userId)) {
+                        userAttendances[targetShowId].push(userId);
+                    }
+                } else {
+                    const index = userAttendances[targetShowId].indexOf(userId);
+                    if (index > -1) {
+                        userAttendances[targetShowId].splice(index, 1);
+                    }
+                }
+
+                // Recarregar todas as presenças do servidor para ter dados atualizados
+                await loadAllAttendances();
+                updateShowAttendance(targetShowId);
+                
+                // Se o modal estiver aberto, atualizar a interface
+                if (currentModalShowId === targetShowId) {
+                    await updateModalAttendees(targetShowId);
+                }
+            } catch (error) {
+                console.error('Erro ao marcar presença:', error);
+                // Fallback para localStorage
+                if (!userAttendances[targetShowId]) {
+                    userAttendances[targetShowId] = [];
+                }
             const attendanceIndex = userAttendances[targetShowId].indexOf(userId);
             if (attendanceIndex > -1) {
                 userAttendances[targetShowId].splice(attendanceIndex, 1);
             } else {
                 userAttendances[targetShowId].push(userId);
             }
-
-            saveUserData();
+                localStorage.setItem('userAttendances', JSON.stringify(userAttendances));
             updateShowAttendance(targetShowId);
+            }
+        }
             
-            // Se o modal estiver aberto, atualizar a interface
-            if (currentModalShowId === targetShowId) {
+        // Função para atualizar a lista de participantes no modal
+        async function updateModalAttendees(showId) {
                 const attendBtn = document.getElementById('attend-btn');
                 const attendText = document.getElementById('attend-text');
-                const isAttending = getAttendanceStatus(targetShowId);
+            const isAttending = getAttendanceStatus(showId);
                 
                 if (isAttending) {
                     attendBtn.classList.add('active');
@@ -1083,40 +1175,35 @@
                     attendText.textContent = 'Marcar presença';
                 }
                 
-                // Recarregar a lista de confirmados no modal
-                const allShows = [...scheduleThursday, ...scheduleFriday, ...scheduleSaturday, ...scheduleSunday, ...scheduleMonday, ...scheduleTuesday, ...scheduleWednesday];
-                const show = allShows.find(s => s.id === targetShowId);
-                if (show) {
+            // Buscar presenças do servidor para este show
+            try {
+                const attendees = await apiRequest(`/api/attendances/show/${showId}`);
                     const attendeesGrid = document.getElementById('modal-attendees-grid');
                     attendeesGrid.innerHTML = '';
                     
-                    const dynamicAttendees = userAttendances[targetShowId] || [];
-                    
-                    if(dynamicAttendees.length > 0) {
-                        dynamicAttendees.forEach(attendeeId => {
-                            // Usuário dinâmico
-                            const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-                            if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
+                if (attendees.length > 0) {
+                    attendees.forEach(attendee => {
+                        if (attendee.avatar) {
                                 attendeesGrid.innerHTML += `
                                     <div class="text-center">
-                                        <img src="${savedUser.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);">
-                                        <p class="mt-2 text-sm">${savedUser.name}</p>
+                                    <img src="${attendee.avatar}" class="w-20 h-20 rounded-full object-cover mx-auto border-3" style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmZjdlYjkiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSI4IiB5PSI4Ij4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgMTRDOC42ODYyOSAxNCA2IDE2LjY4NjMgNiAyMEgxOEMxOCAxNi42ODYzIDE1LjMxMzcgMTQgMTIgMTRaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+'">
+                                    <p class="mt-2 text-sm">${attendee.name}</p>
                                     </div>`;
                             } else {
-                                // Avatar padrão para usuários sem foto
                                 attendeesGrid.innerHTML += `
                                     <div class="text-center">
-                                        <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
-                                            ${attendeeId.charAt(0).toUpperCase()}
+                                    <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
+                                        ${attendee.name.charAt(0).toUpperCase()}
                                         </div>
-                                        <p class="mt-2 text-sm">${attendeeId}</p>
+                                    <p class="mt-2 text-sm">${attendee.name}</p>
                                     </div>`;
                             }
                         });
                     } else {
                         attendeesGrid.innerHTML = `<p class="col-span-full text-center text-gray-400">Ninguém confirmado para este show ainda.</p>`;
                     }
-                }
+            } catch (error) {
+                console.error('Erro ao carregar participantes:', error);
             }
         }
 
@@ -1168,14 +1255,17 @@
             });
         }
 
-        window.onload = () => {
+        window.onload = async () => {
             displayArtists(blocosData);
             loadUserData();
             
-            // Carregar participações salvas
-            Object.keys(userAttendances).forEach(showId => {
-                updateShowAttendance(parseInt(showId));
-            });
+            // Carregar todas as presenças do servidor
+            await loadAllAttendances();
+            
+            // Atualizar interface periodicamente (a cada 5 segundos)
+            setInterval(async () => {
+                await loadAllAttendances();
+            }, 5000);
         };
     </script>
 </body>

@@ -1,0 +1,19 @@
+{
+  "name": "carnaval-2026",
+  "version": "1.0.0",
+  "description": "Sistema de presença para blocos de carnaval",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build needed'"
+  },
+  "keywords": ["carnaval", "blocos", "presença"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "redis": "^4.6.12"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
