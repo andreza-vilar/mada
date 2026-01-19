@@ -6,7 +6,7 @@
     <title>Carnaval 2026 !</title>
 
         <!-- FAVICON -->
-    <link rel="icon" type="image/jpeg" href="mascara.jpg">
+    <link rel="icon" type="image/jpeg" href="/mascara.jpg">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -341,7 +341,7 @@
         <header class="text-center mb-8">
             <!-- Container flex para alinhar a logo e o título -->
             <div class="flex justify-center items-center gap-4">
-                <img src="bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
+                <img src="/bonecoOlinda.jpg" alt="Boneco de Olinda" class="h-16 md:h-20" style="filter: drop-shadow(3px 3px 0px var(--accent-red)) drop-shadow(6px 6px 0px var(--accent-blue));">
                 <h1 class="main-title text-5xl md:text-7xl tracking-tighter" data-text="Carnaval 2026 !">Carnaval 2026 !</h1>
             </div>
             <p class="text-lg font-bold mt-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎉 Nosso roteiro de blocos para o carnaval 🎉</p>
@@ -458,7 +458,7 @@
 
     <!-- Player de Música -->
     <audio id="background-music" loop>
-        <source src="volteiRecife.mp3" type="audio/mpeg">
+        <source src="/volteiRecife.mp3" type="audio/mpeg">
     </audio>
     <button id="music-toggle-btn" class="music-toggle" aria-label="Tocar música">
         <!-- Ícone de Play/Pause será inserido aqui pelo JavaScript -->
@@ -642,41 +642,41 @@
         ];
         // Lista de blocos de carnaval de Recife e Olinda 2026
         const blocosData = [
-            { name: "Escuta Levino", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco tradicional do carnaval recifense com muito frevo e animação!" },
-            { name: "Me Mostro Teu Mapa Astral", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 18:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco temático com astrologia e muita diversão!" },
-            { name: "Elefante de Olinda", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Bonsucesso - Sede do Homem\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Olinda\n\nUm dos blocos mais tradicionais de Olinda!" },
-            { name: "Afojubá Batuque", imageUrl: "sombrinha.jpg", details: "📍 Local: Avenida Marquês de Olinda\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e energia!" },
-            { name: "Shortinho Torano", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua do Apolo, 174\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico do Recife!" },
-            { name: "Arrastão do Maestro Óseas", imageUrl: "sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 15:00 | Saída: 16:00\n🏙️ Cidade: Olinda\n\nArrastão tradicional com o Maestro Óseas!" },
-            { name: "Abduzidos", imageUrl: "sombrinha.jpg", details: "📍 Local: Casa Nola\n🕐 Concentração: 16:30 | Saída: 17:30\n🏙️ Cidade: Olinda\n\nBloco temático com muita animação!" },
-            { name: "Segura o Tonho, Charlie Brow", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 17:00 | Saída: 19:30\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico!" },
-            { name: "Nem Sempre Lily Toca Flauta", imageUrl: "sombrinha.jpg", details: "📍 Local: Pátio Santa Cruz\n🕐 Concentração: 17:00 | Saída: 19:00\n🏙️ Cidade: Recife\n\nBloco com muito humor e animação!" },
-            { name: "Mulher do Dia", imageUrl: "sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco que celebra as mulheres!" },
-            { name: "Caraca Moleque", imageUrl: "sombrinha.jpg", details: "📍 Local: Centro Luiz Freire\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
-            { name: "Traquinos em Folia", imageUrl: "sombrinha.jpg", details: "📍 Local: Sede da Pitombeira\n🕐 Concentração: 18:30 | Saída: 19:30\n🏙️ Cidade: Olinda\n\nBloco infantil com muita animação!" },
-            { name: "Batuques de Pernambuco", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e percussão!" },
-            { name: "Me Solta, Carail", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
-            { name: "Du Nada a Gente Sai", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 19:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
-            { name: "La Ursa do Bonfim", imageUrl: "sombrinha.jpg", details: "📍 Local: Clube Cariri\n🕐 Concentração: 17:00 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nBloco com longa duração e muita animação!" },
-            { name: "Frevo e Folia", imageUrl: "sombrinha.jpg", details: "📍 Local: Vassourinhas de Olinda - Largo do Amparo\n🕐 Concentração: 18:30 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nMuito frevo e folia em Olinda!" },
-            { name: "O Lord de Olinda", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 18:00 | Saída: 23:00\n🏙️ Cidade: Olinda\n\nBloco tradicional com longa duração!" },
-            { name: "Galo da Madrugada", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça Sérgio Lôreto\n🕐 Concentração: 04:00 | Saída: 09:00\n🏙️ Cidade: Recife\n\nO maior bloco de carnaval do mundo! Tradição e animação desde a madrugada!" },
-            { name: "Pinto do galo da Madrugada", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça do Marco Zero\n🕐 Concentração: 05:45 | Saída: 06:45\n🏙️ Cidade: Recife\n\nBloco que antecede o Galo da Madrugada!" },
-            { name: "Galinha d'Água", imageUrl: "sombrinha.jpg", details: "📍 Local: Rio Capibaribe\n🕐 Concentração: 07:00 | Saída: 08:00\n🏙️ Cidade: Recife\n\nBloco aquático no Rio Capibaribe!" },
-            { name: "Sibito Baleado", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua Coronel Joaquim Cavalcanti, 201\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
-            { name: "O Urso Cascudo do Amparo", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com boneco gigante!" },
-            { name: "Eu Acho é Pouco", imageUrl: "sombrinha.jpg", details: "📍 Local: A confirmar\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco animado de Olinda!" },
-            { name: "Bloco Mangue Beat", imageUrl: "sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao movimento Mangue Beat!" },
-            { name: "Bloco do Frei", imageUrl: "sombrinha.jpg", details: "📍 Local: Cruzeiro do Convento de São Francisco\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional no Convento de São Francisco!" },
-            { name: "Maracatu Kangoma", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua do Amparo, 236\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nMaracatu tradicional de Olinda!" },
-            { name: "Patusquinho", imageUrl: "sombrinha.jpg", details: "📍 Local: Pátio São Pedro\n🕐 Concentração: 09:00 | Saída: 09:59\n🏙️ Cidade: Recife\n\nBloco animado no Pátio São Pedro!" },
-            { name: "Tambores D'Saia", imageUrl: "sombrinha.jpg", details: "📍 Local: Praça de São Pedro\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com tambores e muita energia!" },
-            { name: "Soul Delas", imageUrl: "sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com soul music e animação!" },
-            { name: "Urso Congelado", imageUrl: "bonecoOlinda.jpg", details: "📍 Local: Açaí do Carmo, 5\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com boneco de urso!" },
-            { name: "Pife Floyd", imageUrl: "sombrinha.jpg", details: "📍 Local: Travessa de São Francisco, 206\n🕐 Concentração: 10:00 | Saída: 12:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao Pink Floyd!" },
-            { name: "Sombatuki", imageUrl: "sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 10:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
-            { name: "Fique na Sombra", imageUrl: "sombrinha.jpg", details: "📍 Local: Rua da Boa Hora, 177\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com sombrinhas de frevo!" },
-            { name: "Batucada Atômica", imageUrl: "sombrinha.jpg", details: "📍 Local: Avenida 10 de Novembro\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com muita batucada e energia!" },
+            { name: "Escuta Levino", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco tradicional do carnaval recifense com muito frevo e animação!" },
+            { name: "Me Mostro Teu Mapa Astral", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça Maciel Pinheiro\n🕐 Concentração: 18:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco temático com astrologia e muita diversão!" },
+            { name: "Elefante de Olinda", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Largo do Bonsucesso - Sede do Homem\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Olinda\n\nUm dos blocos mais tradicionais de Olinda!" },
+            { name: "Afojubá Batuque", imageUrl: "/sombrinha.jpg", details: "📍 Local: Avenida Marquês de Olinda\n🕐 Concentração: 16:00 | Saída: 17:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e energia!" },
+            { name: "Shortinho Torano", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua do Apolo, 174\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico do Recife!" },
+            { name: "Arrastão do Maestro Óseas", imageUrl: "/sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 15:00 | Saída: 16:00\n🏙️ Cidade: Olinda\n\nArrastão tradicional com o Maestro Óseas!" },
+            { name: "Abduzidos", imageUrl: "/sombrinha.jpg", details: "📍 Local: Casa Nola\n🕐 Concentração: 16:30 | Saída: 17:30\n🏙️ Cidade: Olinda\n\nBloco temático com muita animação!" },
+            { name: "Segura o Tonho, Charlie Brow", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 17:00 | Saída: 19:30\n🏙️ Cidade: Recife\n\nBloco animado no centro histórico!" },
+            { name: "Nem Sempre Lily Toca Flauta", imageUrl: "/sombrinha.jpg", details: "📍 Local: Pátio Santa Cruz\n🕐 Concentração: 17:00 | Saída: 19:00\n🏙️ Cidade: Recife\n\nBloco com muito humor e animação!" },
+            { name: "Mulher do Dia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Bar do Ró\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco que celebra as mulheres!" },
+            { name: "Caraca Moleque", imageUrl: "/sombrinha.jpg", details: "📍 Local: Centro Luiz Freire\n🕐 Concentração: 17:00 | Saída: 18:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "Traquinos em Folia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Sede da Pitombeira\n🕐 Concentração: 18:30 | Saída: 19:30\n🏙️ Cidade: Olinda\n\nBloco infantil com muita animação!" },
+            { name: "Batuques de Pernambuco", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua da Moeda\n🕐 Concentração: 19:00 | Saída: 20:00\n🏙️ Cidade: Recife\n\nBloco com muito batuque e percussão!" },
+            { name: "Me Solta, Carail", imageUrl: "/sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 20:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
+            { name: "Du Nada a Gente Sai", imageUrl: "/sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 19:00 | Saída: 21:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "La Ursa do Bonfim", imageUrl: "/sombrinha.jpg", details: "📍 Local: Clube Cariri\n🕐 Concentração: 17:00 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nBloco com longa duração e muita animação!" },
+            { name: "Frevo e Folia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Vassourinhas de Olinda - Largo do Amparo\n🕐 Concentração: 18:30 | Saída: 22:00\n🏙️ Cidade: Olinda\n\nMuito frevo e folia em Olinda!" },
+            { name: "O Lord de Olinda", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 18:00 | Saída: 23:00\n🏙️ Cidade: Olinda\n\nBloco tradicional com longa duração!" },
+            { name: "Galo da Madrugada", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça Sérgio Lôreto\n🕐 Concentração: 04:00 | Saída: 09:00\n🏙️ Cidade: Recife\n\nO maior bloco de carnaval do mundo! Tradição e animação desde a madrugada!" },
+            { name: "Pinto do galo da Madrugada", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça do Marco Zero\n🕐 Concentração: 05:45 | Saída: 06:45\n🏙️ Cidade: Recife\n\nBloco que antecede o Galo da Madrugada!" },
+            { name: "Galinha d'Água", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rio Capibaribe\n🕐 Concentração: 07:00 | Saída: 08:00\n🏙️ Cidade: Recife\n\nBloco aquático no Rio Capibaribe!" },
+            { name: "Sibito Baleado", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua Coronel Joaquim Cavalcanti, 201\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional de Olinda!" },
+            { name: "O Urso Cascudo do Amparo", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Largo do Guadalupe\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com boneco gigante!" },
+            { name: "Eu Acho é Pouco", imageUrl: "/sombrinha.jpg", details: "📍 Local: A confirmar\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco animado de Olinda!" },
+            { name: "Bloco Mangue Beat", imageUrl: "/sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao movimento Mangue Beat!" },
+            { name: "Bloco do Frei", imageUrl: "/sombrinha.jpg", details: "📍 Local: Cruzeiro do Convento de São Francisco\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco tradicional no Convento de São Francisco!" },
+            { name: "Maracatu Kangoma", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua do Amparo, 236\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nMaracatu tradicional de Olinda!" },
+            { name: "Patusquinho", imageUrl: "/sombrinha.jpg", details: "📍 Local: Pátio São Pedro\n🕐 Concentração: 09:00 | Saída: 09:59\n🏙️ Cidade: Recife\n\nBloco animado no Pátio São Pedro!" },
+            { name: "Tambores D'Saia", imageUrl: "/sombrinha.jpg", details: "📍 Local: Praça de São Pedro\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com tambores e muita energia!" },
+            { name: "Soul Delas", imageUrl: "/sombrinha.jpg", details: "📍 Local: Mosteiro São Bento\n🕐 Concentração: 08:00 | Saída: 09:00\n🏙️ Cidade: Olinda\n\nBloco com soul music e animação!" },
+            { name: "Urso Congelado", imageUrl: "/bonecoOlinda.jpg", details: "📍 Local: Açaí do Carmo, 5\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com boneco de urso!" },
+            { name: "Pife Floyd", imageUrl: "/sombrinha.jpg", details: "📍 Local: Travessa de São Francisco, 206\n🕐 Concentração: 10:00 | Saída: 12:00\n🏙️ Cidade: Olinda\n\nBloco com referência ao Pink Floyd!" },
+            { name: "Sombatuki", imageUrl: "/sombrinha.jpg", details: "📍 Local: Largo do Amparo\n🕐 Concentração: 10:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco animado no Largo do Amparo!" },
+            { name: "Fique na Sombra", imageUrl: "/sombrinha.jpg", details: "📍 Local: Rua da Boa Hora, 177\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com sombrinhas de frevo!" },
+            { name: "Batucada Atômica", imageUrl: "/sombrinha.jpg", details: "📍 Local: Avenida 10 de Novembro\n🕐 Concentração: 09:00 | Saída: 10:00\n🏙️ Cidade: Olinda\n\nBloco com muita batucada e energia!" },
         ];
         
         // --- LÓGICA DA PÁGINA ---
