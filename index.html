@@ -347,7 +347,7 @@
             <p class="text-lg font-bold mt-2" style="color: var(--accent-yellow); text-shadow: 2px 2px 0px var(--accent-red);">🎉 Nosso roteiro de blocos para o carnaval 🎉</p>
         </header>
         
-            <nav class="flex justify-center gap-4 mb-8">
+        <nav class="flex justify-center gap-4 mb-8">
             <button id="view-artists-btn" class="filter-btn active px-6 py-2">Blocos</button>
             <button id="view-schedule-btn" class="filter-btn px-6 py-2">Horários</button>
         </nav>
@@ -472,13 +472,15 @@
         
         // Schedules organizados por dia da semana - usando horários de concentração como start
         const scheduleThursday = [
+            // QUINTA (12/02) - Todos os blocos do CSV
             { id: 1, artist: "Escuta Levino", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
             { id: 2, artist: "Me Mostra Teu Mapa Astral", stage: 1, start: "18:00", end: "20:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
-            { id: 3, artist: "Elefante de Olinda", stage: 2, start: "16:00", end: "17:00", attendees: [], local: "Largo do Bonsucesso - Sede do Homem", cidade: "Olinda" },
+            { id: 3, artist: "Elefante de Olinda", stage: 2, start: "16:00", end: "17:00", attendees: [], local: "Sede do Homem", cidade: "Olinda" },
             { id: 4, artist: "Afojubá Batuque", stage: 1, start: "16:00", end: "17:00", attendees: [], local: "Avenida Marquês de Olinda", cidade: "Recife" },
             { id: 5, artist: "Shortinho Torano", stage: 1, start: "20:00", end: "21:00", attendees: [], local: "Rua do Apolo, 174", cidade: "Recife" },
         ];
         const scheduleFriday = [
+            // SEXTA (13/02) - Todos os blocos do CSV
             { id: 101, artist: "Arrastão do Maestro Óseas", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Bar do Ró", cidade: "Olinda" },
             { id: 102, artist: "Abduzidos", stage: 2, start: "16:30", end: "17:30", attendees: [], local: "Casa Nala", cidade: "Olinda" },
             { id: 103, artist: "Segura o Tonho, Charlie Brow", stage: 1, start: "17:00", end: "19:30", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
@@ -495,7 +497,7 @@
             { id: 114, artist: "O Lord de Olinda", stage: 2, start: "18:00", end: "23:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
         ];
         const scheduleSaturday = [
-            // Sábado (14/02) - Manhã
+            // SÁBADO (14/02) - Todos os blocos do CSV em ordem cronológica
             { id: 201, artist: "Galo da Madrugada", stage: 1, start: "04:00", end: "09:00", attendees: [], local: "Praça Sérgio Lôreto", cidade: "Recife" },
             { id: 202, artist: "Pinto do galo da Madrugada", stage: 1, start: "05:45", end: "06:45", attendees: [], local: "Praça do Marco Zero", cidade: "Recife" },
             { id: 203, artist: "Galinha d'Água", stage: 1, start: "07:00", end: "08:00", attendees: [], local: "Rio Capibaribe", cidade: "Recife" },
@@ -505,118 +507,119 @@
             { id: 207, artist: "Bloco Mangue Beat", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
             { id: 208, artist: "Bloco do Frei", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Cruzeiro do Convento de São Francisco", cidade: "Olinda" },
             { id: 209, artist: "Maracatu Kangoma", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo, 236", cidade: "Olinda" },
-            { id: 210, artist: "Patusquinho", stage: 1, start: "09:00", end: "09:59", attendees: [], local: "Pátio São Pedro", cidade: "Recife" },
-            { id: 211, artist: "Tambores D'Saia", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça de São Pedro", cidade: "Olinda" },
-            { id: 212, artist: "Soul Delas", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
-            { id: 213, artist: "Urso Congelado", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Açaí do Carmo, 5", cidade: "Olinda" },
-            { id: 214, artist: "Pife Floyd", stage: 2, start: "10:00", end: "12:00", attendees: [], local: "Travessa de São Francisco, 206", cidade: "Olinda" },
-            { id: 215, artist: "Sombatuki", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 210, artist: "Tambores D'Saia", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça de São Pedro", cidade: "Olinda" },
+            { id: 211, artist: "Soul Delas", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
+            { id: 212, artist: "Patusquinho", stage: 1, start: "09:00", end: "09:59", attendees: [], local: "Pátio São Pedro", cidade: "Recife" },
+            { id: 213, artist: "De Tanta Ladeira Fiquei Rosa", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
+            { id: 214, artist: "Urso Congelado", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Açaí do Carmo, 5", cidade: "Olinda" },
+            { id: 215, artist: "Fábrica de Samba", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Igreja de São Pedro", cidade: "Olinda" },
             { id: 216, artist: "Fique na Sombra", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Rua da Boa Hora, 177", cidade: "Olinda" },
             { id: 217, artist: "Batucada Atômica", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Avenida 10 de Novembro", cidade: "Olinda" },
-            { id: 218, artist: "De Tanta Ladeira Fiquei Rosa", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
-            { id: 219, artist: "Fábrica de Samba", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Igreja de São Pedro", cidade: "Olinda" },
-            { id: 220, artist: "Se me der eu como", stage: 2, start: "09:00", end: "11:30", attendees: [], local: "Rua do Bonfim 386", cidade: "Olinda" },
-            { id: 221, artist: "Trinca de Ás", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
-            // Sábado (14/02) - Tarde
-            { id: 222, artist: "Moidicuento", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Praça Cel João Lapa", cidade: "Olinda" },
-            { id: 223, artist: "Ta Bom a Gente Freva", stage: 2, start: "13:30", end: "14:30", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
-            { id: 224, artist: "Sobrecú", stage: 2, start: "15:00", end: "16:20", attendees: [], local: "Beco do Bajado", cidade: "Olinda" },
-            { id: 225, artist: "Bumba Meu Bowie", stage: 2, start: "14:00", end: "14:00", attendees: [], local: "Praça do Jacaré", cidade: "Olinda" },
-            { id: 226, artist: "Maracadonna", stage: 2, start: "14:00", end: "14:00", attendees: [], local: "Praça do Jacaré", cidade: "Olinda" },
-            { id: 227, artist: "Chapadinhos na Praia", stage: 2, start: "14:00", end: "14:50", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
-            { id: 228, artist: "Ceroula de Olinda", stage: 2, start: "12:00", end: "16:00", attendees: [], local: "Colégio Sao Bento", cidade: "Olinda" },
-            { id: 229, artist: "Hoje a Mangueira Entra", stage: 2, start: "16:00", end: "16:00", attendees: [], local: "Rua Coronel Joaquim Cavalcanti, 487", cidade: "Olinda" },
+            { id: 218, artist: "Se me der eu como", stage: 2, start: "09:00", end: "11:30", attendees: [], local: "Rua do Bonfim 386", cidade: "Olinda" },
+            { id: 219, artist: "Trinca de Ás", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
+            { id: 220, artist: "Papudinhos do Bonsucesso", stage: 2, start: "10:00", end: "17:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
+            { id: 221, artist: "Pife Floyd", stage: 2, start: "10:00", end: "12:00", attendees: [], local: "Travessa de São Francisco, 206", cidade: "Olinda" },
+            { id: 222, artist: "Sombatuki", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 223, artist: "Ceroula de Olinda", stage: 2, start: "12:00", end: "16:00", attendees: [], local: "Colégio Sao Bento", cidade: "Olinda" },
+            { id: 224, artist: "Moidicuento", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Praça Cel João Lapa", cidade: "Olinda" },
+            { id: 225, artist: "Ta Bom a Gente Freva", stage: 2, start: "13:30", end: "14:30", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
+            { id: 226, artist: "Bumba Meu Bowie", stage: 2, start: "14:00", end: "14:00", attendees: [], local: "Praça do Jacaré", cidade: "Olinda" },
+            { id: 227, artist: "Maracadonna", stage: 2, start: "14:00", end: "14:00", attendees: [], local: "Praça do Jacaré", cidade: "Olinda" },
+            { id: 228, artist: "Chapadinhos na Praia", stage: 2, start: "14:00", end: "14:50", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
+            { id: 229, artist: "Afojubá Batuque", stage: 2, start: "14:00", end: "15:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
             { id: 230, artist: "Cordas e Retalhos", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Rua da Guia, 86", cidade: "Recife" },
-            { id: 231, artist: "Afojubá Batuque", stage: 2, start: "14:00", end: "15:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
-            { id: 232, artist: "Menino da Tarde", stage: 2, start: "16:00", end: "17:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
-            { id: 233, artist: "Papudinhos do Bonsucesso", stage: 2, start: "10:00", end: "17:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
+            { id: 231, artist: "Sobrecú", stage: 2, start: "15:00", end: "16:20", attendees: [], local: "Beco do Bajado", cidade: "Olinda" },
+            { id: 232, artist: "Hoje a Mangueira Entra", stage: 2, start: "16:00", end: "16:00", attendees: [], local: "Rua Coronel Joaquim Cavalcanti, 487", cidade: "Olinda" },
+            { id: 233, artist: "Menino da Tarde", stage: 2, start: "16:00", end: "17:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
             { id: 234, artist: "Burra do Rosário", stage: 2, start: "18:00", end: "18:00", attendees: [], local: "Guadalupe - Sede da Burra", cidade: "Olinda" },
             { id: 235, artist: "Afoxé Alafin Oyó", stage: 2, start: "18:00", end: "19:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
             { id: 236, artist: "John Travolta", stage: 2, start: "18:00", end: "19:00", attendees: [], local: "Vassourinhas de Olinda - Largo do Amparo", cidade: "Olinda" },
             { id: 237, artist: "Homem da Meia Noite", stage: 2, start: "23:00", end: "00:00", attendees: [], local: "Estrada do Bom Sucesso - Sede do Homem", cidade: "Olinda" },
         ];
         const scheduleSunday = [
-            // Domingo (15/02) - programação completa do domingo
+            // DOMINGO (15/02) - Todos os blocos do CSV em ordem cronológica
             { id: 301, artist: "Cariri", stage: 2, start: "03:00", end: "04:00", attendees: [], local: "Clube Cariri", cidade: "Olinda" },
             { id: 302, artist: "Mucha Lucha", stage: 2, start: "08:00", end: "08:00", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
-            { id: 303, artist: "D'Breck", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Largo do Bonfim", cidade: "Olinda" },
-            { id: 304, artist: "A Rede", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
-            { id: 305, artist: "Batadoní", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
-            { id: 306, artist: "Birita de Olinda", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo 110", cidade: "Olinda" },
-            { id: 307, artist: "Batuques de Pernambuco", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
-            { id: 308, artist: "Filhas de Betha", stage: 2, start: "08:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 303, artist: "A Rede", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 304, artist: "Batadoní", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 305, artist: "Birita de Olinda", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo 110", cidade: "Olinda" },
+            { id: 306, artist: "Batuques de Pernambuco", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 307, artist: "Filhas de Betha", stage: 2, start: "08:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 308, artist: "D'Breck", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Largo do Bonfim", cidade: "Olinda" },
             { id: 309, artist: "Patusco", stage: 2, start: "09:00", end: "09:59", attendees: [], local: "Rua do Amparo, 292", cidade: "Olinda" },
             { id: 310, artist: "Sambadeiras", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Ladeira da Misericordia", cidade: "Olinda" },
             { id: 311, artist: "Enquanto Isso Na Sala da Justiça", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
             { id: 312, artist: "Congobloco", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Sede do Macaratu Nação Pernambuco", cidade: "Olinda" },
             { id: 313, artist: "Tá Calor Nessa Roupa?", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Casbah", cidade: "Olinda" },
             { id: 314, artist: "Mulher do Dia", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Casa PE no Carnaval", cidade: "Olinda" },
-            { id: 315, artist: "Sombatuki", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Rua do Bonfim", cidade: "Olinda" },
-            { id: 316, artist: "Bloco Tira Lama", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
-            { id: 317, artist: "Rebylleurias", stage: 2, start: "09:30", end: "10:30", attendees: [], local: "Rua do Bonfim, 449", cidade: "Olinda" },
-            { id: 318, artist: "Dez de Xarque e Uma Latinha", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
-            { id: 319, artist: "Umuarama", stage: 2, start: "11:00", end: "14:00", attendees: [], local: "Rua Epitácio Pessoa Sobrinho, 91", cidade: "Olinda" },
-            { id: 320, artist: "Me Adota", stage: 2, start: "10:00", end: "14:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
-            { id: 321, artist: "Marim dos Caetés", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 315, artist: "Bloco Tira Lama", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
+            { id: 316, artist: "Rebylleurias", stage: 2, start: "09:30", end: "10:30", attendees: [], local: "Rua do Bonfim, 449", cidade: "Olinda" },
+            { id: 317, artist: "Me Adota", stage: 2, start: "10:00", end: "14:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 318, artist: "Sombatuki", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Rua do Bonfim", cidade: "Olinda" },
+            { id: 319, artist: "Dez de Xarque e Uma Latinha", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 320, artist: "Umuarama", stage: 2, start: "11:00", end: "14:00", attendees: [], local: "Rua Epitácio Pessoa Sobrinho, 91", cidade: "Olinda" },
+            { id: 321, artist: "Bloco do Cimento", stage: 2, start: "11:00", end: "15:30", attendees: [], local: "Vassourinhas de Olinda - Largo do Amparo", cidade: "Olinda" },
             { id: 322, artist: "Fogo na Bacurinha", stage: 2, start: "12:00", end: "15:00", attendees: [], local: "Mercado da Ribeira", cidade: "Olinda" },
-            { id: 323, artist: "Bloco do Cimento", stage: 2, start: "11:00", end: "15:30", attendees: [], local: "Vassourinhas de Olinda - Largo do Amparo", cidade: "Olinda" },
+            { id: 323, artist: "Marim dos Caetés", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
             { id: 324, artist: "A Cama de Olinda", stage: 2, start: "14:00", end: "15:00", attendees: [], local: "Rua Coronel Joaquim Cavalcante (Ateliê de Billy)", cidade: "Olinda" },
-            { id: 325, artist: "Vem Pra Sombra", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Estrada do Bonsucesso, 510", cidade: "Olinda" },
-            { id: 326, artist: "Unidos Pela Ansiedade", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Rua do Bonfim (esquina com a Praça do Carmo)", cidade: "Olinda" },
-            { id: 327, artist: "Caranguejo no Caçuá", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
-            { id: 328, artist: "O Dono do Mundo", stage: 2, start: "16:30", end: "17:30", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
-            { id: 329, artist: "Elefante de Olinda", stage: 2, start: "17:00", end: "19:00", attendees: [], local: "Largo do Bonsucesso - Sede do Homem", cidade: "Olinda" },
-            { id: 330, artist: "Grheia", stage: 2, start: "15:30", end: "15:30", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
+            { id: 325, artist: "Grheia", stage: 2, start: "15:30", end: "15:30", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
+            { id: 326, artist: "Vem Pra Sombra", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Estrada do Bonsucesso, 510", cidade: "Olinda" },
+            { id: 327, artist: "Unidos Pela Ansiedade", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Rua do Bonfim (esquina com a Praça do Carmo)", cidade: "Olinda" },
+            { id: 328, artist: "Caranguejo no Caçuá", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
+            { id: 329, artist: "O Dono do Mundo", stage: 2, start: "16:30", end: "17:30", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 330, artist: "Elefante de Olinda", stage: 2, start: "17:00", end: "19:00", attendees: [], local: "Largo do Bonsucesso - Sede do Homem", cidade: "Olinda" },
         ];
         const scheduleMonday = [
+            // SEGUNDA (16/02) - Todos os blocos do CSV em ordem cronológica
             { id: 401, artist: "Apoteose dos Bonecos Gigantes", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
             { id: 402, artist: "Minha Cobra", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Largo do Bonsucesso", cidade: "Olinda" },
             { id: 403, artist: "Soul Delas", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Mosteiro São Bento", cidade: "Olinda" },
             { id: 404, artist: "Tambores D'Saia", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça de São Pedro", cidade: "Olinda" },
             { id: 405, artist: "Birita de Olinda", stage: 2, start: "08:30", end: "09:30", attendees: [], local: "Rua do Amparo, 110", cidade: "Olinda" },
-            { id: 406, artist: "Minhocão de Olinda", stage: 2, start: "10:00", end: "11:30", attendees: [], local: "Atrás da Igreja de São Pedro", cidade: "Olinda" },
-            { id: 407, artist: "Pitombeira dos Quatro Cantos", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Sede da Pitombeira", cidade: "Olinda" },
-            { id: 408, artist: "Fábrica de Samba", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Igreja de São Pedro", cidade: "Olinda" },
-            { id: 409, artist: "México Peru", stage: 2, start: "09:00", end: "10:30", attendees: [], local: "Ladeira da Misericórdia", cidade: "Olinda" },
-            { id: 410, artist: "Comigo é Assim", stage: 2, start: "10:00", end: "10:30", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
-            { id: 411, artist: "Ta'Qui Pr'Ocês", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua Nelson Guedes da Silva, 142 (Beco do Lixo)", cidade: "Olinda" },
-            { id: 412, artist: "Se Eu Flopar Me Beija", stage: 2, start: "11:30", end: "12:30", attendees: [], local: "Praça Cel João Lapa", cidade: "Olinda" },
-            { id: 413, artist: "Mulher na Vara", stage: 2, start: "11:30", end: "13:30", attendees: [], local: "Casa de Dona Dá", cidade: "Olinda" },
-            { id: 414, artist: "Pré-Sal", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Rua Joaquim Cavalcanti, 511", cidade: "Olinda" },
-            { id: 415, artist: "Amantes de Glória", stage: 1, start: "13:00", end: "14:00", attendees: [], local: "Rua da Guia", cidade: "Recife" },
-            { id: 416, artist: "Grheia", stage: 2, start: "15:30", end: "15:30", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
-            { id: 417, artist: "Segunda tem palhaço", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
-            { id: 418, artist: "Bloco da Saudade", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
-            { id: 419, artist: "Bloco da Ema", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Praça Cel João Lapa", cidade: "Olinda" },
-            { id: 420, artist: "Fígado de Aço", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Rua do Bonfim, 109", cidade: "Olinda" },
-            { id: 421, artist: "Batucada Atômica", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Praça do Carmo - Focca", cidade: "Olinda" },
-            { id: 422, artist: "Maracatu Nação Pernambuco", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Casarão Nação Pernambuco", cidade: "Olinda" },
-            { id: 423, artist: "Bloco do Nada", stage: 1, start: "13:00", end: "17:00", attendees: [], local: "Rua Rosário da Boa Vista", cidade: "Recife" },
-            { id: 424, artist: "Garoto de Vassoura", stage: 2, start: "14:30", end: "17:00", attendees: [], local: "Rua Antonio Luciano de Oliveira, 239", cidade: "Olinda" },
-            { id: 425, artist: "Metido a Rico Porém Liso", stage: 2, start: "11:00", end: "17:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
+            { id: 406, artist: "Fábrica de Samba", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Igreja de São Pedro", cidade: "Olinda" },
+            { id: 407, artist: "México Peru", stage: 2, start: "09:00", end: "10:30", attendees: [], local: "Ladeira da Misericórdia", cidade: "Olinda" },
+            { id: 408, artist: "Comigo é Assim", stage: 2, start: "10:00", end: "10:30", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
+            { id: 409, artist: "Minhocão de Olinda", stage: 2, start: "10:00", end: "11:30", attendees: [], local: "Atrás da Igreja de São Pedro", cidade: "Olinda" },
+            { id: 410, artist: "Pitombeira dos Quatro Cantos", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Sede da Pitombeira", cidade: "Olinda" },
+            { id: 411, artist: "Metido a Rico Porém Liso", stage: 2, start: "11:00", end: "17:00", attendees: [], local: "Espaço Cultural Osvaldo Sérgio", cidade: "Olinda" },
+            { id: 412, artist: "Ta'Qui Pr'Ocês", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua Nelson Guedes da Silva, 142 (Beco do Lixo)", cidade: "Olinda" },
+            { id: 413, artist: "Se Eu Flopar Me Beija", stage: 2, start: "11:30", end: "12:30", attendees: [], local: "Praça Cel João Lapa", cidade: "Olinda" },
+            { id: 414, artist: "Mulher na Vara", stage: 2, start: "11:30", end: "13:30", attendees: [], local: "Casa de Dona Dá", cidade: "Olinda" },
+            { id: 415, artist: "Bloco do Nada", stage: 1, start: "13:00", end: "17:00", attendees: [], local: "Rua Rosário da Boa Vista", cidade: "Recife" },
+            { id: 416, artist: "Pré-Sal", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Rua Joaquim Cavalcanti, 511", cidade: "Olinda" },
+            { id: 417, artist: "Amantes de Glória", stage: 1, start: "13:00", end: "14:00", attendees: [], local: "Rua da Guia", cidade: "Recife" },
+            { id: 418, artist: "Garoto de Vassoura", stage: 2, start: "14:30", end: "17:00", attendees: [], local: "Rua Antonio Luciano de Oliveira, 239", cidade: "Olinda" },
+            { id: 419, artist: "Segunda tem palhaço", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Rua da Moeda", cidade: "Recife" },
+            { id: 420, artist: "Bloco da Saudade", stage: 1, start: "15:00", end: "16:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
+            { id: 421, artist: "Bloco da Ema", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Praça Cel João Lapa", cidade: "Olinda" },
+            { id: 422, artist: "Fígado de Aço", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Rua do Bonfim, 109", cidade: "Olinda" },
+            { id: 423, artist: "Batucada Atômica", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Praça do Carmo - Focca", cidade: "Olinda" },
+            { id: 424, artist: "Maracatu Nação Pernambuco", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Casarão Nação Pernambuco", cidade: "Olinda" },
+            { id: 425, artist: "Grheia", stage: 2, start: "15:30", end: "15:30", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
             { id: 426, artist: "O Rodo", stage: 2, start: "18:00", end: "19:30", attendees: [], local: "Casa de Dona Dá", cidade: "Olinda" },
             { id: 427, artist: "Noite dos tambores silenciosos", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Pátio do Terço", cidade: "Recife" },
             { id: 428, artist: "Boi da Macuca", stage: 2, start: "19:00", end: "20:00", attendees: [], local: "Vassourinhas de Olinda - Largo do Amparo", cidade: "Olinda" },
         ];
         const scheduleTuesday = [
+            // TERÇA (17/02) - Todos os blocos do CSV em ordem cronológica
             { id: 501, artist: "A Corda", stage: 2, start: "07:00", end: "07:00", attendees: [], local: "Ladeira da Misericordia", cidade: "Olinda" },
             { id: 502, artist: "A Porca", stage: 2, start: "07:00", end: "08:00", attendees: [], local: "Rua da Palha com a Dr Moreira Alves", cidade: "Olinda" },
             { id: 503, artist: "Ar de Olinda", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Prefeitura de Olinda", cidade: "Olinda" },
-            { id: 504, artist: "D'Breck", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Largo do Bonfim", cidade: "Olinda" },
-            { id: 505, artist: "Maracatu Kangoma", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo, 236", cidade: "Olinda" },
-            { id: 506, artist: "Batadoní", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
-            { id: 507, artist: "Batuques de Pernambuco", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 504, artist: "Maracatu Kangoma", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Rua do Amparo, 236", cidade: "Olinda" },
+            { id: 505, artist: "Batadoní", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 506, artist: "Batuques de Pernambuco", stage: 2, start: "08:00", end: "09:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 507, artist: "D'Breck", stage: 2, start: "09:00", end: "09:00", attendees: [], local: "Largo do Bonfim", cidade: "Olinda" },
             { id: 508, artist: "Patusco", stage: 2, start: "09:00", end: "09:59", attendees: [], local: "Rua do Amparo, 292", cidade: "Olinda" },
-            { id: 509, artist: "Pitombeira dos Quatro Cantos", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
-            { id: 510, artist: "Sambadeiras", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Ladeira da Misericordia", cidade: "Olinda" },
-            { id: 511, artist: "Deusas do Ébano", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
-            { id: 512, artist: "Encontro dos Bonecos Gigantes", stage: 2, start: "10:00", end: "11:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
-            { id: 513, artist: "Rebylleurias", stage: 2, start: "09:30", end: "10:30", attendees: [], local: "Rua do Bonfim, 449", cidade: "Olinda" },
-            { id: 514, artist: "Quem Cola Entra", stage: 2, start: "11:00", end: "13:00", attendees: [], local: "Rua Henrique Dias, 130", cidade: "Olinda" },
-            { id: 515, artist: "Os Abutres", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua 15 de Novembro", cidade: "Olinda" },
-            { id: 516, artist: "Zebra das Olindas", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua Maria Adalgisa Ferreira de Castro", cidade: "Olinda" },
-            { id: 517, artist: "Segurucu", stage: 2, start: "12:00", end: "14:30", attendees: [], local: "Bar Esquina do Carmo", cidade: "Olinda" },
-            { id: 518, artist: "Caranguejo Papamé", stage: 2, start: "10:00", end: "15:00", attendees: [], local: "Rua Jerônimo de Albuquerque, 112", cidade: "Olinda" },
+            { id: 509, artist: "Sambadeiras", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Ladeira da Misericordia", cidade: "Olinda" },
+            { id: 510, artist: "Deusas do Ébano", stage: 2, start: "09:00", end: "10:00", attendees: [], local: "Praça do Carmo", cidade: "Olinda" },
+            { id: 511, artist: "Rebylleurias", stage: 2, start: "09:30", end: "10:30", attendees: [], local: "Rua do Bonfim, 449", cidade: "Olinda" },
+            { id: 512, artist: "Caranguejo Papamé", stage: 2, start: "10:00", end: "15:00", attendees: [], local: "Rua Jerônimo de Albuquerque, 112", cidade: "Olinda" },
+            { id: 513, artist: "Pitombeira dos Quatro Cantos", stage: 2, start: "10:00", end: "10:00", attendees: [], local: "Largo do Amparo", cidade: "Olinda" },
+            { id: 514, artist: "Encontro dos Bonecos Gigantes", stage: 2, start: "10:00", end: "11:00", attendees: [], local: "Largo do Guadalupe", cidade: "Olinda" },
+            { id: 515, artist: "Quem Cola Entra", stage: 2, start: "11:00", end: "13:00", attendees: [], local: "Rua Henrique Dias, 130", cidade: "Olinda" },
+            { id: 516, artist: "Os Abutres", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua 15 de Novembro", cidade: "Olinda" },
+            { id: 517, artist: "Zebra das Olindas", stage: 2, start: "11:00", end: "12:00", attendees: [], local: "Rua Maria Adalgisa Ferreira de Castro", cidade: "Olinda" },
+            { id: 518, artist: "Segurucu", stage: 2, start: "12:00", end: "14:30", attendees: [], local: "Bar Esquina do Carmo", cidade: "Olinda" },
             { id: 519, artist: "Bloco da Saudade", stage: 1, start: "12:00", end: "16:00", attendees: [], local: "Praça Maciel Pinheiro", cidade: "Recife" },
             { id: 520, artist: "Ceroula de Olinda", stage: 2, start: "12:00", end: "16:00", attendees: [], local: "Colégio Sao Bento", cidade: "Olinda" },
             { id: 521, artist: "Rainha", stage: 2, start: "15:00", end: "16:00", attendees: [], local: "Rua Coronel Joaquim Cavalcante , 298", cidade: "Olinda" },
@@ -628,6 +631,7 @@
             { id: 527, artist: "Congobloco", stage: 1, start: "19:00", end: "20:00", attendees: [], local: "Rua da Guia", cidade: "Recife" },
         ];
         const scheduleWednesday = [
+            // QUARTA (15/02) - Todos os blocos do CSV em ordem cronológica
             { id: 601, artist: "Bacalhau do Batata", stage: 2, start: "08:00", end: "08:00", attendees: [], local: "Alto da Sé", cidade: "Olinda" },
             { id: 602, artist: "Bloco do Barão", stage: 2, start: "10:00", end: "11:00", attendees: [], local: "Rua da Boa Hora", cidade: "Olinda" },
             { id: 603, artist: "Coveirinhos na Folia", stage: 2, start: "13:00", end: "14:00", attendees: [], local: "Cemitério de Guadalupe", cidade: "Olinda" },
@@ -724,7 +728,7 @@
         }
 
         function renderSchedule(dayData) {
-            scheduleGridContainer.innerHTML = '';
+            scheduleGridContainer.innerHTML = ''; 
             
             // Ordenar blocos por horário de início
             const sortedShows = [...dayData].sort((a, b) => {
@@ -796,22 +800,22 @@
                     blocksList.classList.add('schedule-blocks-list');
                     
                     cityGroups[city].forEach(show => {
-                        const card = document.createElement('div');
-                        card.classList.add('show-card');
-                        card.dataset.showId = show.id;
+                const card = document.createElement('div');
+                card.classList.add('show-card');
+                card.dataset.showId = show.id;
                         card.style.background = stageColors[show.stage];
-                        
-                        // Mostrar apenas usuários dinâmicos
-                        const dynamicAttendees = userAttendances[show.id] || [];
-                        
-                        const attendeesHTML = dynamicAttendees.map(attendeeId => {
-                            const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-                            if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
-                                return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
-                            }
+                
+                // Mostrar apenas usuários dinâmicos
+                const dynamicAttendees = userAttendances[show.id] || [];
+                
+                const attendeesHTML = dynamicAttendees.map(attendeeId => {
+                    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+                    if (savedUser && attendeeId === savedUser.name.toLowerCase().replace(/\s+/g, '')) {
+                        return `<div class="attendee-bubble" style="background-image: url('${savedUser.avatar}')" title="${savedUser.name}"></div>`;
+                    }
                             return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
-                        }).join('');
-                        
+                }).join('');
+                
                         const localInfo = show.local ? `<div class="text-sm text-white/95 mt-2 font-semibold">📍 ${show.local}</div>` : '';
                         const timeInfo = `<div class="text-lg font-bold text-black bg-white/40 inline-block px-2 py-1 rounded mt-2">${show.start} - ${show.end}</div>`;
                         
