@@ -168,7 +168,7 @@
             border-radius: 12px;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
-        .schedule-grid { display: grid; grid-template-columns: 50px repeat(3, 1fr); grid-auto-rows: 25px; gap: 5px; }
+        .schedule-grid { display: grid; grid-template-columns: 50px repeat(3, 1fr); grid-auto-rows: 30px; gap: 3px; }
         .time-label { 
             display: flex; 
             align-items: center; 
@@ -192,7 +192,7 @@
             box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
         }
         .show-card { 
-            padding: 8px; 
+            padding: 6px 8px; 
             overflow: hidden; 
             position: relative; 
             color: white; 
@@ -201,6 +201,10 @@
             cursor: pointer;
             border: 2px solid rgba(255,255,255,0.3);
             box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
         .show-card:hover { 
             transform: scale(1.05) translateY(-2px); 
@@ -390,7 +394,7 @@
                 <div id="detail-card-container" class="w-full md:w-1/3"></div>
                 <div class="w-full md:w-2/3">
                     <h2 id="detail-artist-name" class="text-4xl font-bold font-['Londrina_Solid']" style="color: var(--accent-yellow); text-shadow: 3px 3px 0px var(--accent-red), 6px 6px 0px var(--accent-blue);"></h2>
-                    <p id="detail-artist-notes" class="text-gray-200 whitespace-pre-wrap mt-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);"></p>
+                    <p id="detail-artist-notes" class="text-black whitespace-pre-wrap mt-4"></p>
                 </div>
             </div>
         </div>
@@ -643,7 +647,9 @@
         function timeToGridRow(timeStr) {
             let [h, m] = timeStr.split(':').map(Number);
             if (h < 4) h += 24;
-            return Math.floor(((h - 4) * 60 + m) / 30) * 2 + 2;
+            // Cada linha representa 15 minutos, começando da linha 2 (após o header)
+            const minutesFromStart = (h - 4) * 60 + m;
+            return Math.floor(minutesFromStart / 15) + 2;
         }
 
         function renderSchedule(dayData) {
@@ -662,7 +668,26 @@
                 separator.style.gridRow = timeToGridRow(`${i}:00`);
                 scheduleGridContainer.appendChild(separator);
             }
-            dayData.forEach(show => {
+            
+            // Ordenar blocos por horário de início e stage para evitar sobreposições
+            const sortedShows = [...dayData].sort((a, b) => {
+                if (a.stage !== b.stage) return a.stage - b.stage;
+                const aStart = timeToGridRow(a.start);
+                const bStart = timeToGridRow(b.start);
+                return aStart - bStart;
+            });
+            
+            // Agrupar por stage e detectar sobreposições
+            const stageGroups = {};
+            sortedShows.forEach(show => {
+                if (!stageGroups[show.stage]) {
+                    stageGroups[show.stage] = [];
+                }
+                stageGroups[show.stage].push(show);
+            });
+            
+            // Renderizar cada bloco
+            sortedShows.forEach(show => {
                 const card = document.createElement('div');
                 card.classList.add('show-card');
                 card.dataset.showId = show.id;
@@ -690,8 +715,15 @@
                     return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${attendeeId}">${attendeeId.charAt(0).toUpperCase()}</div>`;
                 }).join('');
                 
-                const localInfo = show.local ? `<div class="text-xs text-white/80 mt-1">📍 ${show.local}</div>` : '';
-                card.innerHTML = `<div class="font-bold text-sm">${show.artist}</div><div class="text-xs text-black bg-white/20 inline-block px-1 rounded">${show.start}-${show.end}</div>${localInfo}<div class="attendees-container">${attendeesHTML}</div>`;
+                const localInfo = show.local ? `<div class="text-xs text-white/90 mt-1 truncate" title="${show.local}">📍 ${show.local}</div>` : '';
+                // Garantir altura mínima baseada na duração
+                const duration = endRow - startRow;
+                const minHeight = Math.max(duration, 2); // Mínimo de 2 linhas
+                card.style.minHeight = `${minHeight * 30}px`;
+                card.style.overflow = 'hidden';
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.innerHTML = `<div class="font-bold text-sm truncate" title="${show.artist}">${show.artist}</div><div class="text-xs text-black bg-white/30 inline-block px-1 rounded mt-1">${show.start}-${show.end}</div>${localInfo}<div class="attendees-container">${attendeesHTML}</div>`;
                 scheduleGridContainer.appendChild(card);
             });
         }
