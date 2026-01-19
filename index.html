@@ -818,18 +818,10 @@
                     const initial = name.charAt(0).toUpperCase();
                     
                     if (attendee.avatar) {
-                        // Usar img com fallback
-                        const safeAvatar = (attendee.avatar || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                        const safeNameEscaped = name.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                        return `<div class="attendee-bubble" title="${safeNameEscaped}" style="position: relative; overflow: hidden; background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;">
-                            <img src="${safeAvatar}" 
-                                 alt="${safeNameEscaped}" 
-                                 style="position: absolute; width: 100%; height: 100%; object-fit: cover; top: 0; left: 0;"
-                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                            <span style="position: relative; z-index: 1; display: none;">${initial}</span>
-                        </div>`;
+                        // Usar background-image simples
+                        return `<div class="attendee-bubble" title="${name.replace(/"/g, '&quot;')}" style="background-image: url('${attendee.avatar}'); background-size: cover; background-position: center; background-color: #ff7eb9;"></div>`;
                     }
-                    return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${name}">${initial}</div>`;
+                    return `<div class="attendee-bubble" style="background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000;" title="${name.replace(/"/g, '&quot;')}">${initial}</div>`;
                 }).filter(html => html !== '').join('');
                 
                         const localInfo = show.local ? `<div class="text-sm text-white/95 mt-2 font-semibold">📍 ${show.local}</div>` : '';
@@ -1239,24 +1231,19 @@
                         if (!attendee) return;
                         const name = attendee.name || attendee.userId || '?';
                         const initial = name.charAt(0).toUpperCase();
-                        const safeName = name.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                        
                         if (attendee.avatar) {
-                            const safeAvatar = (attendee.avatar || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
                             attendeesGrid.innerHTML += `
                                 <div class="text-center">
-                                    <div style="position: relative; width: 5rem; height: 5rem; margin: 0 auto;">
-                                        <img src="${safeAvatar}" 
-                                             class="w-20 h-20 rounded-full object-cover border-3" 
-                                             style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red); position: absolute; top: 0; left: 0;"
-                                             alt="${safeName}"
-                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                        <div class="w-20 h-20 rounded-full border-3 flex items-center justify-center text-2xl font-bold text-white" 
-                                             style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue); display: none; position: absolute; top: 0; left: 0;">
-                                            ${initial}
-                                        </div>
+                                    <img src="${attendee.avatar}" 
+                                         class="w-20 h-20 rounded-full object-cover mx-auto border-3" 
+                                         style="border-color: var(--accent-yellow); box-shadow: 0 0 15px var(--accent-red);"
+                                         alt="${name}"
+                                         onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" 
+                                         style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue); display: none;">
+                                        ${initial}
                                     </div>
-                                    <p class="mt-2 text-sm">${safeName}</p>
+                                    <p class="mt-2 text-sm">${name}</p>
                                 </div>`;
                         } else {
                             attendeesGrid.innerHTML += `
@@ -1264,7 +1251,7 @@
                                     <div class="w-20 h-20 rounded-full mx-auto border-3 flex items-center justify-center text-2xl font-bold text-white" style="border-color: var(--accent-yellow); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red)); box-shadow: 0 0 15px var(--accent-blue);">
                                         ${initial}
                                     </div>
-                                    <p class="mt-2 text-sm">${safeName}</p>
+                                    <p class="mt-2 text-sm">${name}</p>
                                 </div>`;
                         }
                     });
